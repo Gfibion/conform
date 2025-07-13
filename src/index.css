@@ -102,9 +102,9 @@
     --ring: 270 50% 55%;
 
     /* Dark theme gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(230 35% 25%), hsl(270 50% 40%));
-    --gradient-secondary: linear-gradient(135deg, hsl(240 45% 35%), hsl(280 60% 50%));
-    --gradient-hero: linear-gradient(135deg, hsl(230 35% 8%), hsl(270 50% 15%));
+    --gradient-primary: linear-gradient(135deg, hsl(270 50% 55%), hsl(280 60% 65%));
+    --gradient-secondary: linear-gradient(135deg, hsl(240 45% 55%), hsl(280 60% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(230 35% 12%), hsl(270 50% 20%));
     --gradient-card: linear-gradient(135deg, hsl(230 35% 12%), hsl(230 35% 16%));
     
     --shadow-primary: 0 10px 30px -10px hsl(270 50% 40% / 0.4);
