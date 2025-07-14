@@ -647,7 +647,7 @@ export const ToolsGrid = () => {
         </div>
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {filteredTools.map((tool) => {
             const Icon = tool.icon;
             return (
@@ -658,26 +658,26 @@ export const ToolsGrid = () => {
                 }`}
                 onClick={() => handleToolClick(tool.id)}
               >
-                <CardContent className="p-6">
+                <CardContent className="p-4">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <Icon className="w-6 h-6 text-primary" />
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors mb-3">
+                      <Icon className="w-5 h-5 text-primary" />
                     </div>
                     {tool.popular && (
-                      <Badge variant="secondary" className="bg-secondary/20 text-secondary">
+                      <Badge variant="secondary" className="bg-secondary/20 text-secondary text-xs px-2 py-1">
                         Popular
                       </Badge>
                     )}
                   </div>
                   
-                  <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors text-sm">
                     {tool.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-3">
+                  <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
                     {tool.description}
                   </p>
                   
-                  <Badge variant="outline" className="text-xs">
+                  <Badge variant="outline" className="text-xs px-2 py-1">
                     {tool.category}
                   </Badge>
                 </CardContent>
