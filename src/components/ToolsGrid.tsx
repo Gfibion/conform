@@ -617,25 +617,25 @@ export const ToolsGrid = () => {
   }
 
   return (
-    <section id="tools" className="py-16 bg-background">
+    <section id="tools" className="py-8 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-xl md:text-3xl font-bold mb-3">
             Powerful Conversion Tools
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto">
             Choose from our comprehensive suite of conversion tools. 
             Start converting for free, no registration required.
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <div className="flex flex-wrap justify-center gap-1.5 mb-6">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setFilter(category)}
-              className={`px-4 py-2 rounded-full text-sm transition-all ${
+              className={`px-3 py-1.5 rounded-full text-xs transition-all ${
                 filter === category
                   ? "bg-primary text-primary-foreground shadow-primary"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
