@@ -42,7 +42,7 @@
     /* Custom Conform gradients */
     --gradient-primary: linear-gradient(135deg, hsl(230 35% 25%), hsl(270 50% 40%));
     --gradient-secondary: linear-gradient(135deg, hsl(240 45% 35%), hsl(280 60% 50%));
-    --gradient-hero: linear-gradient(135deg, hsl(230 35% 8%), hsl(270 50% 15%));
+    --gradient-hero: linear-gradient(135deg, hsl(270 50% 97%), hsl(230 35% 95%));
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(220 14% 98%));
     
     /* Shadows with brand colors */
