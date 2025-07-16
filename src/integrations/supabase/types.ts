@@ -14,7 +14,123 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      conversion_history: {
+        Row: {
+          created_at: string | null
+          from_unit_id: string
+          from_value: number
+          id: string
+          to_unit_id: string
+          to_value: number
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          from_unit_id: string
+          from_value: number
+          id?: string
+          to_unit_id: string
+          to_value: number
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          from_unit_id?: string
+          from_value?: number
+          id?: string
+          to_unit_id?: string
+          to_value?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversion_history_from_unit_id_fkey"
+            columns: ["from_unit_id"]
+            isOneToOne: false
+            referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversion_history_to_unit_id_fkey"
+            columns: ["to_unit_id"]
+            isOneToOne: false
+            referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      units: {
+        Row: {
+          base_factor: number
+          category: Database["public"]["Enums"]["unit_category"]
+          created_at: string | null
+          id: string
+          is_base_unit: boolean | null
+          name: string
+          symbol: string
+          updated_at: string | null
+        }
+        Insert: {
+          base_factor: number
+          category: Database["public"]["Enums"]["unit_category"]
+          created_at?: string | null
+          id?: string
+          is_base_unit?: boolean | null
+          name: string
+          symbol: string
+          updated_at?: string | null
+        }
+        Update: {
+          base_factor?: number
+          category?: Database["public"]["Enums"]["unit_category"]
+          created_at?: string | null
+          id?: string
+          is_base_unit?: boolean | null
+          name?: string
+          symbol?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_favorite_conversions: {
+        Row: {
+          created_at: string | null
+          from_unit_id: string
+          id: string
+          to_unit_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          from_unit_id: string
+          id?: string
+          to_unit_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          from_unit_id?: string
+          id?: string
+          to_unit_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_favorite_conversions_from_unit_id_fkey"
+            columns: ["from_unit_id"]
+            isOneToOne: false
+            referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_favorite_conversions_to_unit_id_fkey"
+            columns: ["to_unit_id"]
+            isOneToOne: false
+            referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +139,20 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      unit_category:
+        | "temperature"
+        | "length"
+        | "mass"
+        | "time"
+        | "volume"
+        | "energy"
+        | "power"
+        | "speed"
+        | "pressure"
+        | "frequency"
+        | "area"
+        | "data"
+        | "angle"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +279,22 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      unit_category: [
+        "temperature",
+        "length",
+        "mass",
+        "time",
+        "volume",
+        "energy",
+        "power",
+        "speed",
+        "pressure",
+        "frequency",
+        "area",
+        "data",
+        "angle",
+      ],
+    },
   },
 } as const

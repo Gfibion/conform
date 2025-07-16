@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { UnitConverter } from "./tools/UnitConverter";
+import { EnhancedUnitConverter } from "./tools/EnhancedUnitConverter";
 import { CurrencyConverter } from "./tools/CurrencyConverter";
 
 const tools = [
@@ -88,6 +89,15 @@ const tools = [
   },
 
   // Unit Converters - Common
+  {
+    id: "enhanced-unit-converter",
+    title: "Enhanced Unit Converter",
+    description: "Intelligent unit converter with database and history",
+    icon: Calculator,
+    category: "Unit Converters",
+    popular: true,
+    component: EnhancedUnitConverter
+  },
   {
     id: "unit-converter",
     title: "Length Converter",
