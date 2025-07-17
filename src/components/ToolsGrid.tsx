@@ -608,17 +608,17 @@ export const ToolsGrid = () => {
   if (selectedTool && selectedToolData?.component) {
     const ToolComponent = selectedToolData.component;
     return (
-      <section className="py-16 bg-background">
+      <section className="py-8 md:py-16 bg-background min-h-screen">
         <div className="container mx-auto px-4">
           <div className="mb-6">
             <button
               onClick={() => setSelectedTool(null)}
-              className="text-primary hover:text-primary-glow transition-colors mb-4"
+              className="text-primary hover:text-primary-glow transition-colors mb-4 flex items-center gap-2"
             >
               ← Back to Tools
             </button>
-            <h2 className="text-2xl font-bold mb-2">{selectedToolData.title}</h2>
-            <p className="text-muted-foreground">{selectedToolData.description}</p>
+            <h2 className="text-xl md:text-2xl font-bold mb-2">{selectedToolData.title}</h2>
+            <p className="text-muted-foreground text-sm md:text-base">{selectedToolData.description}</p>
           </div>
           <ToolComponent />
         </div>
@@ -627,27 +627,27 @@ export const ToolsGrid = () => {
   }
 
   return (
-    <section id="tools" className="py-8 bg-background">
+    <section id="tools" className="py-6 md:py-8 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-xl md:text-3xl font-bold mb-3">
+        <div className="text-center mb-8">
+          <h2 className="text-xl md:text-3xl font-bold mb-4">
             Powerful Conversion Tools
           </h2>
-          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Choose from our comprehensive suite of conversion tools. 
             Start converting for free, no registration required.
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-1.5 mb-6">
+        {/* Category Filter Pills */}
+        <div className="flex overflow-x-auto gap-2 mb-6 px-4 scrollbar-hide pb-2">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setFilter(category)}
-              className={`px-3 py-1.5 rounded-full text-xs transition-all ${
+              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                 filter === category
-                  ? "bg-primary text-primary-foreground shadow-primary"
+                  ? "bg-primary text-primary-foreground shadow-md"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
@@ -657,44 +657,64 @@ export const ToolsGrid = () => {
         </div>
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
           {filteredTools.map((tool) => {
             const Icon = tool.icon;
             return (
               <Card 
                 key={tool.id}
-                className={`group cursor-pointer transition-all duration-300 hover:shadow-card hover:-translate-y-1 bg-gradient-card border-border/50 ${
+                className={`group cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] bg-card border-border ${
                   tool.component ? 'hover:shadow-glow' : ''
                 }`}
                 onClick={() => handleToolClick(tool.id)}
               >
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors mb-3">
-                      <Icon className="w-5 h-5 text-primary" />
+                <CardContent className="p-4 h-full flex flex-col">
+                  <div className="flex items-start space-x-3 mb-3">
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                      <Icon className="w-6 h-6 text-primary" />
                     </div>
-                    {tool.popular && (
-                      <Badge variant="secondary" className="bg-secondary/20 text-secondary text-xs px-2 py-1">
-                        Popular
-                      </Badge>
-                    )}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between mb-2">
+                        <h3 className="font-semibold text-foreground text-base leading-tight group-hover:text-primary transition-colors">
+                          {tool.title}
+                        </h3>
+                        {tool.popular && (
+                          <Badge 
+                            variant="default" 
+                            className="text-xs px-2 py-1 bg-primary text-primary-foreground ml-2 flex-shrink-0"
+                          >
+                            Popular
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {tool.description}
+                      </p>
+                    </div>
                   </div>
                   
-                  <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors text-sm">
-                    {tool.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
-                    {tool.description}
-                  </p>
-                  
-                  <Badge variant="outline" className="text-xs px-2 py-1">
-                    {tool.category}
-                  </Badge>
+                  <div className="mt-auto pt-3 border-t border-border">
+                    <div className="flex items-center justify-between">
+                      <Badge 
+                        variant="secondary" 
+                        className="text-xs px-3 py-1 bg-secondary/50"
+                      >
+                        {tool.category}
+                      </Badge>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             );
           })}
         </div>
+
+        {filteredTools.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No tools found in this category.</p>
+          </div>
+        )}
       </div>
     </section>
   );
