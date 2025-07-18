@@ -1,7 +1,30 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, FileCode, Globe, Calculator, Zap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category: string) => {
+    switch (category) {
+      case 'file-conversion':
+        navigate('/file-conversion');
+        break;
+      case 'language-translation':
+        navigate('/language-translation');
+        break;
+      case 'unit-conversion':
+        navigate('/unit-conversion');
+        break;
+      case 'ai-tools':
+        navigate('/ai-powered-tools');
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <section className="relative py-8 md:py-12 lg:py-20 overflow-hidden bg-gradient-hero">
       <div className="container mx-auto px-4 relative z-10">
@@ -36,36 +59,49 @@ export const Hero = () => {
               size="default" 
               variant="outline" 
               className="border-border hover:bg-accent w-full sm:w-auto"
+              onClick={() => navigate('/formulas')}
             >
-              View All Tools
+              View Formulas
             </Button>
           </div>
           
-          {/* Feature icons */}
+          {/* Feature icons - Now functional */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 px-4">
-            <div className="text-center">
-              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center">
+            <div 
+              className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
+              onClick={() => handleCategoryClick('file-conversion')}
+            >
+              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <FileCode className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xs text-foreground/70">File Conversion</p>
+              <p className="text-xs text-foreground/70 group-hover:text-primary transition-colors">File Conversion</p>
             </div>
-            <div className="text-center">
-              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center">
+            <div 
+              className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
+              onClick={() => handleCategoryClick('language-translation')}
+            >
+              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <Globe className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xs text-foreground/70">Language Translation</p>
+              <p className="text-xs text-foreground/70 group-hover:text-primary transition-colors">Language Translation</p>
             </div>
-            <div className="text-center">
-              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center">
+            <div 
+              className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
+              onClick={() => handleCategoryClick('unit-conversion')}
+            >
+              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <Calculator className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xs text-foreground/70">Unit Conversion</p>
+              <p className="text-xs text-foreground/70 group-hover:text-primary transition-colors">Unit Conversion</p>
             </div>
-            <div className="text-center">
-              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center">
+            <div 
+              className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
+              onClick={() => handleCategoryClick('ai-tools')}
+            >
+              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <Zap className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xs text-foreground/70">AI-Powered Tools</p>
+              <p className="text-xs text-foreground/70 group-hover:text-primary transition-colors">AI-Powered Tools</p>
             </div>
           </div>
         </div>
