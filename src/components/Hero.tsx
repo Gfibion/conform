@@ -1,10 +1,13 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, FileCode, Globe, Calculator, Zap } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, FileCode, Globe, Calculator, Zap, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const Hero = () => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleCategoryClick = (category: string) => {
     switch (category) {
@@ -22,6 +25,25 @@ export const Hero = () => {
         break;
       default:
         break;
+    }
+  };
+
+  const handleSearch = () => {
+    // For now, navigate to the most relevant page based on search query
+    const query = searchQuery.toLowerCase();
+    if (query.includes('file') || query.includes('convert') || query.includes('pdf')) {
+      navigate('/file-conversion');
+    } else if (query.includes('language') || query.includes('translate')) {
+      navigate('/language-translation');
+    } else if (query.includes('unit') || query.includes('meter') || query.includes('temperature')) {
+      navigate('/unit-conversion');
+    } else if (query.includes('ai') || query.includes('smart')) {
+      navigate('/ai-powered-tools');
+    } else if (query.includes('formula')) {
+      navigate('/formulas');
+    } else {
+      // Default to unit conversion as it's most common
+      navigate('/unit-conversion');
     }
   };
 
@@ -46,6 +68,28 @@ export const Hero = () => {
             Transform files, translate code, convert units, and repair documents with our intelligent, 
             AI-powered conversion platform. No registration required to get started.
           </p>
+
+          {/* Search Function */}
+          <div className="max-w-md mx-auto mb-6 px-4">
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Search conversions (e.g., 'PDF to Word', 'Celsius to Fahrenheit')"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-4 py-3 text-sm"
+                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Button 
+                size="sm" 
+                className="absolute right-1 top-1/2 transform -translate-y-1/2"
+                onClick={handleSearch}
+              >
+                Search
+              </Button>
+            </div>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 px-4">
             <Button 
