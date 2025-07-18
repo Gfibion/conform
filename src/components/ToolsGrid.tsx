@@ -656,48 +656,50 @@ export const ToolsGrid = () => {
           ))}
         </div>
 
-        {/* Tools Grid */}
-        <div className="grid grid-cols-1 gap-3 px-4">
+        {/* Tools Grid - 3 cards per row on all screen sizes */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 px-2 sm:px-4">
           {filteredTools.map((tool) => {
             const Icon = tool.icon;
             return (
               <Card 
                 key={tool.id}
-                className={`group cursor-pointer transition-all duration-200 hover:shadow-lg bg-card border-border h-24 ${
+                className={`group cursor-pointer transition-all duration-200 hover:shadow-lg bg-card border-border ${
                   tool.component ? 'hover:shadow-glow' : ''
                 }`}
                 onClick={() => handleToolClick(tool.id)}
               >
-                <CardContent className="p-4 h-full flex items-center">
-                  <div className="flex items-center space-x-4 w-full">
-                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0">
-                      <Icon className="w-6 h-6 text-primary" />
+                <CardContent className="p-2 sm:p-3 md:p-4 h-full flex flex-col">
+                  <div className="flex flex-col items-center text-center space-y-2 sm:space-y-3">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-primary" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between mb-1">
-                        <h3 className="font-semibold text-foreground text-base leading-tight group-hover:text-primary transition-colors">
+                    
+                    <div className="flex-1 min-w-0 w-full">
+                      <div className="flex items-center justify-center mb-1 relative">
+                        <h3 className="font-semibold text-foreground text-xs sm:text-sm md:text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">
                           {tool.title}
                         </h3>
                         {tool.popular && (
                           <Badge 
                             variant="default" 
-                            className="text-xs px-2 py-1 bg-primary text-primary-foreground ml-2 flex-shrink-0"
+                            className="absolute -top-1 -right-1 text-xs px-1 py-0 h-4 bg-primary text-primary-foreground scale-75 sm:scale-100"
                           >
-                            Popular
+                            Pop
                           </Badge>
                         )}
                       </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-1">
+                      
+                      <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed line-clamp-2 mb-2">
                         {tool.description}
                       </p>
-                      <div className="flex items-center justify-between mt-2">
+                      
+                      <div className="mt-auto">
                         <Badge 
                           variant="secondary" 
-                          className="text-xs px-2 py-1 bg-secondary/50"
+                          className="text-xs px-1 sm:px-2 py-0.5 bg-secondary/50 w-full justify-center"
                         >
-                          {tool.category}
+                          <span className="truncate">{tool.category}</span>
                         </Badge>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                       </div>
                     </div>
                   </div>
