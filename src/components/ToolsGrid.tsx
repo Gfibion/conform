@@ -657,24 +657,24 @@ export const ToolsGrid = () => {
         </div>
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-3 gap-4 px-4">
+        <div className="grid grid-cols-1 gap-3 px-4">
           {filteredTools.map((tool) => {
             const Icon = tool.icon;
             return (
               <Card 
                 key={tool.id}
-                className={`group cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] bg-card border-border ${
+                className={`group cursor-pointer transition-all duration-200 hover:shadow-lg bg-card border-border h-24 ${
                   tool.component ? 'hover:shadow-glow' : ''
                 }`}
                 onClick={() => handleToolClick(tool.id)}
               >
-                <CardContent className="p-4 h-full flex flex-col">
-                  <div className="flex items-start space-x-3 mb-3">
+                <CardContent className="p-4 h-full flex items-center">
+                  <div className="flex items-center space-x-4 w-full">
                     <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0">
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-center justify-between mb-1">
                         <h3 className="font-semibold text-foreground text-base leading-tight group-hover:text-primary transition-colors">
                           {tool.title}
                         </h3>
@@ -687,21 +687,18 @@ export const ToolsGrid = () => {
                           </Badge>
                         )}
                       </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
+                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-1">
                         {tool.description}
                       </p>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-auto pt-3 border-t border-border">
-                    <div className="flex items-center justify-between">
-                      <Badge 
-                        variant="secondary" 
-                        className="text-xs px-3 py-1 bg-secondary/50"
-                      >
-                        {tool.category}
-                      </Badge>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      <div className="flex items-center justify-between mt-2">
+                        <Badge 
+                          variant="secondary" 
+                          className="text-xs px-2 py-1 bg-secondary/50"
+                        >
+                          {tool.category}
+                        </Badge>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
                     </div>
                   </div>
                 </CardContent>
