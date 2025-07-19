@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -77,7 +76,7 @@ export const QuickConverter = () => {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
         <CardTitle className="text-center">Quick Converter</CardTitle>
       </CardHeader>
@@ -100,7 +99,7 @@ export const QuickConverter = () => {
         </div>
 
         {/* Conversion Inputs */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+        <div className="grid grid-cols-2 gap-4 items-end">
           {/* From Section */}
           <div className="space-y-2">
             <label className="text-sm font-medium">From</label>
@@ -124,18 +123,6 @@ export const QuickConverter = () => {
                 </SelectContent>
               </Select>
             </div>
-          </div>
-
-          {/* Swap Button */}
-          <div className="flex justify-center md:mb-8">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handleSwap}
-              className="rounded-full"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </Button>
           </div>
 
           {/* To Section */}
@@ -165,8 +152,16 @@ export const QuickConverter = () => {
           </div>
         </div>
 
-        {/* Convert Button */}
-        <div className="flex justify-center pt-4">
+        {/* Convert and Swap Buttons */}
+        <div className="flex justify-center gap-4 pt-4">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleSwap}
+            className="rounded-full"
+          >
+            <RefreshCw className="w-4 h-4" />
+          </Button>
           <Button onClick={handleConvert} className="min-w-[120px]">
             Convert
             <ArrowRight className="w-4 h-4 ml-2" />
