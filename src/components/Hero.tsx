@@ -48,7 +48,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative py-8 md:py-12 lg:py-20 overflow-hidden bg-gradient-hero">
+    <section className="relative py-20 overflow-hidden bg-gradient-hero">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center space-x-2 bg-primary/10 border border-primary/20 rounded-full px-3 py-1.5 mb-4">
@@ -56,7 +56,7 @@ export const Hero = () => {
             <span className="text-xs text-foreground/80">Converting the World, One Format at a Time</span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 text-foreground leading-tight">
+          <h1 className="text-6xl font-bold mb-4 text-foreground leading-tight">
             Universal Conversion
             <br />
             <span className="bg-gradient-secondary bg-clip-text text-transparent">
@@ -64,13 +64,13 @@ export const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-sm md:text-lg text-foreground/80 mb-6 max-w-2xl mx-auto leading-relaxed px-4">
+          <p className="text-lg text-foreground/80 mb-6 max-w-2xl mx-auto leading-relaxed">
             Transform files, translate code, convert units, and repair documents with our intelligent, 
             AI-powered conversion platform. No registration required to get started.
           </p>
 
           {/* Search Function */}
-          <div className="max-w-md mx-auto mb-6 px-4">
+          <div className="max-w-md mx-auto mb-6">
             <div className="relative">
               <Input
                 type="text"
@@ -91,10 +91,10 @@ export const Hero = () => {
             </div>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 px-4">
+          <div className="flex gap-3 justify-center mb-8">
             <Button 
               size="default" 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow transition-all duration-300 hover:scale-105 w-full sm:w-auto"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow transition-all duration-300 hover:scale-105"
             >
               Start Converting Free
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -102,7 +102,7 @@ export const Hero = () => {
             <Button 
               size="default" 
               variant="outline" 
-              className="border-border hover:bg-accent w-full sm:w-auto"
+              className="border-border hover:bg-accent"
               onClick={() => navigate('/formulas')}
             >
               View Formulas
@@ -110,7 +110,7 @@ export const Hero = () => {
           </div>
           
           {/* Feature icons - Now functional */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 px-4">
+          <div className="grid grid-cols-4 gap-4 mt-8">
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('file-conversion')}
