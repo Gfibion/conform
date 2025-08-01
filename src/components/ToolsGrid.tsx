@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +27,6 @@ import {
   Scissors,
   Archive,
   Merge,
-  Compress,
   Split,
   Eye,
   PenTool,
@@ -78,7 +76,7 @@ const tools = [
   {
     title: "PDF Compress",
     description: "Reduce PDF file size while maintaining quality",
-    icon: Compress,
+    icon: Archive,
     category: "PDF Tools",
     isPopular: true
   },
