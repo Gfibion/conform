@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,6 +26,10 @@ const conversionCategories = {
   time: {
     name: "Time",
     units: ["second", "minute", "hour", "day", "week", "month", "year"]
+  },
+  currency: {
+    name: "Currency",
+    units: ["USD", "EUR", "GBP", "JPY", "CAD", "AUD", "CHF", "CNY"]
   }
 };
 
@@ -36,13 +41,11 @@ export const QuickConverter = () => {
   const [category, setCategory] = useState("");
 
   const handleConvert = () => {
-    // Basic conversion logic - this would be expanded with actual conversion formulas
     if (!fromValue || !fromUnit || !toUnit) return;
     
     const inputValue = parseFloat(fromValue);
     if (isNaN(inputValue)) return;
 
-    // Simple placeholder conversion (would need actual conversion logic)
     let result = inputValue;
     
     // Example conversions for demonstration
@@ -76,95 +79,89 @@ export const QuickConverter = () => {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader>
-        <CardTitle className="text-center">Quick Converter</CardTitle>
+    <Card className="w-full max-w-5xl mx-auto">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-center text-lg">Quick Converter</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Category Selection */}
-        <div>
-          <label className="text-sm font-medium mb-2 block">Category</label>
-          <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select conversion category" />
-            </SelectTrigger>
-            <SelectContent>
-              {Object.entries(conversionCategories).map(([key, cat]) => (
-                <SelectItem key={key} value={key}>
-                  {cat.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        {/* Single row layout for compact design */}
+        <div className="flex items-center gap-4">
+          {/* Category Selection */}
+          <div className="flex-1">
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger className="h-9">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.entries(conversionCategories).map(([key, cat]) => (
+                  <SelectItem key={key} value={key}>
+                    {cat.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-        {/* Conversion Inputs */}
-        <div className="grid grid-cols-2 gap-4 items-end">
           {/* From Section */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">From</label>
-            <div className="space-y-2">
-              <Input
-                type="number"
-                placeholder="Enter value"
-                value={fromValue}
-                onChange={(e) => setFromValue(e.target.value)}
-              />
-              <Select value={fromUnit} onValueChange={setFromUnit}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select unit" />
-                </SelectTrigger>
-                <SelectContent>
-                  {getUnitsForCategory().map((unit) => (
-                    <SelectItem key={unit} value={unit}>
-                      {unit.charAt(0).toUpperCase() + unit.slice(1)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+          <div className="flex items-center gap-2 flex-1">
+            <Input
+              type="number"
+              placeholder="Value"
+              value={fromValue}
+              onChange={(e) => setFromValue(e.target.value)}
+              className="h-9"
+            />
+            <Select value={fromUnit} onValueChange={setFromUnit}>
+              <SelectTrigger className="h-9 min-w-[120px]">
+                <SelectValue placeholder="From" />
+              </SelectTrigger>
+              <SelectContent>
+                {getUnitsForCategory().map((unit) => (
+                  <SelectItem key={unit} value={unit}>
+                    {unit.charAt(0).toUpperCase() + unit.slice(1)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
-          {/* To Section */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">To</label>
-            <div className="space-y-2">
-              <Input
-                type="number"
-                placeholder="Result"
-                value={toValue}
-                readOnly
-                className="bg-muted"
-              />
-              <Select value={toUnit} onValueChange={setToUnit}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select unit" />
-                </SelectTrigger>
-                <SelectContent>
-                  {getUnitsForCategory().map((unit) => (
-                    <SelectItem key={unit} value={unit}>
-                      {unit.charAt(0).toUpperCase() + unit.slice(1)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
-
-        {/* Convert and Swap Buttons */}
-        <div className="flex justify-center gap-4 pt-4">
+          {/* Swap Button */}
           <Button
             variant="outline"
             size="icon"
             onClick={handleSwap}
-            className="rounded-full"
+            className="h-9 w-9"
           >
             <RefreshCw className="w-4 h-4" />
           </Button>
-          <Button onClick={handleConvert} className="min-w-[120px]">
+
+          {/* To Section */}
+          <div className="flex items-center gap-2 flex-1">
+            <Input
+              type="number"
+              placeholder="Result"
+              value={toValue}
+              readOnly
+              className="bg-muted h-9"
+            />
+            <Select value={toUnit} onValueChange={setToUnit}>
+              <SelectTrigger className="h-9 min-w-[120px]">
+                <SelectValue placeholder="To" />
+              </SelectTrigger>
+              <SelectContent>
+                {getUnitsForCategory().map((unit) => (
+                  <SelectItem key={unit} value={unit}>
+                    {unit.charAt(0).toUpperCase() + unit.slice(1)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Convert Button */}
+          <Button onClick={handleConvert} className="h-9">
             Convert
-            <ArrowRight className="w-4 h-4 ml-2" />
+            <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
       </CardContent>
