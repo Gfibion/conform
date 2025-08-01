@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,7 +25,7 @@ import {
   FileImage,
   FileAudio,
   Scissors,
-  Compress
+  Archive
 } from "lucide-react";
 
 const tools = [
@@ -164,7 +163,7 @@ const tools = [
   {
     title: "File Compressor",
     description: "Compress files and folders into ZIP archives",
-    icon: Compress,
+    icon: Archive,
     category: "File Conversion"
   }
 ];
