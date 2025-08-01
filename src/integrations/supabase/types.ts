@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instanciate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "12.2.12 (cd3cf9e)"
   }
   public: {
     Tables: {
@@ -58,6 +58,99 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      conversion_jobs: {
+        Row: {
+          completed_at: string | null
+          conversion_type: Database["public"]["Enums"]["conversion_type"]
+          created_at: string | null
+          error_message: string | null
+          file_size_input: number | null
+          file_size_output: number | null
+          id: string
+          input_data: Json | null
+          input_file_url: string | null
+          output_data: Json | null
+          output_file_url: string | null
+          processing_time_ms: number | null
+          status: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          conversion_type: Database["public"]["Enums"]["conversion_type"]
+          created_at?: string | null
+          error_message?: string | null
+          file_size_input?: number | null
+          file_size_output?: number | null
+          id?: string
+          input_data?: Json | null
+          input_file_url?: string | null
+          output_data?: Json | null
+          output_file_url?: string | null
+          processing_time_ms?: number | null
+          status?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          conversion_type?: Database["public"]["Enums"]["conversion_type"]
+          created_at?: string | null
+          error_message?: string | null
+          file_size_input?: number | null
+          file_size_output?: number | null
+          id?: string
+          input_data?: Json | null
+          input_file_url?: string | null
+          output_data?: Json | null
+          output_file_url?: string | null
+          processing_time_ms?: number | null
+          status?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      conversion_usage_stats: {
+        Row: {
+          conversion_type: Database["public"]["Enums"]["conversion_type"]
+          count: number | null
+          created_at: string | null
+          date: string | null
+          id: string
+          total_input_size: number | null
+          total_output_size: number | null
+          total_processing_time_ms: number | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          conversion_type: Database["public"]["Enums"]["conversion_type"]
+          count?: number | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          total_input_size?: number | null
+          total_output_size?: number | null
+          total_processing_time_ms?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          conversion_type?: Database["public"]["Enums"]["conversion_type"]
+          count?: number | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          total_input_size?: number | null
+          total_output_size?: number | null
+          total_processing_time_ms?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
       }
       units: {
         Row: {
@@ -136,9 +229,38 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cleanup_old_conversions: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
+      conversion_type:
+        | "pdf_compress"
+        | "pdf_merge"
+        | "pdf_split"
+        | "pdf_to_word"
+        | "pdf_to_excel"
+        | "pdf_to_powerpoint"
+        | "pdf_to_image"
+        | "word_to_pdf"
+        | "excel_to_pdf"
+        | "powerpoint_to_pdf"
+        | "image_to_pdf"
+        | "image_compress"
+        | "image_resize"
+        | "image_format"
+        | "video_compress"
+        | "audio_convert"
+        | "text_case"
+        | "text_count"
+        | "base64_encode"
+        | "url_encode"
+        | "hash_generate"
+        | "qr_generate"
+        | "color_convert"
+        | "unit_convert"
+        | "currency_convert"
       unit_category:
         | "temperature"
         | "length"
@@ -280,6 +402,33 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      conversion_type: [
+        "pdf_compress",
+        "pdf_merge",
+        "pdf_split",
+        "pdf_to_word",
+        "pdf_to_excel",
+        "pdf_to_powerpoint",
+        "pdf_to_image",
+        "word_to_pdf",
+        "excel_to_pdf",
+        "powerpoint_to_pdf",
+        "image_to_pdf",
+        "image_compress",
+        "image_resize",
+        "image_format",
+        "video_compress",
+        "audio_convert",
+        "text_case",
+        "text_count",
+        "base64_encode",
+        "url_encode",
+        "hash_generate",
+        "qr_generate",
+        "color_convert",
+        "unit_convert",
+        "currency_convert",
+      ],
       unit_category: [
         "temperature",
         "length",

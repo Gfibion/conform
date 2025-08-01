@@ -2,77 +2,163 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { QuickConverter } from "@/components/QuickConverter";
-import { 
-  FileText, 
-  Globe, 
-  Calculator, 
-  Zap, 
-  Palette, 
-  Code, 
-  Image, 
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import {
+  FileText,
+  Image,
+  Video,
   Music,
-  FileVideo,
-  Wrench,
+  Calculator,
+  Palette,
+  Code,
   Hash,
   QrCode,
-  DollarSign,
-  Thermometer,
-  Weight,
-  Ruler,
-  Clock,
   Type,
-  FileImage,
-  FileAudio,
+  Globe,
+  Zap,
+  Brain,
+  Wrench,
+  Settings,
+  Package,
+  Database,
+  Smartphone,
+  Monitor,
+  Printer,
+  HardDrive,
+  Wifi,
+  Bluetooth,
+  Battery,
+  Thermometer,
+  Gauge,
+  Ruler,
+  Weight,
+  Clock,
+  Calendar,
+  MapPin,
+  Compass,
+  Activity,
+  TrendingUp,
+  BarChart3,
+  PieChart,
+  LineChart,
   Scissors,
   Archive,
   Merge,
   Split,
   Eye,
   PenTool,
-  FileSignature,
-  Link2,
-  Volume2,
-  Target,
-  RotateCcw,
-  Gauge,
-  Zap as Lightning,
-  Battery,
-  Magnet,
-  Flame,
-  Fuel,
-  Waves,
-  Activity,
-  BarChart3,
-  Beaker,
-  Database,
-  Wifi,
-  ScanLine,
-  Wrench as Tool,
-  Bot,
-  FlaskConical,
-  RadioIcon as Radio,
+  Crop,
+  RotateCw,
+  FlipHorizontal,
+  Layers,
+  Filter,
+  Contrast,
   Sun,
-  Lightbulb,
-  Droplets,
-  Wind,
+  Moon,
+  Droplet,
+  Brush,
+  Pencil,
+  Eraser,
+  Move,
+  MousePointer,
+  Hand,
+  ZoomIn,
+  ZoomOut,
+  Focus,
   Aperture,
-  Settings,
-  Binary,
-  FileCode2,
-  BookOpen,
-  Calculator as Calc
+  Camera,
+  Film,
+  PlayCircle,
+  PauseCircle,
+  StopCircle,
+  SkipForward,
+  SkipBack,
+  Volume2,
+  VolumeX,
+  Mic,
+  MicOff,
+  Headphones,
+  Speaker,
+  Radio,
+  Tv,
+  Gamepad2,
+  Joystick,
+  Target,
+  Trophy,
+  Award,
+  Medal,
+  Star,
+  Heart,
+  ThumbsUp,
+  MessageCircle,
+  Mail,
+  Phone,
+  Send,
+  Share,
+  Download,
+  Upload,
+  Save,
+  FolderOpen,
+  File,
+  FileImage,
+  FileVideo,
+  FileAudio,
+  FileSpreadsheet,
+  FileBarChart,
+  Presentation,
 } from "lucide-react";
+import { ConversionDialog } from "./ConversionDialog";
 
-const tools = [
-  // PDF Tools
+interface Tool {
+  title: string;
+  description: string;
+  icon: any;
+  category: string;
+  isPopular?: boolean;
+}
+
+const tools: Tool[] = [
+  // AI Tools
   {
-    title: "PDF Merge",
-    description: "Combine multiple PDF files into one document",
-    icon: Merge,
-    category: "PDF Tools",
+    title: "AI Chatbot",
+    description: "Engage in conversations with an AI-powered chatbot",
+    icon: MessageCircle,
+    category: "AI Tools",
     isPopular: true
   },
+  {
+    title: "AI Image Generator",
+    description: "Generate unique images from text prompts",
+    icon: Image,
+    category: "AI Tools"
+  },
+  {
+    title: "AI Text Summarizer",
+    description: "Summarize long articles and documents quickly",
+    icon: FileText,
+    category: "AI Tools"
+  },
+  {
+    title: "AI Code Generator",
+    description: "Generate code snippets in various programming languages",
+    icon: Code,
+    category: "AI Tools"
+  },
+  {
+    title: "AI Paraphraser",
+    description: "Rewrite text to improve clarity and style",
+    icon: PenTool,
+    category: "AI Tools"
+  },
+  {
+    title: "AI Grammar Checker",
+    description: "Check and correct grammar and spelling errors",
+    icon: Type,
+    category: "AI Tools"
+  },
+
+  // PDF Tools
   {
     title: "PDF Compress",
     description: "Reduce PDF file size while maintaining quality",
@@ -81,525 +167,435 @@ const tools = [
     isPopular: true
   },
   {
-    title: "PDF Split",
-    description: "Split PDF into separate pages or sections",
-    icon: Split,
+    title: "PDF Merge",
+    description: "Combine multiple PDF files into one document",
+    icon: Merge,
     category: "PDF Tools",
     isPopular: true
   },
   {
+    title: "PDF Split",
+    description: "Split PDF into multiple files by pages or ranges",
+    icon: Split,
+    category: "PDF Tools"
+  },
+  {
     title: "PDF to Word",
-    description: "Convert PDF documents to editable Word format",
+    description: "Convert PDF documents to editable Word files",
     icon: FileText,
     category: "PDF Tools",
     isPopular: true
   },
   {
+    title: "PDF to Excel",
+    description: "Extract tables from PDF to Excel spreadsheets",
+    icon: FileSpreadsheet,
+    category: "PDF Tools"
+  },
+  {
+    title: "PDF to PowerPoint",
+    description: "Convert PDF pages to PowerPoint slides",
+    icon: Presentation,
+    category: "PDF Tools"
+  },
+  {
     title: "PDF to Image",
-    description: "Convert PDF pages to JPG, PNG images",
+    description: "Convert PDF pages to PNG, JPG, or other image formats",
     icon: FileImage,
     category: "PDF Tools"
   },
   {
-    title: "PDF OCR",
-    description: "Extract text from scanned PDF documents",
-    icon: Eye,
+    title: "Word to PDF",
+    description: "Convert Word documents to PDF format",
+    icon: FileText,
     category: "PDF Tools"
   },
   {
-    title: "PDF Sign",
-    description: "Add digital signatures to PDF documents",
-    icon: PenTool,
+    title: "Excel to PDF",
+    description: "Convert Excel spreadsheets to PDF documents",
+    icon: FileSpreadsheet,
     category: "PDF Tools"
   },
   {
-    title: "PDF Annotate",
-    description: "Add comments and annotations to PDFs",
-    icon: FileSignature,
-    category: "PDF Tools"
-  },
-  {
-    title: "Request Signatures",
-    description: "Send documents for digital signatures",
-    icon: FileSignature,
+    title: "PowerPoint to PDF",
+    description: "Convert PowerPoint presentations to PDF format",
+    icon: Presentation,
     category: "PDF Tools"
   },
 
   // Unit Converters
   {
-    title: "Enhanced Unit Converter",
-    description: "Intelligent unit converter with database and history",
-    icon: Calculator,
-    category: "Unit Converters",
-    isPopular: true
-  },
-  {
     title: "Length Converter",
-    description: "Convert meters, feet, inches, centimeters",
+    description: "Convert between meters, feet, inches, kilometers, etc.",
     icon: Ruler,
     category: "Unit Converters",
     isPopular: true
   },
   {
-    title: "Weight & Mass Converter",
-    description: "Convert kilograms, pounds, ounces, grams",
+    title: "Weight Converter",
+    description: "Convert between kilograms, pounds, ounces, etc.",
     icon: Weight,
-    category: "Unit Converters",
-    isPopular: true
-  },
-  {
-    title: "Temperature Converter",
-    description: "Convert Celsius, Fahrenheit, Kelvin",
-    icon: Thermometer,
-    category: "Unit Converters",
-    isPopular: true
-  },
-  {
-    title: "Volume Converter",
-    description: "Convert liters, gallons, cups, milliliters",
-    icon: Volume2,
-    category: "Unit Converters",
-    isPopular: true
-  },
-  {
-    title: "Area Converter",
-    description: "Convert square meters, acres, hectares",
-    icon: Target,
     category: "Unit Converters"
   },
   {
-    title: "Time Converter",
-    description: "Convert seconds, minutes, hours, days",
+    title: "Temperature Converter",
+    description: "Convert between Celsius, Fahrenheit, and Kelvin",
+    icon: Thermometer,
+    category: "Unit Converters"
+  },
+  {
+    title: "Currency Converter",
+    description: "Convert between different currencies with live rates",
+    icon: TrendingUp,
+    category: "Unit Converters",
+    isPopular: true
+  },
+  {
+    title: "Time Zone Converter",
+    description: "Convert time between different time zones",
     icon: Clock,
     category: "Unit Converters"
   },
   {
+    title: "Area Converter",
+    description: "Convert between square meters, acres, hectares, etc.",
+    icon: MapPin,
+    category: "Unit Converters"
+  },
+  {
+    title: "Volume Converter",
+    description: "Convert between liters, gallons, cups, etc.",
+    icon: Droplet,
+    category: "Unit Converters"
+  },
+  {
     title: "Speed Converter",
-    description: "Convert mph, km/h, m/s, knots",
+    description: "Convert between km/h, mph, m/s, etc.",
     icon: Gauge,
     category: "Unit Converters"
   },
-  {
-    title: "Angle Converter",
-    description: "Convert degrees, radians, gradians",
-    icon: RotateCcw,
-    category: "Unit Converters"
-  },
 
-  // Engineering
-  {
-    title: "Pressure Converter",
-    description: "Convert PSI, bar, pascal, atmosphere",
-    icon: Gauge,
-    category: "Engineering"
-  },
-  {
-    title: "Force Converter",
-    description: "Convert newtons, pounds-force, dynes",
-    icon: Lightning,
-    category: "Engineering"
-  },
-  {
-    title: "Energy Converter",
-    description: "Convert joules, calories, BTU, kWh",
-    icon: Battery,
-    category: "Engineering"
-  },
-  {
-    title: "Power Converter",
-    description: "Convert watts, horsepower, BTU/hr",
-    icon: Lightning,
-    category: "Engineering"
-  },
-  {
-    title: "Torque Converter",
-    description: "Convert newton-meters, foot-pounds",
-    icon: Settings,
-    category: "Engineering"
-  },
-  {
-    title: "Voltage Converter",
-    description: "Convert volts, millivolts, kilovolts",
-    icon: Lightning,
-    category: "Electricity"
-  },
-  {
-    title: "Current Converter",
-    description: "Convert amperes, milliamps, microamps",
-    icon: Lightning,
-    category: "Electricity"
-  },
-  {
-    title: "Resistance Converter",
-    description: "Convert ohms, kilohms, megohms",
-    icon: Lightning,
-    category: "Electricity"
-  },
-  {
-    title: "Capacitance Converter",
-    description: "Convert farads, microfarads, picofarads",
-    icon: Battery,
-    category: "Electricity"
-  },
-  {
-    title: "Inductance Converter",
-    description: "Convert henries, millihenries, microhenries",
-    icon: Magnet,
-    category: "Electricity"
-  },
-  {
-    title: "Thermal Resistance Converter",
-    description: "Convert thermal resistance units",
-    icon: Thermometer,
-    category: "Heat"
-  },
-  {
-    title: "Heat Density Converter",
-    description: "Convert heat density units",
-    icon: Flame,
-    category: "Heat"
-  },
-  {
-    title: "Fuel Efficiency Converter",
-    description: "Convert MPG, L/100km, km/L",
-    icon: Fuel,
-    category: "Heat"
-  },
-  {
-    title: "Magnetic Field Converter",
-    description: "Convert tesla, gauss, weber",
-    icon: Magnet,
-    category: "Magnetism"
-  },
-  {
-    title: "Magnetic Flux Converter",
-    description: "Convert weber, maxwell units",
-    icon: Magnet,
-    category: "Magnetism"
-  },
-
-  // Fluids
-  {
-    title: "Flow Converter",
-    description: "Convert flow rates: m³/s, L/min, GPM",
-    icon: Waves,
-    category: "Fluids"
-  },
-  {
-    title: "Viscosity Converter",
-    description: "Convert dynamic, kinematic viscosity",
-    icon: Droplets,
-    category: "Fluids"
-  },
-  {
-    title: "Luminance Converter",
-    description: "Convert candela, lumen, lux units",
-    icon: Sun,
-    category: "Light"
-  },
-
-  // Radiology
-  {
-    title: "Illumination Converter",
-    description: "Convert lux, foot-candle, phot",
-    icon: Lightbulb,
-    category: "Light"
-  },
-  {
-    title: "Radiation Converter",
-    description: "Convert becquerel, curie, gray, sievert",
-    icon: Radio,
-    category: "Radiology"
-  },
-  {
-    title: "Radiation Dose Converter",
-    description: "Convert absorbed dose units",
-    icon: Radio,
-    category: "Radiology"
-  },
-
-  // Financial
-  {
-    title: "Currency Converter",
-    description: "Real-time exchange rates for 150+ currencies",
-    icon: DollarSign,
-    category: "Financial",
-    isPopular: true
-  },
-
-  // Files
-  {
-    title: "Excel Converter",
-    description: "Convert Excel to CSV, PDF, JSON formats",
-    icon: FileCode2,
-    category: "Files"
-  },
-  {
-    title: "Image Converter",
-    description: "Convert PNG, JPG, GIF, SVG formats",
-    icon: Image,
-    category: "Files"
-  },
-  {
-    title: "Audio Converter",
-    description: "Convert MP3, WAV, FLAC, AAC, OGG formats",
-    icon: Music,
-    category: "Files"
-  },
-  {
-    title: "Video Converter",
-    description: "Convert MP4, AVI, MOV, MKV, WEBM formats",
-    icon: FileVideo,
-    category: "Files"
-  },
-  {
-    title: "File Compressor",
-    description: "Compress files and folders to save space",
-    icon: Archive,
-    category: "Files"
-  },
-
-  // Text
+  // Text Tools  
   {
     title: "Text Case Converter",
-    description: "Convert to uppercase, lowercase, title case",
+    description: "Convert text to uppercase, lowercase, title case, etc.",
     icon: Type,
-    category: "Text"
+    category: "Text Tools",
+    isPopular: true
   },
   {
-    title: "Language Translator",
-    description: "Translate text between 100+ languages",
-    icon: Globe,
-    category: "Text"
+    title: "Word Counter",
+    description: "Count words, characters, sentences, and paragraphs",
+    icon: Calculator,
+    category: "Text Tools",
+    isPopular: true
   },
   {
-    title: "Markdown Converter",
-    description: "Convert between Markdown and HTML",
-    icon: BookOpen,
-    category: "Text"
+    title: "Text Difference Checker",
+    description: "Compare two texts and highlight differences",
+    icon: Eye,
+    category: "Text Tools"
+  },
+  {
+    title: "Lorem Ipsum Generator",
+    description: "Generate placeholder text for design and development",
+    icon: FileText,
+    category: "Text Tools"
+  },
+  {
+    title: "Text to Speech",
+    description: "Convert text to audio using text-to-speech technology",
+    icon: Volume2,
+    category: "Text Tools"
+  },
+  {
+    title: "Markdown to HTML",
+    description: "Convert Markdown text to HTML format",
+    icon: Code,
+    category: "Text Tools"
   },
 
-  // Developer
+  // Developer Tools
   {
-    title: "Code Translator",
-    description: "Convert code between programming languages",
+    title: "Base64 Encoder/Decoder",
+    description: "Encode and decode Base64 strings",
     icon: Code,
-    category: "Developer"
+    category: "Developer Tools",
+    isPopular: true
   },
   {
-    title: "Number Base Converter",
-    description: "Convert binary, decimal, hex, octal",
-    icon: Binary,
-    category: "Developer"
-  },
-  {
-    title: "Hash Generator",
-    description: "Generate MD5, SHA1, SHA256 hashes",
-    icon: Hash,
-    category: "Developer"
+    title: "URL Encoder/Decoder",
+    description: "Encode and decode URLs for web applications",
+    icon: Globe,
+    category: "Developer Tools"
   },
   {
     title: "JSON Formatter",
-    description: "Format, validate and minify JSON",
-    icon: FileCode2,
-    category: "Developer"
-  },
-  {
-    title: "SQL Formatter",
-    description: "Format and beautify SQL queries",
+    description: "Format, validate, and minify JSON data",
     icon: Database,
-    category: "Developer"
-  },
-
-  // Mathematical
-  {
-    title: "Scientific Calculator",
-    description: "Advanced mathematical calculations",
-    icon: Calc,
-    category: "Mathematical"
+    category: "Developer Tools",
+    isPopular: true
   },
   {
-    title: "Statistics Calculator",
-    description: "Calculate median, standard deviation",
-    icon: BarChart3,
-    category: "Mathematical"
+    title: "Hash Generator",
+    description: "Generate MD5, SHA-1, SHA-256, and other hashes",
+    icon: Hash,
+    category: "Developer Tools"
   },
-  {
-    title: "Physics Calculator",
-    description: "Physics formulas and constants",
-    icon: Activity,
-    category: "Science"
-  },
-  {
-    title: "Chemistry Converter",
-    description: "Convert molarity, molecular mass",
-    icon: Beaker,
-    category: "Science"
-  },
-
-  // Design
-  {
-    title: "Color Converter",
-    description: "Convert RGB, HEX, HSL, CMYK, LAB",
-    icon: Palette,
-    category: "Design"
-  },
-  {
-    title: "CSS Unit Converter",
-    description: "Convert px, em, rem, vw, vh, %",
-    icon: Code,
-    category: "Design"
-  },
-
-  // Digital
-  {
-    title: "Data Storage Converter",
-    description: "Convert bytes, KB, MB, GB, TB, PB",
-    icon: Database,
-    category: "Digital"
-  },
-  {
-    title: "Internet Speed Converter",
-    description: "Convert Mbps, Gbps, KB/s, MB/s",
-    icon: Wifi,
-    category: "Digital"
-  },
-
-  // Utilities
   {
     title: "QR Code Generator",
-    description: "Generate QR codes for text, URLs, contacts",
+    description: "Generate QR codes for text, URLs, and other data",
     icon: QrCode,
-    category: "Utilities"
+    category: "Developer Tools",
+    isPopular: true
   },
   {
-    title: "Barcode Generator",
-    description: "Generate various barcode formats",
-    icon: ScanLine,
-    category: "Utilities"
+    title: "Password Generator",
+    description: "Generate secure passwords with custom criteria",
+    icon: Settings,
+    category: "Developer Tools"
   },
   {
-    title: "Document Scanner",
-    description: "Scan and digitize physical documents",
-    icon: ScanLine,
-    category: "Utilities"
+    title: "Regular Expression Tester",
+    description: "Test and debug regular expressions",
+    icon: Target,
+    category: "Developer Tools"
   },
   {
-    title: "File Repair",
-    description: "Fix corrupt or damaged files",
-    icon: Tool,
-    category: "Utilities"
+    title: "CSS Minifier",
+    description: "Minify CSS code to reduce file size",
+    icon: Scissors,
+    category: "Developer Tools"
+  },
+  {
+    title: "JavaScript Minifier",
+    description: "Minify JavaScript code to reduce file size",
+    icon: Scissors,
+    category: "Developer Tools"
+  },
+  {
+    title: "HTML Encoder/Decoder",
+    description: "Encode and decode HTML entities",
+    icon: Code,
+    category: "Developer Tools"
   },
 
-  // AI Tools
+  // Image Tools
   {
-    title: "AI Assistant",
-    description: "Get help with conversions and formatting",
-    icon: Bot,
-    category: "AI Tools",
-    isNew: true
+    title: "Image Compressor",
+    description: "Reduce image file size while maintaining quality",
+    icon: Archive,
+    category: "Image Tools",
+    isPopular: true
+  },
+  {
+    title: "Image Resizer",
+    description: "Resize images to specific dimensions",
+    icon: Crop,
+    category: "Image Tools",
+    isPopular: true
+  },
+  {
+    title: "Image Format Converter",
+    description: "Convert between JPG, PNG, WebP, GIF, and other formats",
+    icon: Image,
+    category: "Image Tools"
+  },
+  {
+    title: "Image Cropper",
+    description: "Crop images to specific dimensions or aspect ratios",
+    icon: Crop,
+    category: "Image Tools"
+  },
+  {
+    title: "Image Rotator",
+    description: "Rotate images by any angle",
+    icon: RotateCw,
+    category: "Image Tools"
+  },
+  {
+    title: "Image Flipper",
+    description: "Flip images horizontally or vertically",
+    icon: FlipHorizontal,
+    category: "Image Tools"
+  },
+  {
+    title: "Watermark Adder",
+    description: "Add text or image watermarks to photos",
+    icon: Layers,
+    category: "Image Tools"
+  },
+  {
+    title: "Background Remover",
+    description: "Remove backgrounds from images automatically",
+    icon: Eraser,
+    category: "Image Tools",
+    isPopular: true
+  },
+
+  // Color Tools
+  {
+    title: "Color Picker",
+    description: "Pick colors from images or color wheels",
+    icon: Palette,
+    category: "Color Tools"
+  },
+  {
+    title: "Color Converter",
+    description: "Convert between HEX, RGB, HSL, and other color formats",
+    icon: Palette,
+    category: "Color Tools",
+    isPopular: true
+  },
+  {
+    title: "Color Palette Generator",
+    description: "Generate color palettes and schemes",
+    icon: Brush,
+    category: "Color Tools"
+  },
+  {
+    title: "Gradient Generator",
+    description: "Create CSS gradients with visual editor",
+    icon: Droplet,
+    category: "Color Tools"
   }
 ];
 
-const categories = [
-  "All",
-  "PDF Tools",
-  "Unit Converters", 
-  "Engineering",
-  "Electricity",
-  "Heat",
-  "Magnetism",
-  "Fluids",
-  "Light",
-  "Radiology",
-  "Financial",
-  "Files",
-  "Text",
-  "Developer",
-  "Mathematical",
-  "Science",
-  "Design",
-  "Digital",
-  "Utilities",
-  "AI Tools"
-];
-
 export const ToolsGrid = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const filteredTools = activeCategory === "All" 
-    ? tools 
-    : tools.filter(tool => tool.category === activeCategory);
+  const categories = Array.from(new Set(tools.map(tool => tool.category)));
+  const popularTools = tools.filter(tool => tool.isPopular);
+
+  const filteredTools = (category?: string) => {
+    let filtered = category ? tools.filter(tool => tool.category === category) : tools;
+    
+    if (searchTerm) {
+      filtered = filtered.filter(tool => 
+        tool.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tool.category.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
+    return filtered;
+  };
+
+  const handleToolClick = (tool: Tool) => {
+    setSelectedTool(tool);
+    setIsDialogOpen(true);
+  };
+
+  const ToolCard = ({ tool }: { tool: Tool }) => {
+    const Icon = tool.icon;
+    
+    return (
+      <Card 
+        className="group hover:shadow-lg transition-all duration-200 cursor-pointer border-border bg-gradient-card"
+        onClick={() => handleToolClick(tool)}
+      >
+        
+        <CardHeader className="pb-3">
+          <div className="flex items-start justify-between">
+            <div className="p-2 rounded-lg bg-primary/10 w-fit">
+              <Icon className="w-6 h-6 text-primary" />
+            </div>
+            {tool.isPopular && (
+              <Badge variant="secondary" className="text-xs">
+                Popular
+              </Badge>
+            )}
+          </div>
+          <CardTitle className="text-lg group-hover:text-primary transition-colors">
+            {tool.title}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CardDescription className="text-muted-foreground">
+            {tool.description}
+          </CardDescription>
+        </CardContent>
+      </Card>
+    );
+  };
 
   return (
-    <section className="py-12 bg-muted/30">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4">Powerful Conversion Tools</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Access our comprehensive suite of conversion tools designed to handle all your transformation needs
+    <section className="py-24 bg-gradient-section">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-foreground mb-4">
+            All-in-One Conversion Tools
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Transform, convert, and optimize your files with our comprehensive suite of tools
           </p>
         </div>
 
-        {/* Quick Converter Section */}
         <div className="mb-8">
-          <QuickConverter />
+          <div className="relative max-w-md mx-auto">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <Input
+              type="text"
+              placeholder="Search tools..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
         </div>
 
-        {/* Category Tabs */}
-        <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
-          <TabsList className="grid w-full mb-8 overflow-x-auto" style={{gridTemplateColumns: `repeat(${categories.length}, minmax(120px, 1fr))`}}>
-            {categories.map((category) => (
-              <TabsTrigger key={category} value={category} className="text-sm whitespace-nowrap">
-                {category}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+        <Tabs defaultValue="popular" className="w-full">
+          <div className="overflow-x-auto mb-8">
+            <TabsList className="inline-flex min-w-full justify-start">
+              <TabsTrigger value="popular">Popular</TabsTrigger>
+              <TabsTrigger value="all">All Tools</TabsTrigger>
+              {categories.map((category) => (
+                <TabsTrigger key={category} value={category}>
+                  {category}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+
+          <TabsContent value="popular">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredTools().filter(tool => tool.isPopular).map((tool) => (
+                <ToolCard key={tool.title} tool={tool} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="all">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredTools().map((tool) => (
+                <ToolCard key={tool.title} tool={tool} />
+              ))}
+            </div>
+          </TabsContent>
 
           {categories.map((category) => (
             <TabsContent key={category} value={category}>
-              <div className="grid grid-cols-3 gap-6">
-                {filteredTools.map((tool, index) => {
-                  const Icon = tool.icon;
-                  return (
-                    <Card key={index} className="group hover:shadow-lg transition-all duration-200 cursor-pointer h-full">
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                            <Icon className="w-6 h-6 text-primary" />
-                          </div>
-                          <div className="flex gap-1">
-                            {tool.isPopular && (
-                              <Badge variant="secondary" className="text-xs">
-                                Popular
-                              </Badge>
-                            )}
-                            {tool.isNew && (
-                              <Badge className="text-xs">
-                                New
-                              </Badge>
-                            )}
-                          </div>
-                        </div>
-                        <div>
-                          <CardTitle className="text-xl mb-1">{tool.title}</CardTitle>
-                          <div className="text-xs text-muted-foreground mb-2">
-                            {tool.category}
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <CardDescription className="text-sm">
-                          {tool.description}
-                        </CardDescription>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredTools(category).map((tool) => (
+                  <ToolCard key={tool.title} tool={tool} />
+                ))}
               </div>
             </TabsContent>
           ))}
         </Tabs>
+
+        {selectedTool && (
+          <ConversionDialog
+            isOpen={isDialogOpen}
+            onClose={() => {
+              setIsDialogOpen(false);
+              setSelectedTool(null);
+            }}
+            tool={selectedTool}
+          />
+        )}
       </div>
     </section>
   );
