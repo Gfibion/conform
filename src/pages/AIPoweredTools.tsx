@@ -1,35 +1,41 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Brain, Wand2, FileText, Image, Code, MessageSquare, Search, Lightbulb } from "lucide-react";
+import { AITextTools } from "@/components/tools/AITextTools";
+import { AICodeTools } from "@/components/tools/AICodeTools";
+import { useState } from "react";
 
 const AIPoweredTools = () => {
+  const [selectedTool, setSelectedTool] = useState<string | null>(null);
+
   const aiTools = [
     {
       id: "ai-text-generator",
-      title: "AI Text Generator",
-      description: "Generate high-quality content using advanced AI",
+      title: "AI Text Tools",
+      description: "Enhance, summarize, paraphrase, and translate text using AI",
       icon: FileText,
-      features: ["Content creation", "Blog posts", "Marketing copy", "Creative writing"],
-      popular: true
+      features: ["Text enhancement", "Summarization", "Paraphrasing", "Translation"],
+      popular: true,
+      component: "text"
+    },
+    {
+      id: "ai-code-assistant",
+      title: "AI Code Tools", 
+      description: "Get help with coding, explanations, and optimization",
+      icon: Code,
+      features: ["Code explanation", "Optimization", "Bug analysis", "Documentation"],
+      component: "code"
     },
     {
       id: "ai-image-generator",
-      title: "AI Image Generator", 
+      title: "AI Image Generator",
       description: "Create stunning images from text descriptions",
       icon: Image,
       features: ["Text to image", "Style transfer", "Image editing", "Art generation"],
       popular: true
-    },
-    {
-      id: "ai-code-assistant",
-      title: "AI Code Assistant",
-      description: "Get help with coding, debugging, and optimization",
-      icon: Code,
-      features: ["Code generation", "Bug fixing", "Code review", "Documentation"]
     },
     {
       id: "ai-chatbot",
@@ -67,6 +73,50 @@ const AIPoweredTools = () => {
       features: ["Pattern recognition", "Data insights", "Trend analysis", "Predictions"]
     }
   ];
+
+  if (selectedTool === "text") {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-6">
+            <Button 
+              variant="outline" 
+              onClick={() => setSelectedTool(null)}
+              className="mb-4"
+            >
+              ← Back to AI Tools
+            </Button>
+            <h1 className="text-3xl font-bold">AI Text Tools</h1>
+          </div>
+          <AITextTools />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (selectedTool === "code") {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-6">
+            <Button 
+              variant="outline" 
+              onClick={() => setSelectedTool(null)}
+              className="mb-4"
+            >
+              ← Back to AI Tools
+            </Button>
+            <h1 className="text-3xl font-bold">AI Code Tools</h1>
+          </div>
+          <AICodeTools />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -112,8 +162,13 @@ const AIPoweredTools = () => {
                       ))}
                     </div>
                   </div>
-                  <Button className="w-full mt-4" variant="outline">
-                    Try AI Tool
+                  <Button 
+                    className="w-full mt-4" 
+                    variant="outline"
+                    onClick={() => tool.component && setSelectedTool(tool.component)}
+                    disabled={!tool.component}
+                  >
+                    {tool.component ? "Try AI Tool" : "Coming Soon"}
                   </Button>
                 </CardContent>
               </Card>

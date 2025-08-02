@@ -1,4 +1,3 @@
-
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const corsHeaders = {
@@ -77,6 +76,18 @@ Deno.serve(async (req) => {
     try {
       // Handle different conversion types
       switch (conversion_type) {
+        // AI-powered conversions
+        case 'ai_text_enhance':
+        case 'ai_text_summarize':
+        case 'ai_text_paraphrase':
+        case 'ai_text_translate':
+        case 'ai_code_explain':
+        case 'ai_code_optimize':
+        case 'ai_content_generate':
+        case 'ai_image_describe':
+          result = await handleAIConversion(conversion_type.replace('ai_', ''), input_data)
+          break
+        
         // Text-based conversions (no external API needed)
         case 'text_case':
           result = handleTextCaseConversion(input_data)
@@ -99,8 +110,6 @@ Deno.serve(async (req) => {
         case 'color_convert':
           result = handleColorConvert(input_data)
           break
-        
-        // PDF conversions using PDF API
         case 'pdf_compress':
         case 'pdf_merge':
         case 'pdf_split':
@@ -113,27 +122,19 @@ Deno.serve(async (req) => {
         case 'powerpoint_to_pdf':
           result = await handlePDFConversion(conversion_type, input_data, file_data)
           break
-        
-        // Image conversions using TinyPNG
         case 'image_compress':
         case 'image_resize':
         case 'image_format':
         case 'image_to_pdf':
           result = await handleImageConversion(conversion_type, input_data, file_data)
           break
-        
-        // Video/Audio conversions using Cloudinary
         case 'video_compress':
         case 'audio_convert':
           result = await handleMediaConversion(conversion_type, input_data, file_data)
           break
-        
-        // Currency conversion using Exchange Rates API
         case 'currency_convert':
           result = await handleCurrencyConversion(input_data)
           break
-        
-        // Document conversions using Convertio
         case 'unit_convert':
           result = handleUnitConversion(input_data)
           break
@@ -207,7 +208,40 @@ Deno.serve(async (req) => {
   }
 })
 
-// Text-based conversion functions (no external API needed)
+// AI Conversion function
+async function handleAIConversion(type: string, inputData: any) {
+  const openAIApiKey = Deno.env.get('OPENAI_API_KEY')
+  
+  if (!openAIApiKey) {
+    throw new Error('OpenAI API key not configured')
+  }
+
+  // Call the AI convert function
+  const response = await fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/ai-convert`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${Deno.env.get('SUPABASE_ANON_KEY')}`
+    },
+    body: JSON.stringify({
+      type,
+      content: inputData.content || inputData.text || inputData,
+      options: inputData.options || {}
+    })
+  })
+
+  const data = await response.json()
+  
+  if (!data.success) {
+    throw new Error(data.error || 'AI conversion failed')
+  }
+
+  return {
+    result: data.result,
+    type: data.type
+  }
+}
+
 function handleTextCaseConversion(data: any) {
   const { text, case_type } = data
   
@@ -332,7 +366,6 @@ function handleColorConvert(data: any) {
   return { result }
 }
 
-// PDF conversion using PDF API
 async function handlePDFConversion(conversionType: string, inputData: any, fileData: string) {
   const pdfApiKey = Deno.env.get('PDF_API_KEY')
   
@@ -340,8 +373,6 @@ async function handlePDFConversion(conversionType: string, inputData: any, fileD
     throw new Error('PDF API key not configured')
   }
 
-  // This is a placeholder implementation - you would integrate with your chosen PDF API
-  // For example, using ILovePDF API
   console.log(`Processing PDF conversion: ${conversionType}`)
   
   return {
@@ -350,7 +381,6 @@ async function handlePDFConversion(conversionType: string, inputData: any, fileD
   }
 }
 
-// Image conversion using TinyPNG API
 async function handleImageConversion(conversionType: string, inputData: any, fileData: string) {
   const tinifyApiKey = Deno.env.get('TINIFY_API_KEY')
   
@@ -360,7 +390,6 @@ async function handleImageConversion(conversionType: string, inputData: any, fil
 
   console.log(`Processing image conversion: ${conversionType}`)
   
-  // Example TinyPNG API integration for compression
   if (conversionType === 'image_compress' && fileData) {
     try {
       const response = await fetch('https://api.tinify.com/shrink', {
@@ -395,7 +424,6 @@ async function handleImageConversion(conversionType: string, inputData: any, fil
   }
 }
 
-// Media conversion using Cloudinary
 async function handleMediaConversion(conversionType: string, inputData: any, fileData: string) {
   const cloudinaryApiKey = Deno.env.get('CLOUDINARY_API_KEY')
   const cloudinaryApiSecret = Deno.env.get('CLOUDINARY_API_SECRET')
@@ -413,7 +441,6 @@ async function handleMediaConversion(conversionType: string, inputData: any, fil
   }
 }
 
-// Currency conversion using Exchange Rates API
 async function handleCurrencyConversion(inputData: any) {
   const exchangeRatesApiKey = Deno.env.get('EXCHANGE_RATES_API_KEY')
   
@@ -445,12 +472,8 @@ async function handleCurrencyConversion(inputData: any) {
   }
 }
 
-// Unit conversion (handled locally)
 function handleUnitConversion(inputData: any) {
   const { value, from_unit, to_unit, category } = inputData
-  
-  // This is a simplified unit conversion - you could integrate with a units API
-  // or implement comprehensive conversion logic
   
   const conversions = {
     length: {
