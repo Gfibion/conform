@@ -560,7 +560,7 @@ export const ToolsGrid = () => {
           </div>
 
           <TabsContent value="popular">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
               {filteredTools().filter(tool => tool.isPopular).map((tool) => (
                 <ToolCard key={tool.title} tool={tool} />
               ))}
@@ -568,7 +568,7 @@ export const ToolsGrid = () => {
           </TabsContent>
 
           <TabsContent value="all">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
               {filteredTools().map((tool) => (
                 <ToolCard key={tool.title} tool={tool} />
               ))}
@@ -577,7 +577,7 @@ export const ToolsGrid = () => {
 
           {categories.map((category) => (
             <TabsContent key={category} value={category}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
                 {filteredTools(category).map((tool) => (
                   <ToolCard key={tool.title} tool={tool} />
                 ))}
