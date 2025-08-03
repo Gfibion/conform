@@ -2,16 +2,23 @@
 import { ConversionHistory } from "@/components/ConversionHistory"
 import { UsageStats } from "@/components/UsageStats"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { AuthButton } from "@/components/AuthButton"
+import { useAuth } from "@/contexts/AuthContext"
 
 export default function Dashboard() {
+  const { user } = useAuth();
+
   return (
     <div className="min-h-screen bg-gradient-page">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-          <p className="text-muted-foreground mt-2">
-            Track your conversion activity and usage statistics
-          </p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+            <p className="text-muted-foreground mt-2">
+              Welcome back, {user?.email}! Track your conversion activity and usage statistics
+            </p>
+          </div>
+          <AuthButton />
         </div>
 
         <div className="space-y-8">
