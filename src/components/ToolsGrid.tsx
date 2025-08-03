@@ -493,14 +493,13 @@ export const ToolsGrid = () => {
     
     return (
       <Card 
-        className="group hover:shadow-lg transition-all duration-200 cursor-pointer border-border bg-gradient-card"
+        className="group hover:shadow-lg transition-all duration-200 cursor-pointer border-border bg-gradient-card h-full"
         onClick={() => handleToolClick(tool)}
       >
-        
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="p-2 rounded-lg bg-primary/10 w-fit">
-              <Icon className="w-6 h-6 text-primary" />
+              <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
             </div>
             {tool.isPopular && (
               <Badge variant="secondary" className="text-xs">
@@ -508,12 +507,12 @@ export const ToolsGrid = () => {
               </Badge>
             )}
           </div>
-          <CardTitle className="text-lg group-hover:text-primary transition-colors">
+          <CardTitle className="text-sm md:text-lg group-hover:text-primary transition-colors line-clamp-2">
             {tool.title}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <CardDescription className="text-muted-foreground">
+          <CardDescription className="text-muted-foreground text-xs md:text-sm line-clamp-3">
             {tool.description}
           </CardDescription>
         </CardContent>
@@ -522,13 +521,13 @@ export const ToolsGrid = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-section">
+    <section className="py-12 md:py-24 bg-gradient-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-4">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
             All-in-One Conversion Tools
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Transform, convert, and optimize your files with our comprehensive suite of tools
           </p>
         </div>
@@ -547,20 +546,22 @@ export const ToolsGrid = () => {
         </div>
 
         <Tabs defaultValue="popular" className="w-full">
-          <div className="overflow-x-auto mb-8">
-            <TabsList className="inline-flex min-w-full justify-start">
-              <TabsTrigger value="popular">Popular</TabsTrigger>
-              <TabsTrigger value="all">All Tools</TabsTrigger>
-              {categories.map((category) => (
-                <TabsTrigger key={category} value={category}>
-                  {category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+          <div className="mb-8">
+            <div className="overflow-x-auto">
+              <TabsList className="inline-flex w-full md:w-auto min-w-full md:min-w-0 justify-start">
+                <TabsTrigger value="popular" className="text-xs md:text-sm whitespace-nowrap">Popular</TabsTrigger>
+                <TabsTrigger value="all" className="text-xs md:text-sm whitespace-nowrap">All Tools</TabsTrigger>
+                {categories.map((category) => (
+                  <TabsTrigger key={category} value={category} className="text-xs md:text-sm whitespace-nowrap">
+                    {category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
           </div>
 
           <TabsContent value="popular">
-            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
               {filteredTools().filter(tool => tool.isPopular).map((tool) => (
                 <ToolCard key={tool.title} tool={tool} />
               ))}
@@ -568,7 +569,7 @@ export const ToolsGrid = () => {
           </TabsContent>
 
           <TabsContent value="all">
-            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
               {filteredTools().map((tool) => (
                 <ToolCard key={tool.title} tool={tool} />
               ))}
@@ -577,7 +578,7 @@ export const ToolsGrid = () => {
 
           {categories.map((category) => (
             <TabsContent key={category} value={category}>
-              <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
                 {filteredTools(category).map((tool) => (
                   <ToolCard key={tool.title} tool={tool} />
                 ))}

@@ -48,15 +48,15 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative py-20 overflow-hidden bg-gradient-hero">
+    <section className="relative py-12 md:py-20 overflow-hidden bg-gradient-hero">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center space-x-2 bg-primary/10 border border-primary/20 rounded-full px-3 py-1.5 mb-4">
+          <div className="inline-flex items-center space-x-2 bg-primary/10 border border-primary/20 rounded-full px-3 py-1.5 mb-6">
             <Zap className="w-3 h-3 text-primary" />
             <span className="text-xs text-foreground/80">Converting the World, One Format at a Time</span>
           </div>
           
-          <h1 className="text-6xl font-bold mb-4 text-foreground leading-tight">
+          <h1 className="text-3xl md:text-6xl font-bold mb-6 text-foreground leading-tight">
             Universal Conversion
             <br />
             <span className="bg-gradient-secondary bg-clip-text text-transparent">
@@ -64,20 +64,20 @@ export const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-lg text-foreground/80 mb-6 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-foreground/80 mb-8 max-w-2xl mx-auto leading-relaxed px-4">
             Transform files, translate code, convert units, and repair documents with our intelligent, 
             AI-powered conversion platform. No registration required to get started.
           </p>
 
           {/* Search Function */}
-          <div className="max-w-md mx-auto mb-6">
+          <div className="max-w-md mx-auto mb-8 px-4">
             <div className="relative">
               <Input
                 type="text"
-                placeholder="Search conversions (e.g., 'PDF to Word', 'Celsius to Fahrenheit')"
+                placeholder="Search conversions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-3 text-sm"
+                className="pl-10 pr-20 py-3 text-sm"
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -91,7 +91,7 @@ export const Hero = () => {
             </div>
           </div>
           
-          <div className="flex gap-3 justify-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 px-4">
             <Button 
               size="default" 
               className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow transition-all duration-300 hover:scale-105"
@@ -109,43 +109,43 @@ export const Hero = () => {
             </Button>
           </div>
           
-          {/* Feature icons - Now functional */}
-          <div className="grid grid-cols-4 gap-4 mt-8">
+          {/* Feature icons - Now functional and mobile responsive */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 px-4">
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('file-conversion')}
             >
-              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <FileCode className="w-5 h-5 text-primary" />
+              <div className="w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <FileCode className="w-6 h-6 text-primary" />
               </div>
-              <p className="text-xs text-foreground/70 group-hover:text-primary transition-colors">File Conversion</p>
+              <p className="text-sm text-foreground/70 group-hover:text-primary transition-colors">File Conversion</p>
             </div>
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('language-translation')}
             >
-              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Globe className="w-5 h-5 text-primary" />
+              <div className="w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Globe className="w-6 h-6 text-primary" />
               </div>
-              <p className="text-xs text-foreground/70 group-hover:text-primary transition-colors">Language Translation</p>
+              <p className="text-sm text-foreground/70 group-hover:text-primary transition-colors">Language Translation</p>
             </div>
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('unit-conversion')}
             >
-              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Calculator className="w-5 h-5 text-primary" />
+              <div className="w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Calculator className="w-6 h-6 text-primary" />
               </div>
-              <p className="text-xs text-foreground/70 group-hover:text-primary transition-colors">Unit Conversion</p>
+              <p className="text-sm text-foreground/70 group-hover:text-primary transition-colors">Unit Conversion</p>
             </div>
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('ai-tools')}
             >
-              <div className="w-10 h-10 bg-primary/10 rounded-lg mx-auto mb-2 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Zap className="w-5 h-5 text-primary" />
+              <div className="w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Zap className="w-6 h-6 text-primary" />
               </div>
-              <p className="text-xs text-foreground/70 group-hover:text-primary transition-colors">AI-Powered Tools</p>
+              <p className="text-sm text-foreground/70 group-hover:text-primary transition-colors">AI-Powered Tools</p>
             </div>
           </div>
         </div>
