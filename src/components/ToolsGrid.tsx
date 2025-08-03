@@ -493,26 +493,26 @@ export const ToolsGrid = () => {
     
     return (
       <Card 
-        className="group hover:shadow-lg transition-all duration-200 cursor-pointer border-border bg-gradient-card h-full"
+        className="group hover:shadow-lg transition-all duration-200 cursor-pointer border-border bg-gradient-card h-full flex flex-col"
         onClick={() => handleToolClick(tool)}
       >
-        <CardHeader className="pb-3">
-          <div className="flex items-start justify-between">
-            <div className="p-2 rounded-lg bg-primary/10 w-fit">
-              <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+        <CardHeader className="pb-2 flex-shrink-0">
+          <div className="flex items-start justify-between mb-2">
+            <div className="p-1.5 sm:p-2 rounded-lg bg-primary/10 w-fit">
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             </div>
             {tool.isPopular && (
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="secondary" className="text-[10px] sm:text-xs px-1.5 py-0.5">
                 Popular
               </Badge>
             )}
           </div>
-          <CardTitle className="text-sm md:text-lg group-hover:text-primary transition-colors line-clamp-2">
+          <CardTitle className="text-sm sm:text-base lg:text-lg group-hover:text-primary transition-colors line-clamp-2 leading-tight">
             {tool.title}
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <CardDescription className="text-muted-foreground text-xs md:text-sm line-clamp-3">
+        <CardContent className="pt-0 flex-grow flex flex-col justify-between">
+          <CardDescription className="text-muted-foreground text-xs sm:text-sm line-clamp-2 sm:line-clamp-3 leading-tight">
             {tool.description}
           </CardDescription>
         </CardContent>
@@ -521,38 +521,38 @@ export const ToolsGrid = () => {
   };
 
   return (
-    <section className="py-12 md:py-24 bg-gradient-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-gradient-section">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2 sm:mb-4">
             All-in-One Conversion Tools
           </h2>
-          <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-2">
             Transform, convert, and optimize your files with our comprehensive suite of tools
           </p>
         </div>
 
-        <div className="mb-8">
-          <div className="relative max-w-md mx-auto">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+        <div className="mb-6 sm:mb-8">
+          <div className="relative max-w-md mx-auto px-2 sm:px-0">
+            <Search className="absolute left-5 sm:left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               type="text"
               placeholder="Search tools..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-10 sm:pl-10 text-sm"
             />
           </div>
         </div>
 
         <Tabs defaultValue="popular" className="w-full">
-          <div className="mb-8">
-            <div className="overflow-x-auto">
+          <div className="mb-6 sm:mb-8">
+            <div className="overflow-x-auto px-2 sm:px-0">
               <TabsList className="inline-flex w-full md:w-auto min-w-full md:min-w-0 justify-start">
-                <TabsTrigger value="popular" className="text-xs md:text-sm whitespace-nowrap">Popular</TabsTrigger>
-                <TabsTrigger value="all" className="text-xs md:text-sm whitespace-nowrap">All Tools</TabsTrigger>
+                <TabsTrigger value="popular" className="text-xs sm:text-sm whitespace-nowrap px-2 sm:px-3">Popular</TabsTrigger>
+                <TabsTrigger value="all" className="text-xs sm:text-sm whitespace-nowrap px-2 sm:px-3">All Tools</TabsTrigger>
                 {categories.map((category) => (
-                  <TabsTrigger key={category} value={category} className="text-xs md:text-sm whitespace-nowrap">
+                  <TabsTrigger key={category} value={category} className="text-xs sm:text-sm whitespace-nowrap px-2 sm:px-3">
                     {category}
                   </TabsTrigger>
                 ))}
@@ -561,7 +561,7 @@ export const ToolsGrid = () => {
           </div>
 
           <TabsContent value="popular">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
               {filteredTools().filter(tool => tool.isPopular).map((tool) => (
                 <ToolCard key={tool.title} tool={tool} />
               ))}
@@ -569,7 +569,7 @@ export const ToolsGrid = () => {
           </TabsContent>
 
           <TabsContent value="all">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
               {filteredTools().map((tool) => (
                 <ToolCard key={tool.title} tool={tool} />
               ))}
@@ -578,7 +578,7 @@ export const ToolsGrid = () => {
 
           {categories.map((category) => (
             <TabsContent key={category} value={category}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
                 {filteredTools(category).map((tool) => (
                   <ToolCard key={tool.title} tool={tool} />
                 ))}
