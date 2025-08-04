@@ -138,24 +138,26 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md mx-auto">
-        <CardHeader className="text-center space-y-2">
-          <CardTitle className="text-2xl font-bold">Welcome to ConvertAll</CardTitle>
-          <CardDescription className="text-muted-foreground">
+      <Card className="w-full max-w-md mx-auto shadow-xl">
+        <CardHeader className="text-center pb-4">
+          <CardTitle className="text-2xl font-bold text-foreground">Welcome to ConvertAll</CardTitle>
+          <CardDescription className="text-muted-foreground text-sm mt-2">
             Sign in to your account or create a new one
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="px-6 pb-6">
           <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="login" className="text-sm">Login</TabsTrigger>
-              <TabsTrigger value="signup" className="text-sm">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-8 h-10">
+              <TabsTrigger value="login" className="text-sm font-medium">Login</TabsTrigger>
+              <TabsTrigger value="signup" className="text-sm font-medium">Sign Up</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="login" className="space-y-4">
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="login-email" className="text-sm font-medium">Email</Label>
+            <TabsContent value="login" className="mt-0">
+              <form onSubmit={handleLogin} className="space-y-6">
+                <div className="space-y-3">
+                  <Label htmlFor="login-email" className="text-sm font-medium text-foreground">
+                    Email
+                  </Label>
                   <Input
                     id="login-email"
                     type="email"
@@ -163,11 +165,14 @@ export default function Auth() {
                     onChange={(e) => setLoginEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="h-11"
+                    className="h-11 text-base"
+                    autoComplete="email"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="login-password" className="text-sm font-medium">Password</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="login-password" className="text-sm font-medium text-foreground">
+                    Password
+                  </Label>
                   <Input
                     id="login-password"
                     type="password"
@@ -175,10 +180,15 @@ export default function Auth() {
                     onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="Enter your password"
                     required
-                    className="h-11"
+                    className="h-11 text-base"
+                    autoComplete="current-password"
                   />
                 </div>
-                <Button type="submit" className="w-full h-11" disabled={isLoading}>
+                <Button 
+                  type="submit" 
+                  className="w-full h-11 text-base font-medium mt-8" 
+                  disabled={isLoading}
+                >
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -190,12 +200,14 @@ export default function Auth() {
                 </Button>
               </form>
               
-              <div className="relative">
+              <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
+                  <span className="w-full border-t border-border" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                  <span className="bg-card px-3 text-muted-foreground font-medium">
+                    Or continue with
+                  </span>
                 </div>
               </div>
               
@@ -203,10 +215,10 @@ export default function Auth() {
                 type="button"
                 variant="outline"
                 onClick={handleGoogleSignIn}
-                className="w-full h-11"
+                className="w-full h-11 text-base font-medium"
                 disabled={isLoading}
               >
-                <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+                <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
@@ -228,21 +240,26 @@ export default function Auth() {
               </Button>
             </TabsContent>
             
-            <TabsContent value="signup" className="space-y-4">
-              <form onSubmit={handleSignup} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="signup-name" className="text-sm font-medium">Full Name</Label>
+            <TabsContent value="signup" className="mt-0">
+              <form onSubmit={handleSignup} className="space-y-6">
+                <div className="space-y-3">
+                  <Label htmlFor="signup-name" className="text-sm font-medium text-foreground">
+                    Full Name
+                  </Label>
                   <Input
                     id="signup-name"
                     type="text"
                     value={signupFullName}
                     onChange={(e) => setSignupFullName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="h-11"
+                    className="h-11 text-base"
+                    autoComplete="name"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="signup-email" className="text-sm font-medium">Email</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="signup-email" className="text-sm font-medium text-foreground">
+                    Email
+                  </Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -250,11 +267,14 @@ export default function Auth() {
                     onChange={(e) => setSignupEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="h-11"
+                    className="h-11 text-base"
+                    autoComplete="email"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="signup-password" className="text-sm font-medium">Password</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="signup-password" className="text-sm font-medium text-foreground">
+                    Password
+                  </Label>
                   <Input
                     id="signup-password"
                     type="password"
@@ -263,10 +283,15 @@ export default function Auth() {
                     placeholder="Create a password"
                     required
                     minLength={6}
-                    className="h-11"
+                    className="h-11 text-base"
+                    autoComplete="new-password"
                   />
                 </div>
-                <Button type="submit" className="w-full h-11" disabled={isLoading}>
+                <Button 
+                  type="submit" 
+                  className="w-full h-11 text-base font-medium mt-8" 
+                  disabled={isLoading}
+                >
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -278,12 +303,14 @@ export default function Auth() {
                 </Button>
               </form>
               
-              <div className="relative">
+              <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
+                  <span className="w-full border-t border-border" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                  <span className="bg-card px-3 text-muted-foreground font-medium">
+                    Or continue with
+                  </span>
                 </div>
               </div>
               
@@ -291,10 +318,10 @@ export default function Auth() {
                 type="button"
                 variant="outline"
                 onClick={handleGoogleSignIn}
-                className="w-full h-11"
+                className="w-full h-11 text-base font-medium"
                 disabled={isLoading}
               >
-                <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+                <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
@@ -308,7 +335,7 @@ export default function Auth() {
                     fill="#FBBC05"
                   />
                   <path
-                    d="M12 23c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                     fill="#EA4335"
                   />
                 </svg>
