@@ -138,24 +138,24 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md mx-auto shadow-xl">
-        <CardHeader className="text-center pb-4">
-          <CardTitle className="text-2xl font-bold text-foreground">Welcome to ConvertAll</CardTitle>
-          <CardDescription className="text-muted-foreground text-sm mt-2">
+      <Card className="w-full max-w-md mx-auto shadow-xl bg-card/95 backdrop-blur">
+        <CardHeader className="text-center pb-6 pt-8 px-8">
+          <CardTitle className="text-2xl font-bold text-foreground mb-2">Welcome to ConvertAll</CardTitle>
+          <CardDescription className="text-muted-foreground text-base">
             Sign in to your account or create a new one
           </CardDescription>
         </CardHeader>
-        <CardContent className="px-6 pb-6">
+        <CardContent className="px-8 pb-8">
           <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8 h-10">
-              <TabsTrigger value="login" className="text-sm font-medium">Login</TabsTrigger>
-              <TabsTrigger value="signup" className="text-sm font-medium">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-8 h-12 bg-muted/50">
+              <TabsTrigger value="login" className="text-base font-medium py-2">Login</TabsTrigger>
+              <TabsTrigger value="signup" className="text-base font-medium py-2">Sign Up</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="login" className="mt-0">
+            <TabsContent value="login" className="mt-0 space-y-6">
               <form onSubmit={handleLogin} className="space-y-6">
-                <div className="space-y-3">
-                  <Label htmlFor="login-email" className="text-sm font-medium text-foreground">
+                <div className="space-y-4">
+                  <Label htmlFor="login-email" className="text-base font-medium text-foreground">
                     Email
                   </Label>
                   <Input
@@ -165,12 +165,12 @@ export default function Auth() {
                     onChange={(e) => setLoginEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="h-11 text-base"
+                    className="h-12 text-base bg-background/50 border-border/50 focus:border-primary/50"
                     autoComplete="email"
                   />
                 </div>
-                <div className="space-y-3">
-                  <Label htmlFor="login-password" className="text-sm font-medium text-foreground">
+                <div className="space-y-4">
+                  <Label htmlFor="login-password" className="text-base font-medium text-foreground">
                     Password
                   </Label>
                   <Input
@@ -180,33 +180,35 @@ export default function Auth() {
                     onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="Enter your password"
                     required
-                    className="h-11 text-base"
+                    className="h-12 text-base bg-background/50 border-border/50 focus:border-primary/50"
                     autoComplete="current-password"
                   />
                 </div>
-                <Button 
-                  type="submit" 
-                  className="w-full h-11 text-base font-medium mt-8" 
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Logging in...
-                    </>
-                  ) : (
-                    'Log In'
-                  )}
-                </Button>
+                <div className="pt-4">
+                  <Button 
+                    type="submit" 
+                    className="w-full h-12 text-base font-semibold bg-primary hover:bg-primary/90 transition-all duration-200" 
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Logging in...
+                      </>
+                    ) : (
+                      'Log In'
+                    )}
+                  </Button>
+                </div>
               </form>
               
               <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-border" />
+                  <span className="w-full border-t border-border/50" />
                 </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-3 text-muted-foreground font-medium">
-                    Or continue with
+                <div className="relative flex justify-center text-sm uppercase">
+                  <span className="bg-card px-4 text-muted-foreground font-medium tracking-wide">
+                    OR CONTINUE WITH
                   </span>
                 </div>
               </div>
@@ -215,7 +217,7 @@ export default function Auth() {
                 type="button"
                 variant="outline"
                 onClick={handleGoogleSignIn}
-                className="w-full h-11 text-base font-medium"
+                className="w-full h-12 text-base font-medium bg-background/50 border-border/50 hover:bg-background/80 transition-all duration-200"
                 disabled={isLoading}
               >
                 <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
@@ -240,10 +242,10 @@ export default function Auth() {
               </Button>
             </TabsContent>
             
-            <TabsContent value="signup" className="mt-0">
+            <TabsContent value="signup" className="mt-0 space-y-6">
               <form onSubmit={handleSignup} className="space-y-6">
-                <div className="space-y-3">
-                  <Label htmlFor="signup-name" className="text-sm font-medium text-foreground">
+                <div className="space-y-4">
+                  <Label htmlFor="signup-name" className="text-base font-medium text-foreground">
                     Full Name
                   </Label>
                   <Input
@@ -252,12 +254,12 @@ export default function Auth() {
                     value={signupFullName}
                     onChange={(e) => setSignupFullName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="h-11 text-base"
+                    className="h-12 text-base bg-background/50 border-border/50 focus:border-primary/50"
                     autoComplete="name"
                   />
                 </div>
-                <div className="space-y-3">
-                  <Label htmlFor="signup-email" className="text-sm font-medium text-foreground">
+                <div className="space-y-4">
+                  <Label htmlFor="signup-email" className="text-base font-medium text-foreground">
                     Email
                   </Label>
                   <Input
@@ -267,12 +269,12 @@ export default function Auth() {
                     onChange={(e) => setSignupEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="h-11 text-base"
+                    className="h-12 text-base bg-background/50 border-border/50 focus:border-primary/50"
                     autoComplete="email"
                   />
                 </div>
-                <div className="space-y-3">
-                  <Label htmlFor="signup-password" className="text-sm font-medium text-foreground">
+                <div className="space-y-4">
+                  <Label htmlFor="signup-password" className="text-base font-medium text-foreground">
                     Password
                   </Label>
                   <Input
@@ -283,33 +285,35 @@ export default function Auth() {
                     placeholder="Create a password"
                     required
                     minLength={6}
-                    className="h-11 text-base"
+                    className="h-12 text-base bg-background/50 border-border/50 focus:border-primary/50"
                     autoComplete="new-password"
                   />
                 </div>
-                <Button 
-                  type="submit" 
-                  className="w-full h-11 text-base font-medium mt-8" 
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Creating account...
-                    </>
-                  ) : (
-                    'Sign Up'
-                  )}
-                </Button>
+                <div className="pt-4">
+                  <Button 
+                    type="submit" 
+                    className="w-full h-12 text-base font-semibold bg-primary hover:bg-primary/90 transition-all duration-200" 
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Creating account...
+                      </>
+                    ) : (
+                      'Sign Up'
+                    )}
+                  </Button>
+                </div>
               </form>
               
               <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-border" />
+                  <span className="w-full border-t border-border/50" />
                 </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-3 text-muted-foreground font-medium">
-                    Or continue with
+                <div className="relative flex justify-center text-sm uppercase">
+                  <span className="bg-card px-4 text-muted-foreground font-medium tracking-wide">
+                    OR CONTINUE WITH
                   </span>
                 </div>
               </div>
@@ -318,7 +322,7 @@ export default function Auth() {
                 type="button"
                 variant="outline"
                 onClick={handleGoogleSignIn}
-                className="w-full h-11 text-base font-medium"
+                className="w-full h-12 text-base font-medium bg-background/50 border-border/50 hover:bg-background/80 transition-all duration-200"
                 disabled={isLoading}
               >
                 <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
