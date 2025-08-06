@@ -12,13 +12,26 @@ export const AuthButton: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
+    try {
+      await signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+  };
+
+  const handleSignIn = () => {
+    console.log('Navigating to auth page');
+    navigate('/auth');
   };
 
   if (!user) {
     return (
-      <Button onClick={() => navigate('/auth')} variant="outline">
+      <Button 
+        onClick={handleSignIn} 
+        variant="outline"
+        className="h-8 md:h-9 text-sm md:text-base px-2 md:px-4"
+      >
         Sign In
       </Button>
     );
@@ -33,18 +46,18 @@ export const AuthButton: React.FC = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarFallback>
+            <AvatarFallback className="text-xs">
               {getInitials(user.email || '')}
             </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem disabled>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuItem disabled className="text-xs">
           <User className="mr-2 h-4 w-4" />
           {user.email}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleSignOut}>
+        <DropdownMenuItem onClick={handleSignOut} className="text-xs">
           <LogOut className="mr-2 h-4 w-4" />
           Log out
         </DropdownMenuItem>

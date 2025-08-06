@@ -26,7 +26,7 @@ export default function Auth() {
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      navigate('/dashboard');
+      navigate('/');
     }
   }, [user, navigate]);
 
@@ -56,7 +56,7 @@ export default function Auth() {
           title: "Welcome back!",
           description: "You have been successfully logged in."
         });
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (error) {
       toast({
@@ -116,7 +116,7 @@ export default function Auth() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`
+          redirectTo: `${window.location.origin}/`
         }
       });
       
@@ -137,25 +137,25 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md mx-auto shadow-xl">
-        <CardHeader className="text-center pb-4">
-          <CardTitle className="text-2xl font-bold text-foreground">Welcome to ConvertAll</CardTitle>
-          <CardDescription className="text-muted-foreground text-sm mt-2">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-2 md:p-4">
+      <Card className="w-full max-w-sm md:max-w-md mx-auto shadow-xl">
+        <CardHeader className="text-center pb-2 md:pb-4 px-4 md:px-6">
+          <CardTitle className="text-lg md:text-2xl font-bold text-foreground">Welcome to Conform</CardTitle>
+          <CardDescription className="text-muted-foreground text-xs md:text-sm mt-1 md:mt-2">
             Sign in to your account or create a new one
           </CardDescription>
         </CardHeader>
-        <CardContent className="px-6 pb-6">
+        <CardContent className="px-4 md:px-6 pb-4 md:pb-6">
           <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8 h-10">
-              <TabsTrigger value="login" className="text-sm font-medium">Login</TabsTrigger>
-              <TabsTrigger value="signup" className="text-sm font-medium">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-4 md:mb-8 h-8 md:h-10">
+              <TabsTrigger value="login" className="text-xs md:text-sm font-medium">Login</TabsTrigger>
+              <TabsTrigger value="signup" className="text-xs md:text-sm font-medium">Sign Up</TabsTrigger>
             </TabsList>
             
             <TabsContent value="login" className="mt-0">
-              <form onSubmit={handleLogin} className="space-y-6">
-                <div className="space-y-3">
-                  <Label htmlFor="login-email" className="text-sm font-medium text-foreground">
+              <form onSubmit={handleLogin} className="space-y-3 md:space-y-6">
+                <div className="space-y-1 md:space-y-3">
+                  <Label htmlFor="login-email" className="text-xs md:text-sm font-medium text-foreground">
                     Email
                   </Label>
                   <Input
@@ -165,12 +165,12 @@ export default function Auth() {
                     onChange={(e) => setLoginEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="h-11 text-base"
+                    className="h-8 md:h-11 text-sm md:text-base"
                     autoComplete="email"
                   />
                 </div>
-                <div className="space-y-3">
-                  <Label htmlFor="login-password" className="text-sm font-medium text-foreground">
+                <div className="space-y-1 md:space-y-3">
+                  <Label htmlFor="login-password" className="text-xs md:text-sm font-medium text-foreground">
                     Password
                   </Label>
                   <Input
@@ -180,18 +180,18 @@ export default function Auth() {
                     onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="Enter your password"
                     required
-                    className="h-11 text-base"
+                    className="h-8 md:h-11 text-sm md:text-base"
                     autoComplete="current-password"
                   />
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full h-11 text-base font-medium mt-8" 
+                  className="w-full h-8 md:h-11 text-sm md:text-base font-medium mt-4 md:mt-8" 
                   disabled={isLoading}
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader2 className="mr-2 h-3 w-3 md:h-4 md:w-4 animate-spin" />
                       Logging in...
                     </>
                   ) : (
@@ -200,12 +200,12 @@ export default function Auth() {
                 </Button>
               </form>
               
-              <div className="relative my-8">
+              <div className="relative my-4 md:my-8">
                 <div className="absolute inset-0 flex items-center">
                   <span className="w-full border-t border-border" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-3 text-muted-foreground font-medium">
+                  <span className="bg-card px-2 md:px-3 text-muted-foreground font-medium">
                     Or continue with
                   </span>
                 </div>
@@ -215,10 +215,10 @@ export default function Auth() {
                 type="button"
                 variant="outline"
                 onClick={handleGoogleSignIn}
-                className="w-full h-11 text-base font-medium"
+                className="w-full h-8 md:h-11 text-sm md:text-base font-medium"
                 disabled={isLoading}
               >
-                <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
+                <svg className="mr-2 md:mr-3 h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
@@ -241,9 +241,9 @@ export default function Auth() {
             </TabsContent>
             
             <TabsContent value="signup" className="mt-0">
-              <form onSubmit={handleSignup} className="space-y-6">
-                <div className="space-y-3">
-                  <Label htmlFor="signup-name" className="text-sm font-medium text-foreground">
+              <form onSubmit={handleSignup} className="space-y-3 md:space-y-6">
+                <div className="space-y-1 md:space-y-3">
+                  <Label htmlFor="signup-name" className="text-xs md:text-sm font-medium text-foreground">
                     Full Name
                   </Label>
                   <Input
@@ -252,12 +252,12 @@ export default function Auth() {
                     value={signupFullName}
                     onChange={(e) => setSignupFullName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="h-11 text-base"
+                    className="h-8 md:h-11 text-sm md:text-base"
                     autoComplete="name"
                   />
                 </div>
-                <div className="space-y-3">
-                  <Label htmlFor="signup-email" className="text-sm font-medium text-foreground">
+                <div className="space-y-1 md:space-y-3">
+                  <Label htmlFor="signup-email" className="text-xs md:text-sm font-medium text-foreground">
                     Email
                   </Label>
                   <Input
@@ -267,12 +267,12 @@ export default function Auth() {
                     onChange={(e) => setSignupEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="h-11 text-base"
+                    className="h-8 md:h-11 text-sm md:text-base"
                     autoComplete="email"
                   />
                 </div>
-                <div className="space-y-3">
-                  <Label htmlFor="signup-password" className="text-sm font-medium text-foreground">
+                <div className="space-y-1 md:space-y-3">
+                  <Label htmlFor="signup-password" className="text-xs md:text-sm font-medium text-foreground">
                     Password
                   </Label>
                   <Input
@@ -283,18 +283,18 @@ export default function Auth() {
                     placeholder="Create a password"
                     required
                     minLength={6}
-                    className="h-11 text-base"
+                    className="h-8 md:h-11 text-sm md:text-base"
                     autoComplete="new-password"
                   />
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full h-11 text-base font-medium mt-8" 
+                  className="w-full h-8 md:h-11 text-sm md:text-base font-medium mt-4 md:mt-8" 
                   disabled={isLoading}
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader2 className="mr-2 h-3 w-3 md:h-4 md:w-4 animate-spin" />
                       Creating account...
                     </>
                   ) : (
@@ -303,12 +303,12 @@ export default function Auth() {
                 </Button>
               </form>
               
-              <div className="relative my-8">
+              <div className="relative my-4 md:my-8">
                 <div className="absolute inset-0 flex items-center">
                   <span className="w-full border-t border-border" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-3 text-muted-foreground font-medium">
+                  <span className="bg-card px-2 md:px-3 text-muted-foreground font-medium">
                     Or continue with
                   </span>
                 </div>
@@ -318,10 +318,10 @@ export default function Auth() {
                 type="button"
                 variant="outline"
                 onClick={handleGoogleSignIn}
-                className="w-full h-11 text-base font-medium"
+                className="w-full h-8 md:h-11 text-sm md:text-base font-medium"
                 disabled={isLoading}
               >
-                <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
+                <svg className="mr-2 md:mr-3 h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
