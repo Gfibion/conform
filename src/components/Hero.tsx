@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, FileCode, Globe, Calculator, Zap, Search } from "lucide-react";
@@ -29,7 +28,6 @@ export const Hero = () => {
   };
 
   const handleSearch = () => {
-    // For now, navigate to the most relevant page based on search query
     const query = searchQuery.toLowerCase();
     if (query.includes('file') || query.includes('convert') || query.includes('pdf')) {
       navigate('/file-conversion');
@@ -42,21 +40,20 @@ export const Hero = () => {
     } else if (query.includes('formula')) {
       navigate('/formulas');
     } else {
-      // Default to unit conversion as it's most common
       navigate('/unit-conversion');
     }
   };
 
   return (
-    <section className="relative py-12 md:py-20 overflow-hidden bg-gradient-hero">
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="relative py-4 md:py-20 overflow-hidden bg-gradient-hero">
+      <div className="container mx-auto mobile-px-compact relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center space-x-2 bg-primary/10 border border-primary/20 rounded-full px-3 py-1.5 mb-6">
-            <Zap className="w-3 h-3 text-primary" />
-            <span className="text-xs text-foreground/80">Converting the World, One Format at a Time</span>
+          <div className="inline-flex items-center space-x-1 bg-primary/10 border border-primary/20 rounded-full px-2 py-1 mb-3 md:px-3 md:py-1.5 md:mb-6">
+            <Zap className="w-2.5 h-2.5 md:w-3 md:h-3 text-primary" />
+            <span className="text-xs md:text-xs text-foreground/80">Converting the World, One Format at a Time</span>
           </div>
           
-          <h1 className="text-3xl md:text-6xl font-bold mb-6 text-foreground leading-tight">
+          <h1 className="text-2xl md:text-6xl font-bold mb-3 md:mb-6 text-foreground leading-tight px-2">
             Universal Conversion
             <br />
             <span className="bg-gradient-secondary bg-clip-text text-transparent">
@@ -64,26 +61,26 @@ export const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-base md:text-lg text-foreground/80 mb-8 max-w-2xl mx-auto leading-relaxed px-4">
+          <p className="text-sm md:text-lg text-foreground/80 mb-4 md:mb-8 max-w-2xl mx-auto leading-relaxed px-3 md:px-4">
             Transform files, translate code, convert units, and repair documents with our intelligent, 
             AI-powered conversion platform. No registration required to get started.
           </p>
 
-          {/* Search Function */}
-          <div className="max-w-md mx-auto mb-8 px-4">
+          {/* Search Function - More compact on mobile */}
+          <div className="max-w-xs md:max-w-md mx-auto mb-4 md:mb-8 px-3 md:px-4">
             <div className="relative">
               <Input
                 type="text"
                 placeholder="Search conversions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-20 py-3 text-sm"
+                className="pl-8 pr-16 py-2 md:pl-10 md:pr-20 md:py-3 text-xs md:text-sm h-8 md:h-auto"
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
               />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Search className="absolute left-2.5 md:left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-3 h-3 md:w-4 md:h-4" />
               <Button 
                 size="sm" 
-                className="absolute right-1 top-1/2 transform -translate-y-1/2"
+                className="absolute right-0.5 md:right-1 top-1/2 transform -translate-y-1/2 h-7 px-2 text-xs md:h-auto md:px-auto md:text-sm"
                 onClick={handleSearch}
               >
                 Search
@@ -91,61 +88,61 @@ export const Hero = () => {
             </div>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 px-4">
+          <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center mb-6 md:mb-8 px-3 md:px-4">
             <Button 
-              size="default" 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow transition-all duration-300 hover:scale-105"
+              size="sm"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow transition-all duration-300 hover:scale-105 h-8 md:h-10 text-xs md:text-sm"
             >
               Start Converting Free
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-3 h-3 md:w-4 md:h-4 ml-1 md:ml-2" />
             </Button>
             <Button 
-              size="default" 
+              size="sm"
               variant="outline" 
-              className="border-border hover:bg-accent"
+              className="border-border hover:bg-accent h-8 md:h-10 text-xs md:text-sm"
               onClick={() => navigate('/formulas')}
             >
               View Formulas
             </Button>
           </div>
           
-          {/* Feature icons - Now functional and mobile responsive */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 px-4">
+          {/* Feature icons - Much more compact on mobile */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-6 md:mt-12 px-3 md:px-4">
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('file-conversion')}
             >
-              <div className="w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <FileCode className="w-6 h-6 text-primary" />
+              <div className="w-8 h-8 md:w-12 md:h-12 bg-primary/10 rounded-lg mx-auto mb-1.5 md:mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <FileCode className="w-4 h-4 md:w-6 md:h-6 text-primary" />
               </div>
-              <p className="text-sm text-foreground/70 group-hover:text-primary transition-colors">File Conversion</p>
+              <p className="text-xs md:text-sm text-foreground/70 group-hover:text-primary transition-colors">File Conversion</p>
             </div>
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('language-translation')}
             >
-              <div className="w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Globe className="w-6 h-6 text-primary" />
+              <div className="w-8 h-8 md:w-12 md:h-12 bg-primary/10 rounded-lg mx-auto mb-1.5 md:mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Globe className="w-4 h-4 md:w-6 md:h-6 text-primary" />
               </div>
-              <p className="text-sm text-foreground/70 group-hover:text-primary transition-colors">Language Translation</p>
+              <p className="text-xs md:text-sm text-foreground/70 group-hover:text-primary transition-colors">Language Translation</p>
             </div>
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('unit-conversion')}
             >
-              <div className="w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Calculator className="w-6 h-6 text-primary" />
+              <div className="w-8 h-8 md:w-12 md:h-12 bg-primary/10 rounded-lg mx-auto mb-1.5 md:mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Calculator className="w-4 h-4 md:w-6 md:h-6 text-primary" />
               </div>
-              <p className="text-sm text-foreground/70 group-hover:text-primary transition-colors">Unit Conversion</p>
+              <p className="text-xs md:text-sm text-foreground/70 group-hover:text-primary transition-colors">Unit Conversion</p>
             </div>
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('ai-tools')}
             >
-              <div className="w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Zap className="w-6 h-6 text-primary" />
+              <div className="w-8 h-8 md:w-12 md:h-12 bg-primary/10 rounded-lg mx-auto mb-1.5 md:mb-3 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Zap className="w-4 h-4 md:w-6 md:h-6 text-primary" />
               </div>
-              <p className="text-sm text-foreground/70 group-hover:text-primary transition-colors">AI-Powered Tools</p>
+              <p className="text-xs md:text-sm text-foreground/70 group-hover:text-primary transition-colors">AI-Powered Tools</p>
             </div>
           </div>
         </div>

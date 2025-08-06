@@ -123,7 +123,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-size: 14px;
+    font-size: 12px; /* Even smaller base font for mobile */
   }
 
   /* Ensure proper mobile layout */
@@ -132,13 +132,13 @@
     width: 100%;
   }
 
-  /* Mobile-first container adjustments - more compact */
+  /* Mobile-first container adjustments - ultra compact */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.375rem; /* Even more compact */
+    padding-right: 0.375rem;
   }
 
   @media (min-width: 640px) {
@@ -164,7 +164,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    line-height: 1.2;
+    line-height: 1.1; /* Tighter line height for mobile */
   }
 
   .line-clamp-3 {
@@ -172,17 +172,17 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    line-height: 1.2;
+    line-height: 1.1;
   }
 
-  /* Optimized card layouts - more compact mobile */
+  /* Optimized card layouts - ultra compact mobile */
   @media (max-width: 640px) {
     .grid {
-      gap: 0.375rem !important;
+      gap: 0.25rem !important; /* Even tighter grid gaps */
     }
     
     .grid-cols-2 > * {
-      min-height: 100px;
+      min-height: 80px; /* Smaller minimum heights */
     }
   }
 
@@ -200,54 +200,54 @@
 }
 
 @layer utilities {
-  /* Enhanced mobile utilities - more compact */
+  /* Enhanced mobile utilities - ultra compact */
   @media (max-width: 640px) {
     .mobile-padding {
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
-    
-    .mobile-text-xs {
-      font-size: 0.625rem;
-      line-height: 0.875rem;
-    }
-    
-    .mobile-compact {
-      padding: 0.25rem;
-    }
-
-    /* More compact spacing utilities */
-    .mobile-space-y-1 > * + * {
-      margin-top: 0.25rem;
-    }
-
-    .mobile-space-y-2 > * + * {
-      margin-top: 0.5rem;
-    }
-
-    .mobile-py-compact {
-      padding-top: 0.375rem;
-      padding-bottom: 0.375rem;
-    }
-
-    .mobile-px-compact {
       padding-left: 0.375rem;
       padding-right: 0.375rem;
     }
+    
+    .mobile-text-xs {
+      font-size: 0.5rem; /* Even smaller text */
+      line-height: 0.75rem;
+    }
+    
+    .mobile-compact {
+      padding: 0.125rem; /* Ultra compact padding */
+    }
 
-    /* Compact button sizing */
+    /* Ultra compact spacing utilities */
+    .mobile-space-y-1 > * + * {
+      margin-top: 0.125rem;
+    }
+
+    .mobile-space-y-2 > * + * {
+      margin-top: 0.25rem;
+    }
+
+    .mobile-py-compact {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
+
+    .mobile-px-compact {
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+
+    /* Ultra compact button sizing */
     .mobile-btn-sm {
-      height: 2rem;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-      font-size: 0.75rem;
+      height: 1.75rem; /* Smaller buttons */
+      padding-left: 0.375rem;
+      padding-right: 0.375rem;
+      font-size: 0.625rem;
     }
   }
 
-  /* Responsive typography utilities - smaller on mobile */
+  /* Responsive typography utilities - much smaller on mobile */
   .text-responsive-xs {
-    font-size: 0.625rem;
-    line-height: 0.875rem;
+    font-size: 0.5rem; /* Ultra small */
+    line-height: 0.75rem;
   }
 
   @media (min-width: 640px) {
@@ -258,8 +258,8 @@
   }
 
   .text-responsive-sm {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.625rem; /* Very small mobile text */
+    line-height: 0.875rem;
   }
 
   @media (min-width: 640px) {
@@ -270,8 +270,8 @@
   }
 
   .text-responsive-base {
-    font-size: 0.75rem;
-    line-height: 1.125rem;
+    font-size: 0.625rem; /* Smaller base mobile text */
+    line-height: 1rem;
   }
 
   @media (min-width: 640px) {
@@ -282,8 +282,8 @@
   }
 
   .text-responsive-lg {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 0.75rem; /* Smaller large mobile text */
+    line-height: 1.125rem;
   }
 
   @media (min-width: 640px) {
@@ -294,8 +294,8 @@
   }
 
   .text-responsive-xl {
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   @media (min-width: 640px) {
@@ -306,8 +306,8 @@
   }
 
   .text-responsive-2xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
   @media (min-width: 640px) {
@@ -318,8 +318,8 @@
   }
 
   .text-responsive-3xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 
   @media (min-width: 640px) {
@@ -330,8 +330,8 @@
   }
 
   .text-responsive-4xl {
-    font-size: 1.75rem;
-    line-height: 2.25rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   @media (min-width: 640px) {
@@ -341,9 +341,9 @@
     }
   }
 
-  /* Card optimization utilities - more compact */
+  /* Card optimization utilities - ultra compact */
   .card-compact {
-    padding: 0.5rem;
+    padding: 0.375rem; /* More compact card padding */
   }
 
   @media (min-width: 640px) {
@@ -359,7 +359,7 @@
   }
 
   .card-micro {
-    padding: 0.375rem;
+    padding: 0.25rem; /* Ultra micro padding */
   }
 
   @media (min-width: 640px) {
@@ -368,16 +368,56 @@
     }
   }
 
-  /* Compact header utilities */
+  /* Ultra compact header utilities */
   .header-compact {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
 
   @media (min-width: 640px) {
     .header-compact {
       padding-top: 0.75rem;
       padding-bottom: 0.75rem;
+    }
+  }
+
+  /* Additional mobile-specific utilities */
+  @media (max-width: 640px) {
+    .mobile-text-2xs {
+      font-size: 0.5rem;
+      line-height: 0.75rem;
+    }
+
+    .mobile-h-6 {
+      height: 1.5rem;
+    }
+
+    .mobile-h-7 {
+      height: 1.75rem;
+    }
+
+    .mobile-h-8 {
+      height: 2rem;
+    }
+
+    .mobile-gap-1 {
+      gap: 0.25rem;
+    }
+
+    .mobile-gap-2 {
+      gap: 0.5rem;
+    }
+
+    .mobile-rounded-sm {
+      border-radius: 0.125rem;
+    }
+
+    .mobile-p-1 {
+      padding: 0.25rem;
+    }
+
+    .mobile-p-2 {
+      padding: 0.5rem;
     }
   }
 }
