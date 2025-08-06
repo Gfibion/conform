@@ -1,8 +1,7 @@
 
 import Auth from "@/pages/Auth";
-import Dashboard from "@/pages/Dashboard";
-import History from "@/pages/History";
 import Index from "@/pages/Index";
+import History from "@/pages/History";
 import NotFound from "@/pages/NotFound";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -27,7 +26,7 @@ function App() {
                 path="/dashboard"
                 element={
                   <ProtectedRoute>
-                    <Dashboard />
+                    <Index />
                   </ProtectedRoute>
                 }
               />
