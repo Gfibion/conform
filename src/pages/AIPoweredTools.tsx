@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { Brain, Wand2, FileText, Image, Code, MessageSquare, Search, Lightbulb } from "lucide-react";
+import { Brain, Wand2, FileText, Image, Code, MessageSquare, Search, Lightbulb, ArrowLeft } from "lucide-react";
 import { AITextTools } from "@/components/tools/AITextTools";
 import { AICodeTools } from "@/components/tools/AICodeTools";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const AIPoweredTools = () => {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
@@ -123,6 +124,16 @@ const AIPoweredTools = () => {
       <Navigation />
       
       <div className="container mx-auto px-4 py-8">
+        {/* Back Navigation */}
+        <div className="mb-6">
+          <Link to="/">
+            <Button variant="ghost" className="p-2 h-auto hover:bg-accent">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Button>
+          </Link>
+        </div>
+        
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">AI-Powered Tools</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

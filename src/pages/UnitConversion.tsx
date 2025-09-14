@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { QuickConverter } from "@/components/QuickConverter";
@@ -9,7 +10,8 @@ import { LengthConverter } from "@/components/tools/LengthConverter";
 import { WeightConverter } from "@/components/tools/WeightConverter";
 import { TemperatureConverter } from "@/components/tools/TemperatureConverter";
 import { TimeConverter } from "@/components/tools/TimeConverter";
-import { Calculator, Ruler, Weight, Thermometer, Clock, TrendingUp } from "lucide-react";
+import { Calculator, Ruler, Weight, Thermometer, Clock, TrendingUp, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const UnitConversion = () => {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
@@ -75,6 +77,18 @@ const UnitConversion = () => {
       <Navigation />
       
       <div className="container mx-auto px-4 py-8">
+        {/* Back Navigation */}
+        {!selectedTool && (
+          <div className="mb-6">
+            <Link to="/">
+              <Button variant="ghost" className="p-2 h-auto hover:bg-accent">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Home
+              </Button>
+            </Link>
+          </div>
+        )}
+        
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">Unit Conversion Tools</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
