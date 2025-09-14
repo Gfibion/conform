@@ -1,10 +1,15 @@
 
 import { Button } from "@/components/ui/button";
-import { Moon, Sun, Zap, Menu, X } from "lucide-react";
+import { Moon, Sun, Zap, Menu, X, FileCode, Globe, Calculator, Brain, BookOpen } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { AuthButton } from "@/components/AuthButton";
 import { Link } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const Navigation = () => {
   const [isDark, setIsDark] = useState(false);
@@ -40,9 +45,85 @@ export const Navigation = () => {
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <a href="#tools" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-              Tools
-            </a>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-muted-foreground hover:text-foreground transition-colors text-sm flex items-center gap-1">
+                Tools
+                <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 10 6">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                </svg>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-80 p-4 bg-background border border-border shadow-lg z-50">
+                <div className="grid grid-cols-2 gap-3">
+                  <Link 
+                    to="/file-conversion" 
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors group"
+                  >
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <FileCode className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-sm">File Conversion</div>
+                      <div className="text-xs text-muted-foreground">PDF, Images, Videos</div>
+                    </div>
+                  </Link>
+                  
+                  <Link 
+                    to="/language-translation" 
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors group"
+                  >
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <Globe className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-sm">Language Translation</div>
+                      <div className="text-xs text-muted-foreground">Text, Voice, Documents</div>
+                    </div>
+                  </Link>
+                  
+                  <Link 
+                    to="/unit-conversion" 
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors group"
+                  >
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <Calculator className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-sm">Unit Conversion</div>
+                      <div className="text-xs text-muted-foreground">Length, Weight, Temperature</div>
+                    </div>
+                  </Link>
+                  
+                  <Link 
+                    to="/ai-powered-tools" 
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors group"
+                  >
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <Brain className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-sm">AI-Powered Tools</div>
+                      <div className="text-xs text-muted-foreground">Smart Conversions</div>
+                    </div>
+                  </Link>
+                </div>
+                
+                <div className="mt-3 pt-3 border-t border-border">
+                  <Link 
+                    to="/formulas" 
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors group w-full"
+                  >
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <BookOpen className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-sm">Formulas & Calculators</div>
+                      <div className="text-xs text-muted-foreground">Mathematical formulas and calculations</div>
+                    </div>
+                  </Link>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
             <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
               About
             </a>
@@ -89,9 +170,26 @@ export const Navigation = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-2 md:mt-4 pb-2 md:pb-4 border-t border-border">
             <div className="flex flex-col space-y-2 md:space-y-4 pt-2 md:pt-4">
-              <a href="#tools" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                Tools
-              </a>
+              <div className="space-y-2">
+                <div className="text-sm font-medium text-foreground mb-2">Tools</div>
+                <div className="grid grid-cols-1 gap-2 ml-3">
+                  <Link to="/file-conversion" className="text-muted-foreground hover:text-foreground transition-colors text-sm py-1">
+                    File Conversion
+                  </Link>
+                  <Link to="/language-translation" className="text-muted-foreground hover:text-foreground transition-colors text-sm py-1">
+                    Language Translation
+                  </Link>
+                  <Link to="/unit-conversion" className="text-muted-foreground hover:text-foreground transition-colors text-sm py-1">
+                    Unit Conversion
+                  </Link>
+                  <Link to="/ai-powered-tools" className="text-muted-foreground hover:text-foreground transition-colors text-sm py-1">
+                    AI-Powered Tools
+                  </Link>
+                  <Link to="/formulas" className="text-muted-foreground hover:text-foreground transition-colors text-sm py-1">
+                    Formulas
+                  </Link>
+                </div>
+              </div>
               <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
                 About
               </a>
