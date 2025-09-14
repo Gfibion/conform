@@ -4,6 +4,7 @@ import { Moon, Sun, Zap, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { AuthButton } from "@/components/AuthButton";
+import { Link } from "react-router-dom";
 
 export const Navigation = () => {
   const [isDark, setIsDark] = useState(false);
@@ -28,14 +29,14 @@ export const Navigation = () => {
       <div className="container mx-auto px-2 md:px-4 py-2 md:py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-1 md:space-x-2">
+          <Link to="/" className="flex items-center space-x-1 md:space-x-2 hover:opacity-80 transition-opacity">
             <div className="w-6 h-6 md:w-8 md:h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
               <Zap className="w-3 h-3 md:w-5 md:h-5 text-white" />
             </div>
             <span className="text-lg md:text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
               Conform
             </span>
-          </div>
+          </Link>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
