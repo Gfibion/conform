@@ -25,19 +25,67 @@ export const ConversionDialog = ({ isOpen, onClose, tool }: ConversionDialogProp
 
   const getConversionType = (title: string): string => {
     const typeMap: { [key: string]: string } = {
+      // Text Tools
       'Text Case Converter': 'text_case',
       'Word Counter': 'text_count',
+      'Text Difference Checker': 'text_diff',
+      'Lorem Ipsum Generator': 'lorem_generate',
+      'Markdown to HTML': 'markdown_to_html',
+      
+      // Developer Tools
       'Base64 Encoder/Decoder': 'base64_encode',
       'URL Encoder/Decoder': 'url_encode',
       'Hash Generator': 'hash_generate',
       'QR Code Generator': 'qr_generate',
+      'JSON Formatter': 'json_format',
+      'Password Generator': 'password_generate',
+      'Regular Expression Tester': 'regex_test',
+      'CSS Minifier': 'css_minify',
+      'JavaScript Minifier': 'js_minify',
+      'HTML Encoder/Decoder': 'html_encode',
+      
+      // Color Tools
       'Color Converter': 'color_convert',
+      'Color Palette Generator': 'color_palette',
+      'Gradient Generator': 'gradient_generate',
+      
+      // PDF Tools
       'PDF Compress': 'pdf_compress',
+      'PDF Merge': 'pdf_merge',
+      'PDF Split': 'pdf_split',
       'PDF to Word': 'pdf_to_word',
-      'Image Compress': 'image_compress',
-      'Image Resize': 'image_resize',
-      'Video Compress': 'video_compress',
-      'Audio Convert': 'audio_convert',
+      'PDF to Excel': 'pdf_to_excel',
+      'PDF to PowerPoint': 'pdf_to_powerpoint',
+      'PDF to Image': 'pdf_to_image',
+      'Word to PDF': 'word_to_pdf',
+      'Excel to PDF': 'excel_to_pdf',
+      'PowerPoint to PDF': 'powerpoint_to_pdf',
+      
+      // Image Tools
+      'Image Compressor': 'image_compress',
+      'Image Resizer': 'image_resize',
+      'Image Format Converter': 'image_format_convert',
+      'Image Cropper': 'image_crop',
+      'Image Rotator': 'image_rotate',
+      'Image Flipper': 'image_flip',
+      'Watermark Adder': 'watermark_add',
+      'Background Remover': 'background_remove',
+      
+      // Unit Converters
+      'Length Converter': 'length_convert',
+      'Weight Converter': 'weight_convert',
+      'Temperature Converter': 'temperature_convert',
+      'Currency Converter': 'currency_convert',
+      'Time Zone Converter': 'timezone_convert',
+      'Area Converter': 'area_convert',
+      'Volume Converter': 'volume_convert',
+      'Speed Converter': 'speed_convert',
+      
+      // AI Tools
+      'AI Text Summarizer': 'ai_summarize',
+      'AI Code Generator': 'ai_code_generate',
+      'AI Paraphraser': 'ai_paraphrase',
+      'AI Grammar Checker': 'ai_grammar_check',
     }
     return typeMap[title] || 'generic_conversion'
   }
@@ -248,6 +296,188 @@ export const ConversionDialog = ({ isOpen, onClose, tool }: ConversionDialogProp
           </div>
         )
 
+      case 'text_diff':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="text1">First Text</Label>
+              <Textarea
+                id="text1"
+                placeholder="Enter the first text to compare..."
+                value={inputData.text1 || ''}
+                onChange={(e) => setInputData({ ...inputData, text1: e.target.value })}
+                className="min-h-32"
+              />
+            </div>
+            <div>
+              <Label htmlFor="text2">Second Text</Label>
+              <Textarea
+                id="text2"
+                placeholder="Enter the second text to compare..."
+                value={inputData.text2 || ''}
+                onChange={(e) => setInputData({ ...inputData, text2: e.target.value })}
+                className="min-h-32"
+              />
+            </div>
+          </div>
+        )
+
+      case 'lorem_generate':
+        return (
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="paragraphs">Number of Paragraphs</Label>
+                <Input
+                  id="paragraphs"
+                  type="number"
+                  placeholder="5"
+                  value={inputData.paragraphs || ''}
+                  onChange={(e) => setInputData({ ...inputData, paragraphs: parseInt(e.target.value) })}
+                />
+              </div>
+              <div>
+                <Label htmlFor="words_per_paragraph">Words per Paragraph</Label>
+                <Input
+                  id="words_per_paragraph"
+                  type="number"
+                  placeholder="50"
+                  value={inputData.words_per_paragraph || ''}
+                  onChange={(e) => setInputData({ ...inputData, words_per_paragraph: parseInt(e.target.value) })}
+                />
+              </div>
+            </div>
+          </div>
+        )
+
+      case 'markdown_to_html':
+        return (
+          <div>
+            <Label htmlFor="markdown">Markdown Text</Label>
+            <Textarea
+              id="markdown"
+              placeholder="Enter your Markdown text here..."
+              value={inputData.markdown || ''}
+              onChange={(e) => setInputData({ ...inputData, markdown: e.target.value })}
+              className="min-h-40"
+            />
+          </div>
+        )
+
+      case 'json_format':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="json">JSON to Format/Validate</Label>
+              <Textarea
+                id="json"
+                placeholder="Paste your JSON here..."
+                value={inputData.json || ''}
+                onChange={(e) => setInputData({ ...inputData, json: e.target.value })}
+                className="min-h-40 font-mono text-sm"
+              />
+            </div>
+            <div>
+              <Label htmlFor="operation">Operation</Label>
+              <Select value={inputData.operation || 'format'} onValueChange={(value) => setInputData({ ...inputData, operation: value })}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choose operation" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="format">Format JSON</SelectItem>
+                  <SelectItem value="minify">Minify JSON</SelectItem>
+                  <SelectItem value="validate">Validate Only</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        )
+
+      case 'regex_test':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="pattern">Regular Expression Pattern</Label>
+              <Input
+                id="pattern"
+                placeholder="Enter regex pattern (e.g., /[a-zA-Z]+/g)"
+                value={inputData.pattern || ''}
+                onChange={(e) => setInputData({ ...inputData, pattern: e.target.value })}
+                className="font-mono"
+              />
+            </div>
+            <div>
+              <Label htmlFor="test_string">Test String</Label>
+              <Textarea
+                id="test_string"
+                placeholder="Enter text to test against the regex..."
+                value={inputData.test_string || ''}
+                onChange={(e) => setInputData({ ...inputData, test_string: e.target.value })}
+                className="min-h-32"
+              />
+            </div>
+          </div>
+        )
+
+      case 'css_minify':
+        return (
+          <div>
+            <Label htmlFor="css">CSS Code to Minify</Label>
+            <Textarea
+              id="css"
+              placeholder="Paste your CSS code here..."
+              value={inputData.css || ''}
+              onChange={(e) => setInputData({ ...inputData, css: e.target.value })}
+              className="min-h-40 font-mono text-sm"
+            />
+          </div>
+        )
+
+      case 'js_minify':
+        return (
+          <div>
+            <Label htmlFor="javascript">JavaScript Code to Minify</Label>
+            <Textarea
+              id="javascript"
+              placeholder="Paste your JavaScript code here..."
+              value={inputData.javascript || ''}
+              onChange={(e) => setInputData({ ...inputData, javascript: e.target.value })}
+              className="min-h-40 font-mono text-sm"
+            />
+          </div>
+        )
+
+      case 'html_encode':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="operation">Operation</Label>
+              <Select value={inputData.operation || 'encode'} onValueChange={(value) => setInputData({ ...inputData, operation: value })}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choose operation" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="encode">Encode HTML Entities</SelectItem>
+                  <SelectItem value="decode">Decode HTML Entities</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="html">HTML Content</Label>
+              <Textarea
+                id="html"
+                placeholder={inputData.operation === 'decode' 
+                  ? "Enter HTML with encoded entities (&lt;, &gt;, &amp;)" 
+                  : "Enter HTML content to encode..."
+                }
+                value={inputData.html || ''}
+                onChange={(e) => setInputData({ ...inputData, html: e.target.value })}
+                className="min-h-32"
+              />
+            </div>
+          </div>
+        )
+
       case 'color_convert':
         return (
           <div className="space-y-4">
@@ -291,13 +521,18 @@ export const ConversionDialog = ({ isOpen, onClose, tool }: ConversionDialogProp
           </div>
         )
 
-      // File-based tools
+      // File-based tools - PDF
       case 'pdf_compress':
+      case 'pdf_merge':
+      case 'pdf_split':
       case 'pdf_to_word':
+      case 'pdf_to_excel':
+      case 'pdf_to_powerpoint':
+      case 'pdf_to_image':
         return (
           <div className="space-y-4">
             <div>
-              <Label htmlFor="file">Upload PDF File</Label>
+              <Label htmlFor="file">Upload PDF File{conversionType === 'pdf_merge' ? '(s)' : ''}</Label>
               <div className="flex items-center justify-center w-full">
                 <label htmlFor="file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -306,7 +541,14 @@ export const ConversionDialog = ({ isOpen, onClose, tool }: ConversionDialogProp
                       <span className="font-semibold">Click to upload PDF</span> or drag and drop
                     </p>
                   </div>
-                  <input id="file" type="file" className="hidden" accept=".pdf" onChange={handleFileUpload} />
+                  <input 
+                    id="file" 
+                    type="file" 
+                    className="hidden" 
+                    accept=".pdf" 
+                    multiple={conversionType === 'pdf_merge'}
+                    onChange={handleFileUpload} 
+                  />
                 </label>
               </div>
               {uploadedFile && (
@@ -316,8 +558,51 @@ export const ConversionDialog = ({ isOpen, onClose, tool }: ConversionDialogProp
           </div>
         )
 
+      // File-based tools - Document to PDF
+      case 'word_to_pdf':
+      case 'excel_to_pdf':
+      case 'powerpoint_to_pdf':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="file">Upload Document File</Label>
+              <div className="flex items-center justify-center w-full">
+                <label htmlFor="file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50">
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                    <FileText className="w-8 h-8 mb-2 text-muted-foreground" />
+                    <p className="mb-2 text-sm text-muted-foreground">
+                      <span className="font-semibold">Click to upload document</span>
+                    </p>
+                  </div>
+                  <input 
+                    id="file" 
+                    type="file" 
+                    className="hidden" 
+                    accept={
+                      conversionType === 'word_to_pdf' ? '.doc,.docx' :
+                      conversionType === 'excel_to_pdf' ? '.xls,.xlsx' :
+                      '.ppt,.pptx'
+                    }
+                    onChange={handleFileUpload} 
+                  />
+                </label>
+              </div>
+              {uploadedFile && (
+                <p className="text-sm text-muted-foreground">Selected: {uploadedFile.name}</p>
+              )}
+            </div>
+          </div>
+        )
+
+      // Image Tools
       case 'image_compress':
       case 'image_resize':
+      case 'image_format_convert':
+      case 'image_crop':
+      case 'image_rotate':
+      case 'image_flip':
+      case 'watermark_add':
+      case 'background_remove':
         return (
           <div className="space-y-4">
             <div>
@@ -338,6 +623,7 @@ export const ConversionDialog = ({ isOpen, onClose, tool }: ConversionDialogProp
                 <p className="text-sm text-muted-foreground">Selected: {uploadedFile.name}</p>
               )}
             </div>
+            
             {conversionType === 'image_resize' && (
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -360,6 +646,49 @@ export const ConversionDialog = ({ isOpen, onClose, tool }: ConversionDialogProp
                     onChange={(e) => setInputData({ ...inputData, height: parseInt(e.target.value) })}
                   />
                 </div>
+              </div>
+            )}
+
+            {conversionType === 'image_format_convert' && (
+              <div>
+                <Label htmlFor="format">Convert to Format</Label>
+                <Select value={inputData.format || ''} onValueChange={(value) => setInputData({ ...inputData, format: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select format" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="jpg">JPEG (.jpg)</SelectItem>
+                    <SelectItem value="png">PNG (.png)</SelectItem>
+                    <SelectItem value="webp">WebP (.webp)</SelectItem>
+                    <SelectItem value="gif">GIF (.gif)</SelectItem>
+                    <SelectItem value="bmp">BMP (.bmp)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
+            {conversionType === 'image_rotate' && (
+              <div>
+                <Label htmlFor="angle">Rotation Angle (degrees)</Label>
+                <Input
+                  id="angle"
+                  type="number"
+                  placeholder="90"
+                  value={inputData.angle || ''}
+                  onChange={(e) => setInputData({ ...inputData, angle: parseInt(e.target.value) })}
+                />
+              </div>
+            )}
+
+            {conversionType === 'watermark_add' && (
+              <div>
+                <Label htmlFor="watermark_text">Watermark Text</Label>
+                <Input
+                  id="watermark_text"
+                  placeholder="Enter watermark text..."
+                  value={inputData.watermark_text || ''}
+                  onChange={(e) => setInputData({ ...inputData, watermark_text: e.target.value })}
+                />
               </div>
             )}
           </div>
