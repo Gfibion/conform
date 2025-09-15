@@ -4,6 +4,7 @@ import { ToolsGrid } from "@/components/ToolsGrid";
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
 import { QuickConverter } from "@/components/QuickConverter";
+import { AIQuickQuery } from "@/components/AIQuickQuery";
 
 const Index = () => {
   return (
@@ -11,6 +12,7 @@ const Index = () => {
       <Navigation />
       <Hero />
       <QuickConverter />
+      <AIQuickQuery />
       <ToolsGrid />
       <Footer />
     </div>
