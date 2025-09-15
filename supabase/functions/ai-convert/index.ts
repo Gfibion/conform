@@ -10,6 +10,8 @@ const corsHeaders = {
 
 const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
 
+console.log('OpenAI API Key available:', !!openAIApiKey);
+
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -30,6 +32,7 @@ serve(async (req) => {
     // Get the current user
     const { data: { user }, error: userError } = await supabaseClient.auth.getUser()
     if (userError || !user) {
+      console.error('Auth error:', userError);
       return new Response(
         JSON.stringify({ error: 'Unauthorized' }),
         { 
@@ -39,9 +42,14 @@ serve(async (req) => {
       )
     }
 
+    console.log('User authenticated:', user.id);
+
+    const startTime = Date.now();
     const { type, content, options = {} } = await req.json()
+    console.log('Request data:', { type, contentLength: content?.length, options });
 
     if (!openAIApiKey) {
+      console.error('OpenAI API key not found in environment');
       return new Response(
         JSON.stringify({ error: 'OpenAI API key not configured' }),
         { 
@@ -169,6 +177,7 @@ serve(async (req) => {
     const result = data.choices[0].message.content;
 
     // Log the conversion in database
+    const processingTime = Date.now() - startTime;
     const { error: logError } = await supabaseClient
       .from('conversion_jobs')
       .insert({
@@ -177,7 +186,7 @@ serve(async (req) => {
         status: 'completed',
         input_data: { content, options },
         output_data: { result },
-        processing_time_ms: Date.now() - Date.now(),
+        processing_time_ms: processingTime,
         completed_at: new Date().toISOString(),
       });
 
