@@ -2,8 +2,9 @@ import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Upload, Send, Copy, X } from "lucide-react";
+import { Sparkles, Upload, Send, Copy, X, Settings } from "lucide-react";
 import { useAIConverter } from "@/hooks/useAIConverter";
 import { useToast } from "@/hooks/use-toast";
 
@@ -11,6 +12,9 @@ export const AIQuickQuery = () => {
   const [prompt, setPrompt] = useState("");
   const [result, setResult] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [showSettings, setShowSettings] = useState(false);
+  const [apiKey, setApiKey] = useState("");
+  const [isUpdatingKey, setIsUpdatingKey] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { convertWithAI, isLoading } = useAIConverter();
   const { toast } = useToast();
@@ -55,6 +59,46 @@ export const AIQuickQuery = () => {
     });
   };
 
+  const updateApiKey = async () => {
+    if (!apiKey.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a valid API key",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsUpdatingKey(true);
+    try {
+      // This will trigger the secrets modal for the user to update the key
+      const response = await fetch('/api/update-openai-key', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey })
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Success",
+          description: "OpenAI API key updated successfully"
+        });
+        setApiKey("");
+        setShowSettings(false);
+      } else {
+        throw new Error('Failed to update API key');
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update API key. Please try the manual method.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsUpdatingKey(false);
+    }
+  };
+
   const clearAll = () => {
     setPrompt("");
     setResult("");
@@ -76,13 +120,57 @@ export const AIQuickQuery = () => {
 
         <Card className="bg-gradient-card shadow-card">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5" />
-              AI Assistant
-              <Badge variant="secondary">Powered by OpenAI</Badge>
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5" />
+                AI Assistant
+                <Badge variant="secondary">Powered by OpenAI</Badge>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowSettings(!showSettings)}
+              >
+                <Settings className="w-4 h-4" />
+              </Button>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* API Key Settings */}
+            {showSettings && (
+              <div className="bg-muted/30 p-4 rounded-lg border space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-medium">OpenAI API Configuration</h4>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm text-muted-foreground">
+                    Enter your OpenAI API Key (starts with sk-...)
+                  </label>
+                  <div className="flex gap-2">
+                    <Input
+                      type="password"
+                      value={apiKey}
+                      onChange={(e) => setApiKey(e.target.value)}
+                      placeholder="sk-your-openai-api-key-here"
+                      className="flex-1"
+                    />
+                    <Button
+                      onClick={updateApiKey}
+                      disabled={!apiKey.trim() || isUpdatingKey}
+                      size="sm"
+                    >
+                      {isUpdatingKey ? "Updating..." : "Update"}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Your API key is stored securely and never shared. Get your key from{" "}
+                    <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="underline">
+                      OpenAI Dashboard
+                    </a>
+                  </p>
+                </div>
+              </div>
+            )}
             {/* File Upload Area */}
             <div className="space-y-2">
               <label className="text-sm font-medium">Upload Files (Optional)</label>
