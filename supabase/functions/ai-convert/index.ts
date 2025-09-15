@@ -99,6 +99,11 @@ serve(async (req) => {
         userPrompt = 'Please describe this image in detail.';
         break;
       
+      case 'ai_query':
+        systemPrompt = 'You are a helpful AI assistant specializing in conversions, calculations, and analysis. You can help with unit conversions, currency calculations, file analysis, mathematical computations, and general queries. Provide clear, accurate, and helpful responses. When dealing with conversions, always show the calculation steps and provide the exact result.';
+        userPrompt = content;
+        break;
+      
       default:
         return new Response(
           JSON.stringify({ error: 'Unsupported AI conversion type' }),
