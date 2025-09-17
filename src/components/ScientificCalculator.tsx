@@ -260,28 +260,27 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
         </Button>
 
         {/* Numbers and operators */}
-        {[0, 1, 2].map((row) => (
-          <React.Fragment key={row}>
-            {numberButtons.slice(row * 3, (row + 1) * 3).map((btn) => (
-              <Button
-                key={btn.value}
-                onClick={() => handleClick(btn.value)}
-                size="sm"
-                variant="outline"
-                className="hover:bg-accent"
-              >
-                {btn.label}
-              </Button>
-            ))}
+        {[0, 1, 2].map((row) => [
+          ...numberButtons.slice(row * 3, (row + 1) * 3).map((btn) => (
             <Button
-              onClick={() => handleClick(operatorButtons[row].value)}
+              key={btn.value}
+              onClick={() => handleClick(btn.value)}
               size="sm"
-              className={operatorButtons[row].className + " text-white"}
+              variant="outline"
+              className="hover:bg-accent"
             >
-              {operatorButtons[row].label}
+              {btn.label}
             </Button>
-          </React.Fragment>
-        ))}
+          )),
+          <Button
+            key={`operator-${row}`}
+            onClick={() => handleClick(operatorButtons[row].value)}
+            size="sm"
+            className={operatorButtons[row].className + " text-white"}
+          >
+            {operatorButtons[row].label}
+          </Button>
+        ]).flat()}
 
         {/* Bottom row */}
         <Button
