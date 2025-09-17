@@ -128,32 +128,32 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
   ];
 
   return (
-    <Card className="p-6 max-w-lg mx-auto bg-background border-border shadow-elegant">
+    <Card className="p-3 sm:p-4 lg:p-6 w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto bg-background border-border shadow-elegant">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
         <div className="flex items-center gap-2">
-          <Calculator className="w-5 h-5 text-primary" />
-          <h3 className="text-lg font-semibold text-foreground">Scientific Calculator</h3>
+          <Calculator className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+          <h3 className="text-sm sm:text-lg font-semibold text-foreground">Scientific Calculator</h3>
         </div>
         {onClose && (
           <Button
             variant="ghost"
             size="icon"
             onClick={onClose}
-            className="h-8 w-8"
+            className="h-6 w-6 sm:h-8 sm:w-8"
           >
-            <X className="h-4 w-4" />
+            <X className="h-3 w-3 sm:h-4 sm:w-4" />
           </Button>
         )}
       </div>
 
       {/* Display */}
-      <div className="mb-6 p-4 bg-muted/50 rounded-lg border">
+      <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-muted/50 rounded-lg border">
         <div className="text-right">
-          <div className="text-sm text-muted-foreground break-all min-h-[20px] mb-1">
+          <div className="text-xs sm:text-sm text-muted-foreground break-all min-h-[16px] sm:min-h-[20px] mb-1">
             {input || "0"}
           </div>
-          <div className="text-2xl font-bold text-foreground min-h-[32px]">
+          <div className="text-lg sm:text-2xl font-bold text-foreground min-h-[24px] sm:min-h-[32px]">
             {result}
           </div>
         </div>
@@ -163,12 +163,12 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
       </div>
 
       {/* Memory and Function buttons */}
-      <div className="grid grid-cols-6 gap-2 mb-4">
+      <div className="grid grid-cols-6 gap-1 sm:gap-2 mb-3 sm:mb-4">
         <Button
           onClick={handleMemoryStore}
           size="sm"
           variant="outline"
-          className="text-xs"
+          className="text-xs h-8 sm:h-9 px-1 sm:px-2"
         >
           MS
         </Button>
@@ -176,7 +176,7 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
           onClick={handleMemoryRecall}
           size="sm"
           variant="outline"
-          className="text-xs"
+          className="text-xs h-8 sm:h-9 px-1 sm:px-2"
         >
           MR
         </Button>
@@ -184,7 +184,7 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
           onClick={handleMemoryAdd}
           size="sm"
           variant="outline"
-          className="text-xs"
+          className="text-xs h-8 sm:h-9 px-1 sm:px-2"
         >
           M+
         </Button>
@@ -192,7 +192,7 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
           onClick={handleMemoryClear}
           size="sm"
           variant="outline"
-          className="text-xs"
+          className="text-xs h-8 sm:h-9 px-1 sm:px-2"
         >
           MC
         </Button>
@@ -200,27 +200,27 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
           onClick={handleParentheses}
           size="sm"
           variant="outline"
-          className="text-xs"
+          className="text-xs h-8 sm:h-9 px-1 sm:px-2"
         >
           ( )
         </Button>
         <Button
           onClick={handleAllClear}
           size="sm"
-          className="text-xs bg-red-600 hover:bg-red-700 text-white"
+          className="text-xs h-8 sm:h-9 px-1 sm:px-2 bg-red-600 hover:bg-red-700 text-white"
         >
           AC
         </Button>
       </div>
 
       {/* Scientific functions */}
-      <div className="grid grid-cols-4 gap-2 mb-4">
+      <div className="grid grid-cols-4 gap-1 sm:gap-2 mb-3 sm:mb-4">
         {scientificButtons.map((btn) => (
           <Button
             key={btn.value}
             onClick={() => handleClick(btn.value)}
             size="sm"
-            className={`text-xs ${btn.className} text-white`}
+            className={`text-xs h-8 sm:h-9 px-1 sm:px-2 ${btn.className} text-white`}
           >
             {btn.label}
           </Button>
@@ -228,19 +228,19 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
       </div>
 
       {/* Main calculator grid */}
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-1 sm:gap-2">
         {/* Clear and Backspace */}
         <Button
           onClick={handleClear}
           size="sm"
-          className="bg-yellow-600 hover:bg-yellow-700 text-white"
+          className="bg-yellow-600 hover:bg-yellow-700 text-white h-10 sm:h-11 text-xs sm:text-sm"
         >
           C
         </Button>
         <Button
           onClick={handleBackspace}
           size="sm"
-          className="bg-yellow-600 hover:bg-yellow-700 text-white"
+          className="bg-yellow-600 hover:bg-yellow-700 text-white h-10 sm:h-11 text-xs sm:text-sm"
         >
           ⌫
         </Button>
@@ -248,13 +248,14 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
           onClick={() => handleClick("%")}
           size="sm"
           variant="outline"
+          className="h-10 sm:h-11 text-xs sm:text-sm"
         >
           %
         </Button>
         <Button
           onClick={() => handleClick("/")}
           size="sm"
-          className="bg-orange-600 hover:bg-orange-700 text-white"
+          className="bg-orange-600 hover:bg-orange-700 text-white h-10 sm:h-11 text-xs sm:text-sm"
         >
           ÷
         </Button>
@@ -267,7 +268,7 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
               onClick={() => handleClick(btn.value)}
               size="sm"
               variant="outline"
-              className="hover:bg-accent"
+              className="hover:bg-accent h-10 sm:h-11 text-xs sm:text-sm"
             >
               {btn.label}
             </Button>
@@ -276,7 +277,7 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
             key={`operator-${row}`}
             onClick={() => handleClick(operatorButtons[row].value)}
             size="sm"
-            className={operatorButtons[row].className + " text-white"}
+            className={operatorButtons[row].className + " text-white h-10 sm:h-11 text-xs sm:text-sm"}
           >
             {operatorButtons[row].label}
           </Button>
@@ -287,7 +288,7 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
           onClick={() => handleClick("0")}
           size="sm"
           variant="outline"
-          className="col-span-2 hover:bg-accent"
+          className="col-span-2 hover:bg-accent h-10 sm:h-11 text-xs sm:text-sm"
         >
           0
         </Button>
@@ -295,14 +296,14 @@ export const ScientificCalculator: React.FC<ScientificCalculatorProps> = ({ onCl
           onClick={() => handleClick(".")}
           size="sm"
           variant="outline"
-          className="hover:bg-accent"
+          className="hover:bg-accent h-10 sm:h-11 text-xs sm:text-sm"
         >
           .
         </Button>
         <Button
           onClick={handleCalculate}
           size="sm"
-          className="bg-green-600 hover:bg-green-700 text-white"
+          className="bg-green-600 hover:bg-green-700 text-white h-10 sm:h-11 text-xs sm:text-sm"
         >
           =
         </Button>

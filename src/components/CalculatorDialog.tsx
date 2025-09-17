@@ -29,7 +29,7 @@ export const CalculatorDialog: React.FC<CalculatorDialogProps> = ({
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-[95vw] sm:max-w-md lg:max-w-lg max-h-[90vh] overflow-y-auto p-2 sm:p-4">
         <ScientificCalculator onClose={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
