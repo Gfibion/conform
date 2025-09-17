@@ -8,6 +8,7 @@ import LanguageTranslation from "@/pages/LanguageTranslation";
 import UnitConversion from "@/pages/UnitConversion";
 import AIPoweredTools from "@/pages/AIPoweredTools";
 import Formulas from "@/pages/Formulas";
+import Calculator from "@/pages/Calculator";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -48,6 +49,7 @@ function App() {
               <Route path="/unit-conversion" element={<UnitConversion />} />
               <Route path="/ai-powered-tools" element={<AIPoweredTools />} />
               <Route path="/formulas" element={<Formulas />} />
+              <Route path="/calculator" element={<Calculator />} />
               <Route
                 path="/unit-converter"
                 element={

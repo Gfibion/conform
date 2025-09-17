@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { ArrowRight, FileCode, Globe, Calculator, Zap, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { CalculatorDialog } from "./CalculatorDialog";
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -104,6 +105,15 @@ export const Hero = () => {
             >
               View Formulas
             </Button>
+          </div>
+
+          {/* Calculator Button */}
+          <div className="flex justify-center mb-4 md:mb-6 px-3 md:px-4">
+            <CalculatorDialog 
+              variant="outline"
+              size="sm"
+              className="border-primary/20 text-primary hover:bg-primary/10 h-8 md:h-10 text-xs md:text-sm"
+            />
           </div>
           
           {/* Feature icons - Much more compact on mobile */}

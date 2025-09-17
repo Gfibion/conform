@@ -4,6 +4,7 @@ import { Moon, Sun, Zap, Menu, X, FileCode, Globe, Calculator, Brain, BookOpen }
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { AuthButton } from "@/components/AuthButton";
+import { CalculatorDialog } from "@/components/CalculatorDialog";
 import { Link } from "react-router-dom";
 import {
   DropdownMenu,
@@ -107,7 +108,7 @@ export const Navigation = () => {
                   </Link>
                 </div>
                 
-                <div className="mt-3 pt-3 border-t border-border">
+                <div className="mt-3 pt-3 border-t border-border space-y-2">
                   <Link 
                     to="/formulas" 
                     className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors group w-full"
@@ -120,6 +121,18 @@ export const Navigation = () => {
                       <div className="text-xs text-muted-foreground">Mathematical formulas and calculations</div>
                     </div>
                   </Link>
+                  
+                  <CalculatorDialog>
+                    <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors group w-full cursor-pointer">
+                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <Calculator className="w-4 h-4 text-primary" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-sm">Scientific Calculator</div>
+                        <div className="text-xs text-muted-foreground">Advanced mathematical calculator</div>
+                      </div>
+                    </div>
+                  </CalculatorDialog>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -188,6 +201,11 @@ export const Navigation = () => {
                   <Link to="/formulas" className="text-muted-foreground hover:text-foreground transition-colors text-sm py-1">
                     Formulas
                   </Link>
+                  <CalculatorDialog>
+                    <div className="text-muted-foreground hover:text-foreground transition-colors text-sm py-1 cursor-pointer">
+                      Calculator
+                    </div>
+                  </CalculatorDialog>
                 </div>
               </div>
               <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
