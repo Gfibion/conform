@@ -3,17 +3,18 @@ import { Zap, Github, Twitter, Mail, Linkedin, Facebook, Instagram } from "lucid
 export const Footer = () => {
   return (
     <footer className="bg-card border-t border-border">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="lg:col-span-1 space-y-6">
+      <div className="container mx-auto px-4 py-12 lg:py-16">
+        {/* Mobile: 2 column grid, Tablet: 3 column, Desktop: 4 column */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-12">
+          {/* Brand - Full width on mobile, spans 2 columns */}
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1 space-y-4 lg:space-y-6">
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg">
-                  <Zap className="w-6 h-6 text-primary-foreground" />
+                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg">
+                  <Zap className="w-4 h-4 lg:w-6 lg:h-6 text-primary-foreground" />
                 </div>
                 <div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                  <span className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
                     Conform
                   </span>
                   <p className="text-xs text-muted-foreground font-medium">by Gfibion Genesis</p>
@@ -27,132 +28,165 @@ export const Footer = () => {
             {/* Social Links */}
             <div className="space-y-3">
               <h4 className="text-sm font-semibold text-foreground">Follow Us</h4>
-              <div className="flex space-x-3">
+              <div className="flex space-x-2 lg:space-x-3">
                 <a 
                   href="https://twitter.com/conform" 
-                  className="w-10 h-10 bg-muted hover:bg-primary/10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-110"
+                  className="w-8 h-8 lg:w-10 lg:h-10 bg-muted hover:bg-primary/10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-110"
                   aria-label="Twitter"
                 >
-                  <Twitter className="w-4 h-4" />
+                  <Twitter className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                 </a>
                 <a 
                   href="https://github.com/conform" 
-                  className="w-10 h-10 bg-muted hover:bg-primary/10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-110"
+                  className="w-8 h-8 lg:w-10 lg:h-10 bg-muted hover:bg-primary/10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-110"
                   aria-label="GitHub"
                 >
-                  <Github className="w-4 h-4" />
+                  <Github className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                 </a>
                 <a 
                   href="https://linkedin.com/company/conform" 
-                  className="w-10 h-10 bg-muted hover:bg-primary/10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-110"
+                  className="w-8 h-8 lg:w-10 lg:h-10 bg-muted hover:bg-primary/10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-110"
                   aria-label="LinkedIn"
                 >
-                  <Linkedin className="w-4 h-4" />
+                  <Linkedin className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                 </a>
                 <a 
                   href="mailto:contact@conform.com" 
-                  className="w-10 h-10 bg-muted hover:bg-primary/10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-110"
+                  className="w-8 h-8 lg:w-10 lg:h-10 bg-muted hover:bg-primary/10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-110"
                   aria-label="Email"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                 </a>
               </div>
             </div>
           </div>
 
           {/* Tools */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-foreground border-b border-border/50 pb-2">
+          <div className="space-y-4 lg:space-y-6">
+            <h3 className="text-base lg:text-lg font-semibold text-foreground border-b border-border/50 pb-2">
               Conversion Tools
             </h3>
-            <div className="grid grid-cols-1 gap-3">
-              <a href="/unit-conversion" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+            <div className="grid grid-cols-1 gap-2 lg:gap-3">
+              <a href="/unit-conversion" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 File Converter
               </a>
-              <a href="/unit-conversion" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="/unit-conversion" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Unit Converter
               </a>
-              <a href="/unit-conversion" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="/unit-conversion" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Currency Converter
               </a>
-              <a href="/language-translation" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="/language-translation" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Code Translator
               </a>
-              <a href="/language-translation" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="/language-translation" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Language Translator
               </a>
-              <a href="/calculator" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="/calculator" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Scientific Calculator
               </a>
             </div>
           </div>
 
-          {/* Features */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-foreground border-b border-border/50 pb-2">
+          {/* Features & Company Combined on Mobile */}
+          <div className="space-y-4 lg:space-y-6">
+            <h3 className="text-base lg:text-lg font-semibold text-foreground border-b border-border/50 pb-2">
               Features
             </h3>
-            <div className="grid grid-cols-1 gap-3">
-              <a href="/ai-powered-tools" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+            <div className="grid grid-cols-1 gap-2 lg:gap-3">
+              <a href="/ai-powered-tools" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 AI Assistant
               </a>
-              <a href="/file-conversion" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="/file-conversion" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Batch Processing
               </a>
-              <a href="/formulas" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="/formulas" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Formula Library
               </a>
-              <a href="/history" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="/history" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Conversion History
               </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Cloud Storage
               </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 API Access
               </a>
             </div>
           </div>
 
-          {/* Company */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-foreground border-b border-border/50 pb-2">
+          {/* Company - Hidden on mobile 2-col, visible on sm+ */}
+          <div className="hidden sm:block space-y-4 lg:space-y-6">
+            <h3 className="text-base lg:text-lg font-semibold text-foreground border-b border-border/50 pb-2">
               Company
             </h3>
-            <div className="grid grid-cols-1 gap-3">
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+            <div className="grid grid-cols-1 gap-2 lg:gap-3">
+              <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 About Us
               </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Pricing
               </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Privacy Policy
               </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Terms of Service
               </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Contact
               </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+                <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
+                Support
+              </a>
+            </div>
+          </div>
+
+          {/* Company section for mobile - appears below in 2-col layout */}
+          <div className="sm:hidden col-span-2 space-y-4 pt-4 border-t border-border/50">
+            <h3 className="text-base font-semibold text-foreground">
+              Company
+            </h3>
+            <div className="grid grid-cols-2 gap-2">
+              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+                <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
+                About Us
+              </a>
+              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+                <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
+                Pricing
+              </a>
+              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+                <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
+                Privacy Policy
+              </a>
+              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+                <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
+                Terms of Service
+              </a>
+              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+                <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
+                Contact
+              </a>
+              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Support
               </a>
