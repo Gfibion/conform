@@ -5,7 +5,7 @@ export const Footer = () => {
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-12 lg:py-16">
         {/* Mobile: 2 column grid, Tablet: 3 column, Desktop: 4 column */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-6">
           {/* Brand - Full width on mobile, spans 2 columns */}
           <div className="col-span-2 sm:col-span-3 lg:col-span-1 space-y-4 lg:space-y-5">
             <div className="space-y-3">
