@@ -5,9 +5,9 @@ export const Footer = () => {
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-12 lg:py-16">
         {/* Mobile: 2 column grid, Tablet: 3 column, Desktop: 4 column */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-12">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
           {/* Brand - Full width on mobile, spans 2 columns */}
-          <div className="col-span-2 sm:col-span-3 lg:col-span-1 space-y-4 lg:space-y-6">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1 space-y-4 lg:space-y-5">
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg">
@@ -62,7 +62,7 @@ export const Footer = () => {
           </div>
 
           {/* Tools */}
-          <div className="space-y-4 lg:space-y-6">
+          <div className="space-y-4 lg:space-y-5">
             <h3 className="text-base lg:text-lg font-semibold text-foreground border-b border-border/50 pb-2">
               Conversion Tools
             </h3>
@@ -95,7 +95,7 @@ export const Footer = () => {
           </div>
 
           {/* Features & Company Combined on Mobile */}
-          <div className="space-y-4 lg:space-y-6">
+          <div className="space-y-4 lg:space-y-5">
             <h3 className="text-base lg:text-lg font-semibold text-foreground border-b border-border/50 pb-2">
               Features
             </h3>
@@ -132,7 +132,7 @@ export const Footer = () => {
           </div>
 
           {/* Company */}
-          <div className="space-y-4 lg:space-y-6">
+          <div className="space-y-4 lg:space-y-5">
             <h3 className="text-base lg:text-lg font-semibold text-foreground border-b border-border/50 pb-2">
               Company
             </h3>
