@@ -62,7 +62,46 @@ This project is built with:
 
 ## How can I deploy this project?
 
+### Via Lovable (Recommended)
+
 Simply open [Lovable](https://lovable.dev/projects/aa70dcd8-9d18-4f88-99ce-d1c7c219247d) and click on Share -> Publish.
+
+### Manual Deployment Options
+
+**GitHub Pages**
+
+1. Build the project: `npm run build`
+2. Deploy the `dist` folder to GitHub Pages
+3. The project includes GitHub Actions workflow for automatic deployment
+
+**Netlify**
+
+1. Connect your GitHub repository to Netlify
+2. Set build command: `npm run build`
+3. Set publish directory: `dist`
+4. The `_redirects` file handles SPA routing automatically
+
+**Vercel**
+
+1. Connect your GitHub repository to Vercel
+2. Vercel auto-detects Vite projects
+3. No additional configuration needed
+
+### Environment Variables for Deployment
+
+Set these in your deployment platform:
+
+- `VITE_SUPABASE_URL`: Your Supabase project URL
+- `VITE_SUPABASE_ANON_KEY`: Your Supabase anonymous key
+
+### Authentication Setup
+
+This app uses Supabase authentication. Configure:
+
+1. Set up Supabase project authentication providers
+2. Set correct Site URL and Redirect URLs in Supabase Auth settings:
+   - Development: `http://localhost:8080`
+   - Production: Your deployed domain
 
 ## Can I connect a custom domain to my Lovable project?
 
