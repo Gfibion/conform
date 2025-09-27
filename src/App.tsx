@@ -15,14 +15,26 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster"
 import { UnitConverter } from "@/components/tools/UnitConverter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { HelmetProvider } from "react-helmet-async";
+
+// Individual tool pages
+import LengthConverterPage from "@/pages/tools/LengthConverter";
+import WeightConverterPage from "@/pages/tools/WeightConverter";
+import TemperatureConverterPage from "@/pages/tools/TemperatureConverter";
+import TimeConverterPage from "@/pages/tools/TimeConverter";
+import AITextToolsPage from "@/pages/tools/AITextTools";
+import AICodeToolsPage from "@/pages/tools/AICodeTools";
+import JSONFormatterPage from "@/pages/tools/JSONFormatter";
+import PasswordGeneratorPage from "@/pages/tools/PasswordGenerator";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Router>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Router>
           <div className="min-h-screen bg-background">
             <Toaster />
             <Routes>
@@ -58,6 +70,17 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              
+              {/* Individual Tool Routes */}
+              <Route path="/tools/length-converter" element={<LengthConverterPage />} />
+              <Route path="/tools/weight-converter" element={<WeightConverterPage />} />
+              <Route path="/tools/temperature-converter" element={<TemperatureConverterPage />} />
+              <Route path="/tools/time-converter" element={<TimeConverterPage />} />
+              <Route path="/tools/ai-text-tools" element={<AITextToolsPage />} />
+              <Route path="/tools/ai-code-tools" element={<AICodeToolsPage />} />
+              <Route path="/tools/json-formatter" element={<JSONFormatterPage />} />
+              <Route path="/tools/password-generator" element={<PasswordGeneratorPage />} />
+              
               {/* Catch all route - must be last */}
               <Route path="*" element={<NotFound />} />
             </Routes>
@@ -65,6 +88,7 @@ function App() {
         </Router>
       </AuthProvider>
     </QueryClientProvider>
+    </HelmetProvider>
   );
 }
 
