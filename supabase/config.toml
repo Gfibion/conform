@@ -1,7 +1,7 @@
 project_id = "mndbalflwdqkzoejitfn"
 
 [functions.ai-convert]
-verify_jwt = true
+verify_jwt = false
 
 [functions.convert-file]
 verify_jwt = true

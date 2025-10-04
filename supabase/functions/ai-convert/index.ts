@@ -29,20 +29,14 @@ serve(async (req) => {
       }
     )
 
-    // Get the current user
-    const { data: { user }, error: userError } = await supabaseClient.auth.getUser()
-    if (userError || !user) {
-      console.error('Auth error:', userError);
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { 
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
+    // Get the current user (optional - for tracking purposes)
+    const { data: { user } } = await supabaseClient.auth.getUser()
+    
+    if (user) {
+      console.log('User authenticated:', user.id);
+    } else {
+      console.log('Anonymous request');
     }
-
-    console.log('User authenticated:', user.id);
 
     const startTime = Date.now();
     const { type, content, options = {} } = await req.json()
@@ -199,22 +193,26 @@ serve(async (req) => {
     const data = await response.json();
     const result = data.choices[0].message.content;
 
-    // Log the conversion in database
-    const processingTime = Date.now() - startTime;
-    const { error: logError } = await supabaseClient
-      .from('conversion_jobs')
-      .insert({
-        user_id: user.id,
-        conversion_type: `ai_${type}`,
-        status: 'completed',
-        input_data: { content, options },
-        output_data: { result },
-        processing_time_ms: processingTime,
-        completed_at: new Date().toISOString(),
-      });
+    // Log the conversion in database (only if user is authenticated)
+    if (user) {
+      const processingTime = Date.now() - startTime;
+      const { error: logError } = await supabaseClient
+        .from('conversion_jobs')
+        .insert({
+          user_id: user.id,
+          conversion_type: `ai_${type}`,
+          status: 'completed',
+          input_data: { content, options },
+          output_data: { result },
+          processing_time_ms: processingTime,
+          completed_at: new Date().toISOString(),
+        });
 
-    if (logError) {
-      console.error('Error logging conversion:', logError);
+      if (logError) {
+        console.error('Error logging conversion:', logError);
+      }
+    } else {
+      console.log('Conversion completed for anonymous user - not logged to database');
     }
 
     return new Response(
