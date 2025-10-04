@@ -27,26 +27,57 @@ export const useAIConverter = () => {
 
       if (error) {
         console.error('AI conversion error:', error)
-        toast({
-          title: "AI Conversion Failed",
-          description: error.message || "An error occurred during AI processing",
-          variant: "destructive"
-        })
+        
+        // Handle specific error cases
+        if (error.message?.includes('Rate limit')) {
+          toast({
+            title: "Rate Limit Exceeded",
+            description: "Too many requests. Please wait a moment and try again.",
+            variant: "destructive"
+          })
+        } else if (error.message?.includes('credits')) {
+          toast({
+            title: "AI Credits Depleted",
+            description: "Please add credits to continue using AI features.",
+            variant: "destructive"
+          })
+        } else {
+          toast({
+            title: "AI Conversion Failed",
+            description: error.message || "An error occurred during AI processing",
+            variant: "destructive"
+          })
+        }
         return null
       }
 
       if (data.success) {
         toast({
           title: "AI Conversion Successful",
-          description: `Content processed successfully`
+          description: `Content processed successfully with Google Gemini`
         })
         return data.result
       } else {
-        toast({
-          title: "AI Conversion Failed",
-          description: data.error || "Unknown error occurred",
-          variant: "destructive"
-        })
+        // Handle error responses
+        if (data.error?.includes('Rate limit')) {
+          toast({
+            title: "Rate Limit Exceeded",
+            description: "Too many requests. Please wait a moment and try again.",
+            variant: "destructive"
+          })
+        } else if (data.error?.includes('credits')) {
+          toast({
+            title: "AI Credits Depleted",
+            description: "Please add credits to continue using AI features.",
+            variant: "destructive"
+          })
+        } else {
+          toast({
+            title: "AI Conversion Failed",
+            description: data.error || "Unknown error occurred",
+            variant: "destructive"
+          })
+        }
         return null
       }
 

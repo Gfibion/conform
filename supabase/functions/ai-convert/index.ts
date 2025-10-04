@@ -8,9 +8,9 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
+const lovableApiKey = Deno.env.get('LOVABLE_API_KEY');
 
-console.log('OpenAI API Key available:', !!openAIApiKey);
+console.log('Lovable API Key available:', !!lovableApiKey);
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -48,10 +48,10 @@ serve(async (req) => {
     const { type, content, options = {} } = await req.json()
     console.log('Request data:', { type, contentLength: content?.length, options });
 
-    if (!openAIApiKey) {
-      console.error('OpenAI API key not found in environment');
+    if (!lovableApiKey) {
+      console.error('Lovable API key not found in environment');
       return new Response(
-        JSON.stringify({ error: 'OpenAI API key not configured' }),
+        JSON.stringify({ error: 'AI service not configured. Please contact support.' }),
         { 
           status: 500,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -147,14 +147,14 @@ serve(async (req) => {
 
     console.log(`Processing AI conversion: ${type} for user: ${user.id}`);
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${openAIApiKey}`,
+        'Authorization': `Bearer ${lovableApiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'google/gemini-2.5-flash',
         messages,
         max_tokens: 2000,
         temperature: 0.7,
@@ -163,7 +163,30 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('OpenAI API error:', errorData);
+      console.error('AI Gateway error:', response.status, errorData);
+      
+      // Handle rate limiting
+      if (response.status === 429) {
+        return new Response(
+          JSON.stringify({ error: 'Rate limit exceeded. Please try again in a moment.' }),
+          { 
+            status: 429,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        )
+      }
+      
+      // Handle payment required
+      if (response.status === 402) {
+        return new Response(
+          JSON.stringify({ error: 'AI credits depleted. Please add credits to your workspace.' }),
+          { 
+            status: 402,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        )
+      }
+      
       return new Response(
         JSON.stringify({ error: 'AI processing failed', details: errorData }),
         { 

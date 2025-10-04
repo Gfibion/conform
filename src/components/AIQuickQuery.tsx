@@ -124,53 +124,11 @@ export const AIQuickQuery = () => {
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5" />
                 AI Assistant
-                <Badge variant="secondary">Powered by OpenAI</Badge>
+                <Badge variant="secondary">Powered by Google Gemini (Free)</Badge>
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowSettings(!showSettings)}
-              >
-                <Settings className="w-4 h-4" />
-              </Button>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* API Key Settings */}
-            {showSettings && (
-              <div className="bg-muted/30 p-4 rounded-lg border space-y-3">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-medium">OpenAI API Configuration</h4>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm text-muted-foreground">
-                    Enter your OpenAI API Key (starts with sk-...)
-                  </label>
-                  <div className="flex gap-2">
-                    <Input
-                      type="password"
-                      value={apiKey}
-                      onChange={(e) => setApiKey(e.target.value)}
-                      placeholder="sk-your-openai-api-key-here"
-                      className="flex-1"
-                    />
-                    <Button
-                      onClick={updateApiKey}
-                      disabled={!apiKey.trim() || isUpdatingKey}
-                      size="sm"
-                    >
-                      {isUpdatingKey ? "Updating..." : "Update"}
-                    </Button>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Your API key is stored securely and never shared. Get your key from{" "}
-                    <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="underline">
-                      OpenAI Dashboard
-                    </a>
-                  </p>
-                </div>
-              </div>
-            )}
             {/* File Upload Area */}
             <div className="space-y-2">
               <label className="text-sm font-medium">Upload Files (Optional)</label>
