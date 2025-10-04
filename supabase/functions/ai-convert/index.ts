@@ -21,21 +21,26 @@ serve(async (req) => {
   try {
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      {
-        global: {
-          headers: { Authorization: req.headers.get('Authorization')! },
-        },
-      }
+      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
     )
 
-    // Get the current user (optional - for tracking purposes)
-    const { data: { user } } = await supabaseClient.auth.getUser()
+    // Try to get the current user (optional - for tracking purposes)
+    let user = null;
+    try {
+      const authHeader = req.headers.get('Authorization');
+      if (authHeader && !authHeader.includes('anon')) {
+        const { data } = await supabaseClient.auth.getUser(authHeader.replace('Bearer ', ''));
+        user = data.user;
+      }
+    } catch (error) {
+      // Ignore auth errors - function works for anonymous users too
+      console.log('Anonymous request or invalid token');
+    }
     
     if (user) {
       console.log('User authenticated:', user.id);
     } else {
-      console.log('Anonymous request');
+      console.log('Processing request without authentication');
     }
 
     const startTime = Date.now();
