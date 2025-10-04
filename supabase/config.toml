@@ -4,10 +4,10 @@ project_id = "mndbalflwdqkzoejitfn"
 verify_jwt = false
 
 [functions.convert-file]
-verify_jwt = true
+verify_jwt = false
 
 [functions.get-conversion-jobs]
-verify_jwt = true
+verify_jwt = false
 
 [functions.get-usage-stats]
-verify_jwt = true
+verify_jwt = false
