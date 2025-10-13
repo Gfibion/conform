@@ -38,7 +38,44 @@ Deno.serve(async (req: Request) => {
     const startTime = Date.now();
     const { type, content, options = {} } = await req.json();
     
-    console.log(`AI Conversion Request - Type: ${type}, User: ${user?.id || 'anonymous'}`);
+    // Input validation
+    const validTypes = [
+      'text_enhance', 'text_summarize', 'text_paraphrase', 'text_translate',
+      'code_explain', 'code_optimize', 'code_document', 'code_review',
+      'content_generate', 'grammar_check', 'sentiment_analysis', 'image_describe'
+    ];
+    
+    if (!type || !validTypes.includes(type)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid or missing conversion type' }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+    
+    if (typeof content !== 'string' || content.trim().length === 0) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid input: content must be a non-empty string' }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+    
+    if (content.length > 50000) {
+      return new Response(
+        JSON.stringify({ error: 'Content too large. Maximum 50,000 characters allowed' }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+    
+    console.log(`AI Conversion Request - Type: ${type}, User: ${user?.id || 'anonymous'}, Content length: ${content.length}`);
 
     if (!lovableApiKey) {
       await supabaseClient.from("system_logs").insert({

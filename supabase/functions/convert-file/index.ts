@@ -39,6 +39,29 @@ Deno.serve(async (req: Request) => {
     }
 
     const { conversion_type, input_data }: ConversionRequest = await req.json();
+    
+    // Input validation
+    const validConversionTypes = ['currency_convert', 'unit_convert'];
+    if (!conversion_type || !validConversionTypes.includes(conversion_type)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid conversion type' }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+    
+    if (!input_data || typeof input_data !== 'object') {
+      return new Response(
+        JSON.stringify({ error: 'Invalid input data' }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+    
     console.log(`Starting conversion: ${conversion_type}, User: ${user?.id || 'anonymous'}`);
 
     let jobId = null;
@@ -170,6 +193,24 @@ async function handleCurrencyConversion(inputData: any, supabaseClient: any) {
   const exchangeRatesApiKey = Deno.env.get("EXCHANGE_RATES_API_KEY");
   
   const { amount, from_currency, to_currency } = inputData;
+  
+  // Validate currency conversion inputs
+  if (typeof amount !== 'number' || amount <= 0 || amount > 1e15 || !isFinite(amount)) {
+    throw new Error('Invalid amount: must be a positive number less than 1e15');
+  }
+  
+  const validCurrencies = [
+    'USD', 'EUR', 'GBP', 'JPY', 'AUD', 'CAD', 'CHF', 'CNY', 'SEK', 'NZD',
+    'INR', 'BRL', 'ZAR', 'RUB', 'KRW', 'SGD', 'HKD', 'NOK', 'MXN', 'TRY'
+  ];
+  
+  if (!from_currency || !validCurrencies.includes(from_currency)) {
+    throw new Error('Invalid source currency code');
+  }
+  
+  if (!to_currency || !validCurrencies.includes(to_currency)) {
+    throw new Error('Invalid target currency code');
+  }
   
   if (!exchangeRatesApiKey) {
     console.log("Exchange Rates API key not configured, using fallback rates");
