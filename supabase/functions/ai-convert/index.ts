@@ -1,159 +1,160 @@
-
-import "https://deno.land/x/xhr@0.1.0/mod.ts";
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
+};
 
-const lovableApiKey = Deno.env.get('LOVABLE_API_KEY');
+const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
 
-console.log('Lovable API Key available:', !!lovableApiKey);
-
-serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+Deno.serve(async (req: Request) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, {
+      status: 200,
+      headers: corsHeaders,
+    });
   }
 
   try {
     const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
-    )
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+    );
 
-    // Try to get the current user (optional - for tracking purposes)
     let user = null;
     try {
-      const authHeader = req.headers.get('Authorization');
-      if (authHeader && !authHeader.includes('anon')) {
-        const { data } = await supabaseClient.auth.getUser(authHeader.replace('Bearer ', ''));
+      const authHeader = req.headers.get("Authorization");
+      if (authHeader && !authHeader.includes("anon")) {
+        const token = authHeader.replace("Bearer ", "");
+        const { data } = await supabaseClient.auth.getUser(token);
         user = data.user;
       }
     } catch (error) {
-      // Ignore auth errors - function works for anonymous users too
-      console.log('Anonymous request or invalid token');
-    }
-    
-    if (user) {
-      console.log('User authenticated:', user.id);
-    } else {
-      console.log('Processing request without authentication');
+      console.log("Processing without authentication:", error.message);
     }
 
     const startTime = Date.now();
-    const { type, content, options = {} } = await req.json()
-    console.log('Request data:', { type, contentLength: content?.length, options });
+    const { type, content, options = {} } = await req.json();
+    
+    console.log(`AI Conversion Request - Type: ${type}, User: ${user?.id || 'anonymous'}`);
 
     if (!lovableApiKey) {
-      console.error('Lovable API key not found in environment');
+      await supabaseClient.from("system_logs").insert({
+        log_level: "error",
+        source: "ai-convert",
+        message: "Lovable API key not configured",
+        user_id: user?.id,
+      });
+
       return new Response(
-        JSON.stringify({ error: 'AI service not configured. Please contact support.' }),
+        JSON.stringify({ error: "AI service not configured" }),
         { 
           status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
         }
-      )
+      );
     }
 
-    let systemPrompt = '';
-    let userPrompt = '';
+    let systemPrompt = "";
+    let userPrompt = "";
 
-    // Handle different AI conversion types
     switch (type) {
-      case 'text_enhance':
-        systemPrompt = 'You are a professional text editor. Enhance the given text by improving grammar, clarity, and readability while maintaining the original meaning and tone.';
+      case "text_enhance":
+        systemPrompt = "You are a professional text editor. Enhance the given text by improving grammar, clarity, and readability while maintaining the original meaning and tone.";
         userPrompt = `Please enhance this text: ${content}`;
         break;
       
-      case 'text_summarize':
-        systemPrompt = 'You are an expert at creating concise summaries. Summarize the given text while preserving key information and main points.';
+      case "text_summarize":
+        systemPrompt = "You are an expert at creating concise summaries. Summarize the given text while preserving key information and main points.";
         userPrompt = `Please summarize this text: ${content}`;
         break;
       
-      case 'text_paraphrase':
-        systemPrompt = 'You are a skilled writer. Rewrite the given text using different words and sentence structures while maintaining the same meaning.';
+      case "text_paraphrase":
+        systemPrompt = "You are a skilled writer. Rewrite the given text using different words and sentence structures while maintaining the same meaning.";
         userPrompt = `Please paraphrase this text: ${content}`;
         break;
       
-      case 'text_translate':
-        const targetLanguage = options.targetLanguage || 'Spanish';
+      case "text_translate":
+        const targetLanguage = options.targetLanguage || "Spanish";
         systemPrompt = `You are a professional translator. Translate the given text to ${targetLanguage} accurately while maintaining context and tone.`;
         userPrompt = `Please translate this text to ${targetLanguage}: ${content}`;
         break;
       
-      case 'code_explain':
-        systemPrompt = 'You are a senior software developer. Explain the given code in simple terms, describing what it does, how it works, and any important concepts.';
+      case "code_explain":
+        systemPrompt = "You are a senior software developer. Explain the given code in simple terms, describing what it does, how it works, and any important concepts.";
         userPrompt = `Please explain this code: ${content}`;
         break;
       
-      case 'code_optimize':
-        systemPrompt = 'You are an expert programmer. Analyze the given code and suggest optimizations for performance, readability, and best practices.';
+      case "code_optimize":
+        systemPrompt = "You are an expert programmer. Analyze the given code and suggest optimizations for performance, readability, and best practices.";
         userPrompt = `Please optimize this code: ${content}`;
         break;
       
-      case 'content_generate':
-        const contentType = options.contentType || 'blog post';
+      case "content_generate":
+        const contentType = options.contentType || "blog post";
         const topic = options.topic || content;
         systemPrompt = `You are a creative content writer. Generate high-quality ${contentType} content that is engaging, informative, and well-structured.`;
         userPrompt = `Please create a ${contentType} about: ${topic}`;
         break;
       
-      case 'image_describe':
-        systemPrompt = 'You are an AI that can analyze images. Describe what you see in the image in detail, including objects, people, colors, composition, and any text present.';
-        userPrompt = 'Please describe this image in detail.';
+      case "image_describe":
+        systemPrompt = "You are an AI that can analyze images. Describe what you see in the image in detail, including objects, people, colors, composition, and any text present.";
+        userPrompt = "Please describe this image in detail.";
         break;
       
-      case 'ai_query':
-        systemPrompt = 'You are a helpful AI assistant specializing in conversions, calculations, and analysis. You can help with unit conversions, currency calculations, file analysis, mathematical computations, and general queries. Provide clear, accurate, and helpful responses. When dealing with conversions, always show the calculation steps and provide the exact result.';
+      case "ai_query":
+        systemPrompt = "You are a helpful AI assistant specializing in conversions, calculations, and analysis. Provide clear, accurate, and helpful responses. When dealing with conversions, always show the calculation steps and provide the exact result.";
         userPrompt = content;
         break;
       
       default:
+        await supabaseClient.from("system_logs").insert({
+          log_level: "warning",
+          source: "ai-convert",
+          message: `Unsupported AI conversion type: ${type}`,
+          user_id: user?.id,
+        });
+
         return new Response(
-          JSON.stringify({ error: 'Unsupported AI conversion type' }),
+          JSON.stringify({ error: "Unsupported AI conversion type" }),
           { 
             status: 400,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
           }
-        )
+        );
     }
 
-    // Create the messages array based on content type
     const messages = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userPrompt }
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userPrompt },
     ];
 
-    // If it's an image description, we need to handle it differently
-    if (type === 'image_describe' && content.startsWith('data:image')) {
+    if (type === "image_describe" && content.startsWith("data:image")) {
       messages[1] = {
-        role: 'user',
+        role: "user",
         content: [
-          { type: 'text', text: userPrompt },
+          { type: "text", text: userPrompt },
           { 
-            type: 'image_url',
+            type: "image_url",
             image_url: {
               url: content,
-              detail: 'high'
-            }
-          }
-        ]
+              detail: "high",
+            },
+          },
+        ],
       };
     }
 
-    console.log(`Processing AI conversion: ${type} for user: ${user.id}`);
-
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
-      method: 'POST',
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${lovableApiKey}`,
-        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${lovableApiKey}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
+        model: "google/gemini-2.5-flash",
         messages,
         max_tokens: 2000,
         temperature: 0.7,
@@ -162,51 +163,56 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('AI Gateway error:', response.status, errorData);
+      console.error("AI Gateway error:", response.status, errorData);
       
-      // Handle rate limiting
+      await supabaseClient.from("system_logs").insert({
+        log_level: "error",
+        source: "ai-convert",
+        message: `AI Gateway error: ${response.status}`,
+        metadata: { errorData, type, user_id: user?.id },
+        user_id: user?.id,
+      });
+
       if (response.status === 429) {
         return new Response(
-          JSON.stringify({ error: 'Rate limit exceeded. Please try again in a moment.' }),
+          JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }),
           { 
             status: 429,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
           }
-        )
+        );
       }
       
-      // Handle payment required
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: 'AI credits depleted. Please add credits to your workspace.' }),
+          JSON.stringify({ error: "AI credits depleted. Please add credits to your workspace." }),
           { 
             status: 402,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
           }
-        )
+        );
       }
       
       return new Response(
-        JSON.stringify({ error: 'AI processing failed', details: errorData }),
+        JSON.stringify({ error: "AI processing failed", details: errorData }),
         { 
           status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
         }
-      )
+      );
     }
 
     const data = await response.json();
     const result = data.choices[0].message.content;
+    const processingTime = Date.now() - startTime;
 
-    // Log the conversion in database (only if user is authenticated)
     if (user) {
-      const processingTime = Date.now() - startTime;
       const { error: logError } = await supabaseClient
-        .from('conversion_jobs')
+        .from("conversion_jobs")
         .insert({
           user_id: user.id,
           conversion_type: `ai_${type}`,
-          status: 'completed',
+          status: "completed",
           input_data: { content, options },
           output_data: { result },
           processing_time_ms: processingTime,
@@ -214,33 +220,58 @@ serve(async (req) => {
         });
 
       if (logError) {
-        console.error('Error logging conversion:', logError);
+        console.error("Error logging conversion:", logError);
+        await supabaseClient.from("system_logs").insert({
+          log_level: "error",
+          source: "ai-convert",
+          message: "Failed to log conversion job",
+          metadata: { error: logError, user_id: user.id },
+          user_id: user.id,
+        });
       }
-    } else {
-      console.log('Conversion completed for anonymous user - not logged to database');
     }
+
+    console.log(`AI Conversion completed in ${processingTime}ms`);
 
     return new Response(
       JSON.stringify({
         success: true,
         result,
         type,
-        usage: data.usage
+        processing_time_ms: processingTime,
+        usage: data.usage,
       }),
       {
         status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
-    )
+    );
 
   } catch (error) {
-    console.error('AI conversion error:', error);
+    console.error("AI conversion error:", error);
+    
+    try {
+      const supabaseClient = createClient(
+        Deno.env.get("SUPABASE_URL") ?? "",
+        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+      );
+      
+      await supabaseClient.from("system_logs").insert({
+        log_level: "critical",
+        source: "ai-convert",
+        message: "Unhandled error in AI conversion",
+        metadata: { error: error.message, stack: error.stack },
+      });
+    } catch (logError) {
+      console.error("Failed to log error:", logError);
+    }
+
     return new Response(
-      JSON.stringify({ error: 'Internal server error', details: error.message }),
+      JSON.stringify({ error: "Internal server error", details: error.message }),
       {
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
-    )
+    );
   }
-})
+});
