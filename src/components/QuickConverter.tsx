@@ -94,13 +94,13 @@ export const QuickConverter = () => {
   };
 
   return (
-    <div className="py-6 md:py-12 bg-gradient-section">
+    <div className="py-4 md:py-6 bg-gradient-section">
       <div className="max-w-7xl mx-auto mobile-px-compact">
         <Card className="w-full max-w-5xl mx-auto">
-          <CardHeader className="pb-2 md:pb-4">
-            <CardTitle className="text-center text-lg md:text-xl">Quick Converter</CardTitle>
+          <CardHeader className="pb-1 md:pb-2">
+            <CardTitle className="text-center text-base md:text-lg">Quick Converter</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 md:space-y-4 card-micro md:card-compact">
+          <CardContent className="space-y-2 md:space-y-3 card-micro md:card-compact">
             {/* Mobile: Stack vertically for better usability */}
             <div className="md:hidden space-y-3">
               {/* Category Selection */}

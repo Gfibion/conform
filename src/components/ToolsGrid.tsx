@@ -521,18 +521,18 @@ export const ToolsGrid = () => {
   };
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-gradient-section">
+    <section className="py-4 sm:py-6 md:py-8 bg-gradient-section">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
-        <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2 sm:mb-4">
+        <div className="text-center mb-4 sm:mb-6">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground mb-1 sm:mb-2">
             All-in-One Conversion Tools
           </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-2">
+          <p className="text-xs sm:text-sm md:text-base text-muted-foreground max-w-3xl mx-auto px-2">
             Transform, convert, and optimize your files with our comprehensive suite of tools
           </p>
         </div>
 
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-4 sm:mb-6">
           <div className="relative max-w-md mx-auto px-2 sm:px-0">
             <Search className="absolute left-5 sm:left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
@@ -546,7 +546,7 @@ export const ToolsGrid = () => {
         </div>
 
         <Tabs defaultValue="popular" className="w-full">
-          <div className="mb-6 sm:mb-8">
+          <div className="mb-4 sm:mb-6">
             <div className="overflow-x-auto px-2 sm:px-0">
               <TabsList className="inline-flex w-full md:w-auto min-w-full md:min-w-0 justify-start">
                 <TabsTrigger value="popular" className="text-xs sm:text-sm whitespace-nowrap px-2 sm:px-3">Popular</TabsTrigger>

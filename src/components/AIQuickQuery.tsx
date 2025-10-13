@@ -109,30 +109,30 @@ export const AIQuickQuery = () => {
   };
 
   return (
-    <section className="py-16 px-4">
+    <section className="py-6 md:py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4">AI Quick Query</h2>
-          <p className="text-muted-foreground">
+        <div className="text-center mb-3 md:mb-4">
+          <h2 className="text-xl md:text-2xl font-bold mb-1 md:mb-2">AI Quick Query</h2>
+          <p className="text-sm text-muted-foreground">
             Ask AI anything about conversions, get instant help with calculations, or analyze your files
           </p>
         </div>
 
         <Card className="bg-gradient-card shadow-card">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center justify-between text-base md:text-lg">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5" />
+                <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
                 AI Assistant
-                <Badge variant="secondary">Powered by Google Gemini (Free)</Badge>
+                <Badge variant="secondary" className="text-xs">Powered by Google Gemini (Free)</Badge>
               </div>
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-3">
             {/* File Upload Area */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Upload Files (Optional)</label>
-              <div className="border-2 border-dashed border-border rounded-lg p-4 text-center">
+            <div className="space-y-1">
+              <label className="text-xs md:text-sm font-medium">Upload Files (Optional)</label>
+              <div className="border-2 border-dashed border-border rounded-lg p-2 md:p-3 text-center">
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -143,10 +143,11 @@ export const AIQuickQuery = () => {
                 />
                 <Button
                   variant="outline"
+                  size="sm"
                   onClick={() => fileInputRef.current?.click()}
-                  className="mb-2"
+                  className="mb-1"
                 >
-                  <Upload className="w-4 h-4 mr-2" />
+                  <Upload className="w-3 h-3 md:w-4 md:h-4 mr-2" />
                   Choose Files
                 </Button>
                 <p className="text-xs text-muted-foreground">
@@ -156,17 +157,17 @@ export const AIQuickQuery = () => {
               
               {/* Uploaded Files Display */}
               {uploadedFiles.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2">
+                <div className="flex flex-wrap gap-1 md:gap-2 mt-1">
                   {uploadedFiles.map((file, index) => (
-                    <div key={index} className="flex items-center gap-1 bg-secondary px-2 py-1 rounded-md text-sm">
+                    <div key={index} className="flex items-center gap-1 bg-secondary px-2 py-0.5 md:py-1 rounded-md text-xs">
                       <span className="truncate max-w-32">{file.name}</span>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => removeFile(index)}
-                        className="h-4 w-4 p-0"
+                        className="h-3 w-3 md:h-4 md:w-4 p-0"
                       >
-                        <X className="w-3 h-3" />
+                        <X className="w-2 h-2 md:w-3 md:h-3" />
                       </Button>
                     </div>
                   ))}
@@ -175,13 +176,13 @@ export const AIQuickQuery = () => {
             </div>
 
             {/* Text Input */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Your Query</label>
+            <div className="space-y-1">
+              <label className="text-xs md:text-sm font-medium">Your Query</label>
               <Textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Ask me anything! For example: 'Convert 50 pounds to kilograms', 'What's 32°F in Celsius?', 'Analyze this image', 'Summarize this document'..."
-                className="min-h-24"
+                placeholder="Ask me anything! For example: 'Convert 50 pounds to kilograms', 'What's 32°F in Celsius?'..."
+                className="min-h-16 md:min-h-20 text-sm"
               />
             </div>
 
@@ -191,21 +192,22 @@ export const AIQuickQuery = () => {
                 onClick={handleQuery} 
                 disabled={(!prompt.trim() && uploadedFiles.length === 0) || isLoading}
                 className="flex-1"
+                size="sm"
               >
                 {isLoading ? (
                   <>
-                    <Sparkles className="w-4 h-4 mr-2 animate-spin" />
+                    <Sparkles className="w-3 h-3 md:w-4 md:h-4 mr-2 animate-spin" />
                     Processing...
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4 mr-2" />
+                    <Send className="w-3 h-3 md:w-4 md:h-4 mr-2" />
                     Ask AI
                   </>
                 )}
               </Button>
               {(prompt || result || uploadedFiles.length > 0) && (
-                <Button variant="outline" onClick={clearAll}>
+                <Button variant="outline" size="sm" onClick={clearAll}>
                   Clear All
                 </Button>
               )}
@@ -213,16 +215,16 @@ export const AIQuickQuery = () => {
 
             {/* Result Display */}
             {result && (
-              <div className="space-y-2">
+              <div className="space-y-1 md:space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium">AI Response</label>
+                  <label className="text-xs md:text-sm font-medium">AI Response</label>
                   <Button variant="outline" size="sm" onClick={copyResult}>
-                    <Copy className="w-4 h-4 mr-1" />
+                    <Copy className="w-3 h-3 md:w-4 md:h-4 mr-1" />
                     Copy
                   </Button>
                 </div>
-                <div className="bg-muted/50 p-4 rounded-md">
-                  <p className="whitespace-pre-wrap">{result}</p>
+                <div className="bg-muted/50 p-3 md:p-4 rounded-md">
+                  <p className="whitespace-pre-wrap text-sm">{result}</p>
                 </div>
               </div>
             )}
