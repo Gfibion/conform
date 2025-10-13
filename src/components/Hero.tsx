@@ -46,15 +46,15 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative py-4 md:py-20 overflow-hidden bg-gradient-hero">
+    <section className="relative py-3 md:py-8 overflow-hidden bg-gradient-hero">
       <div className="container mx-auto mobile-px-compact relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center space-x-1 bg-primary/10 border border-primary/20 rounded-full px-2 py-1 mb-3 md:px-3 md:py-1.5 md:mb-6">
+          <div className="inline-flex items-center space-x-1 bg-primary/10 border border-primary/20 rounded-full px-2 py-1 mb-2 md:px-3 md:py-1.5 md:mb-3">
             <Zap className="w-2.5 h-2.5 md:w-3 md:h-3 text-primary" />
             <span className="text-xs md:text-xs text-foreground/80">Converting the World, One Format at a Time</span>
           </div>
           
-          <h1 className="text-2xl md:text-6xl font-bold mb-3 md:mb-6 text-foreground leading-tight px-2">
+          <h1 className="text-2xl md:text-5xl font-bold mb-2 md:mb-3 text-foreground leading-tight px-2">
             Universal Conversion
             <br />
             <span className="bg-gradient-secondary bg-clip-text text-transparent">
@@ -62,13 +62,13 @@ export const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-sm md:text-lg text-foreground/80 mb-4 md:mb-8 max-w-2xl mx-auto leading-relaxed px-3 md:px-4">
+          <p className="text-sm md:text-base text-foreground/80 mb-3 md:mb-4 max-w-2xl mx-auto leading-relaxed px-3 md:px-4">
             Transform files, translate code, convert units, and repair documents with our intelligent, 
             AI-powered conversion platform. No registration required to get started.
           </p>
 
           {/* Search Function - More compact on mobile */}
-          <div className="max-w-xs md:max-w-md mx-auto mb-4 md:mb-8 px-3 md:px-4">
+          <div className="max-w-xs md:max-w-md mx-auto mb-3 md:mb-4 px-3 md:px-4">
             <div className="relative">
               <Input
                 type="text"
@@ -89,7 +89,7 @@ export const Hero = () => {
             </div>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center mb-6 md:mb-8 px-3 md:px-4">
+          <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center mb-3 md:mb-4 px-3 md:px-4">
             <Button 
               size="sm"
               className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow transition-all duration-300 hover:scale-105 h-8 md:h-10 text-xs md:text-sm"
@@ -108,7 +108,7 @@ export const Hero = () => {
           </div>
 
           {/* Calculator Button */}
-          <div className="flex justify-center mb-4 md:mb-6 px-3 md:px-4">
+          <div className="flex justify-center mb-3 md:mb-4 px-3 md:px-4">
             <CalculatorDialog 
               variant="outline"
               size="sm"
@@ -117,7 +117,7 @@ export const Hero = () => {
           </div>
           
           {/* Feature icons - Much more compact on mobile */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-6 md:mt-12 px-3 md:px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-4 md:mt-6 px-3 md:px-4">
             <div 
               className="text-center cursor-pointer group hover:scale-105 transition-transform duration-200"
               onClick={() => handleCategoryClick('file-conversion')}
