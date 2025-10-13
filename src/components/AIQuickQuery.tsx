@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Upload, Send, Copy, X, Settings } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Sparkles, Upload, Send, Copy, X, Plus } from "lucide-react";
 import { useAIConverter } from "@/hooks/useAIConverter";
 import { useToast } from "@/hooks/use-toast";
 
@@ -12,9 +14,7 @@ export const AIQuickQuery = () => {
   const [prompt, setPrompt] = useState("");
   const [result, setResult] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [showSettings, setShowSettings] = useState(false);
-  const [apiKey, setApiKey] = useState("");
-  const [isUpdatingKey, setIsUpdatingKey] = useState(false);
+  const [showUploadDialog, setShowUploadDialog] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { convertWithAI, isLoading } = useAIConverter();
   const { toast } = useToast();
@@ -59,45 +59,6 @@ export const AIQuickQuery = () => {
     });
   };
 
-  const updateApiKey = async () => {
-    if (!apiKey.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter a valid API key",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsUpdatingKey(true);
-    try {
-      // This will trigger the secrets modal for the user to update the key
-      const response = await fetch('/api/update-openai-key', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ apiKey })
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Success",
-          description: "OpenAI API key updated successfully"
-        });
-        setApiKey("");
-        setShowSettings(false);
-      } else {
-        throw new Error('Failed to update API key');
-      }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to update API key. Please try the manual method.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsUpdatingKey(false);
-    }
-  };
 
   const clearAll = () => {
     setPrompt("");
@@ -129,61 +90,99 @@ export const AIQuickQuery = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {/* File Upload Area */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              onChange={handleFileUpload}
+              className="hidden"
+              accept="image/*,audio/*,video/*,.pdf,.doc,.docx,.txt"
+            />
+
+            {/* Text Input with Upload Button */}
             <div className="space-y-1">
-              <label className="text-xs md:text-sm font-medium">Upload Files (Optional)</label>
-              <div className="border-2 border-dashed border-border rounded-lg p-2 md:p-3 text-center">
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  multiple
-                  onChange={handleFileUpload}
-                  className="hidden"
-                  accept="image/*,audio/*,video/*,.pdf,.doc,.docx,.txt"
+              <label className="text-xs md:text-sm font-medium">Your Query</label>
+              <div className="relative">
+                <Textarea
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  placeholder="Ask me anything! For example: 'Convert 50 pounds to kilograms', 'What's 32°F in Celsius?'..."
+                  className="min-h-16 md:min-h-20 text-sm pr-10"
                 />
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="mb-1"
-                >
-                  <Upload className="w-3 h-3 md:w-4 md:h-4 mr-2" />
-                  Choose Files
-                </Button>
-                <p className="text-xs text-muted-foreground">
-                  Support for images, audio, video, documents, and text files
-                </p>
+                <TooltipProvider>
+                  <Tooltip delayDuration={500}>
+                    <TooltipTrigger asChild>
+                      <Dialog open={showUploadDialog} onOpenChange={setShowUploadDialog}>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-2 top-2 h-7 w-7 p-0"
+                            type="button"
+                          >
+                            <Plus className="h-4 w-4" />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-md">
+                          <DialogHeader>
+                            <DialogTitle>Upload Files</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-3">
+                            <div className="border-2 border-dashed border-border rounded-lg p-4 text-center">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => fileInputRef.current?.click()}
+                                className="mb-2"
+                              >
+                                <Upload className="w-4 h-4 mr-2" />
+                                Choose Files
+                              </Button>
+                              <p className="text-xs text-muted-foreground">
+                                Support for images, audio, video, documents, and text files
+                              </p>
+                            </div>
+                            
+                            {uploadedFiles.length > 0 && (
+                              <div className="space-y-2">
+                                <p className="text-sm font-medium">Uploaded Files:</p>
+                                <div className="flex flex-wrap gap-2">
+                                  {uploadedFiles.map((file, index) => (
+                                    <div key={index} className="flex items-center gap-1 bg-secondary px-2 py-1 rounded-md text-xs">
+                                      <span className="truncate max-w-32">{file.name}</span>
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => removeFile(index)}
+                                        className="h-4 w-4 p-0"
+                                      >
+                                        <X className="w-3 h-3" />
+                                      </Button>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Upload files to include in your query</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
               
-              {/* Uploaded Files Display */}
               {uploadedFiles.length > 0 && (
-                <div className="flex flex-wrap gap-1 md:gap-2 mt-1">
+                <div className="flex flex-wrap gap-1 mt-1">
                   {uploadedFiles.map((file, index) => (
-                    <div key={index} className="flex items-center gap-1 bg-secondary px-2 py-0.5 md:py-1 rounded-md text-xs">
-                      <span className="truncate max-w-32">{file.name}</span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => removeFile(index)}
-                        className="h-3 w-3 md:h-4 md:w-4 p-0"
-                      >
-                        <X className="w-2 h-2 md:w-3 md:h-3" />
-                      </Button>
-                    </div>
+                    <Badge key={index} variant="secondary" className="text-xs">
+                      {file.name}
+                    </Badge>
                   ))}
                 </div>
               )}
-            </div>
-
-            {/* Text Input */}
-            <div className="space-y-1">
-              <label className="text-xs md:text-sm font-medium">Your Query</label>
-              <Textarea
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Ask me anything! For example: 'Convert 50 pounds to kilograms', 'What's 32°F in Celsius?'..."
-                className="min-h-16 md:min-h-20 text-sm"
-              />
             </div>
 
             {/* Action Buttons */}
