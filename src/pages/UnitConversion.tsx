@@ -5,12 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { QuickConverter } from "@/components/QuickConverter";
-import { EnhancedCurrencyConverter } from "@/components/tools/EnhancedCurrencyConverter";
 import { LengthConverter } from "@/components/tools/LengthConverter";
 import { WeightConverter } from "@/components/tools/WeightConverter";
 import { TemperatureConverter } from "@/components/tools/TemperatureConverter";
 import { TimeConverter } from "@/components/tools/TimeConverter";
-import { Calculator, Ruler, Weight, Thermometer, Clock, TrendingUp, ArrowLeft } from "lucide-react";
+import { Ruler, Weight, Thermometer, Clock, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const UnitConversion = () => {
@@ -105,12 +104,6 @@ const UnitConversion = () => {
             {/* Quick Converter Section */}
             <div className="mb-12">
               <QuickConverter />
-            </div>
-
-            {/* Enhanced Currency Converter Section */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-center mb-6">Currency Converter</h2>
-              <EnhancedCurrencyConverter />
             </div>
 
             {/* Converter Tools Grid */}

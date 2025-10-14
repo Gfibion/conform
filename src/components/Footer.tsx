@@ -75,7 +75,7 @@ export const Footer = () => {
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Unit Converter
               </a>
-              <a href="/unit-conversion" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
+              <a href="/tools/currency-converter" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 Currency Converter
               </a>

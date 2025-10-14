@@ -22,6 +22,7 @@ import LengthConverterPage from "@/pages/tools/LengthConverter";
 import WeightConverterPage from "@/pages/tools/WeightConverter";
 import TemperatureConverterPage from "@/pages/tools/TemperatureConverter";
 import TimeConverterPage from "@/pages/tools/TimeConverter";
+import CurrencyConverterPage from "@/pages/tools/CurrencyConverter";
 import AITextToolsPage from "@/pages/tools/AITextTools";
 import AICodeToolsPage from "@/pages/tools/AICodeTools";
 import JSONFormatterPage from "@/pages/tools/JSONFormatter";
@@ -76,6 +77,7 @@ function App() {
               <Route path="/tools/weight-converter" element={<WeightConverterPage />} />
               <Route path="/tools/temperature-converter" element={<TemperatureConverterPage />} />
               <Route path="/tools/time-converter" element={<TimeConverterPage />} />
+              <Route path="/tools/currency-converter" element={<CurrencyConverterPage />} />
               <Route path="/tools/ai-text-tools" element={<AITextToolsPage />} />
               <Route path="/tools/ai-code-tools" element={<AICodeToolsPage />} />
               <Route path="/tools/json-formatter" element={<JSONFormatterPage />} />

@@ -484,6 +484,10 @@ export const ToolsGrid = () => {
   };
 
   const handleToolClick = (tool: Tool) => {
+    if (tool.title === "Currency Converter") {
+      window.location.href = "/tools/currency-converter";
+      return;
+    }
     setSelectedTool(tool);
     setIsDialogOpen(true);
   };

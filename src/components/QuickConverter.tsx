@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, RefreshCw } from "lucide-react";
-import { useCurrencyConverter } from "@/hooks/useCurrencyConverter";
 
 const conversionCategories = {
   length: {
@@ -16,7 +15,7 @@ const conversionCategories = {
     units: ["kilogram", "gram", "pound", "ounce", "stone", "ton"]
   },
   temperature: {
-    name: "Temperature", 
+    name: "Temperature",
     units: ["celsius", "fahrenheit", "kelvin", "rankine"]
   },
   volume: {
@@ -26,10 +25,6 @@ const conversionCategories = {
   time: {
     name: "Time",
     units: ["second", "minute", "hour", "day", "week", "month", "year"]
-  },
-  currency: {
-    name: "Currency",
-    units: ["USD", "EUR", "GBP", "JPY", "CAD", "AUD", "CHF", "CNY", "INR", "BRL", "MXN", "ZAR"]
   }
 };
 
@@ -39,25 +34,15 @@ export const QuickConverter = () => {
   const [fromUnit, setFromUnit] = useState("");
   const [toUnit, setToUnit] = useState("");
   const [category, setCategory] = useState("");
-  
-  const { convertCurrency, isLoading } = useCurrencyConverter();
 
-  const handleConvert = async () => {
+  const handleConvert = () => {
     if (!fromValue || !fromUnit || !toUnit) return;
-    
+
     const inputValue = parseFloat(fromValue);
     if (isNaN(inputValue)) return;
 
     let result = inputValue;
-    
-    if (category === "currency") {
-      const conversion = await convertCurrency(inputValue, fromUnit, toUnit);
-      if (conversion?.converted_amount) {
-        setToValue(conversion.converted_amount.toFixed(4));
-        return;
-      }
-    }
-    
+
     if (fromUnit === "meter" && toUnit === "foot") {
       result = inputValue * 3.28084;
     } else if (fromUnit === "foot" && toUnit === "meter") {
@@ -77,7 +62,7 @@ export const QuickConverter = () => {
     } else if (fromUnit === toUnit) {
       result = inputValue;
     }
-    
+
     setToValue(result.toFixed(4));
   };
 
@@ -182,12 +167,11 @@ export const QuickConverter = () => {
               </div>
 
               {/* Convert Button */}
-              <Button 
-                onClick={handleConvert} 
-                className="h-8 w-full text-xs" 
-                disabled={isLoading}
+              <Button
+                onClick={handleConvert}
+                className="h-8 w-full text-xs"
               >
-                {isLoading ? "Converting..." : "Convert"}
+                Convert
                 <ArrowRight className="w-3 h-3 ml-1" />
               </Button>
             </div>
@@ -273,12 +257,11 @@ export const QuickConverter = () => {
               </div>
 
               {/* Convert Button */}
-              <Button 
-                onClick={handleConvert} 
-                className="h-9 flex-shrink-0" 
-                disabled={isLoading}
+              <Button
+                onClick={handleConvert}
+                className="h-9 flex-shrink-0"
               >
-                {isLoading ? "Converting..." : "Convert"}
+                Convert
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
