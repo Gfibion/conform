@@ -62,11 +62,11 @@ export const Footer = () => {
           </div>
 
           {/* Tools */}
-          <div className="space-y-4 lg:space-y-5">
+          <div className="space-y-3">
             <h3 className="text-base lg:text-lg font-semibold text-foreground border-b border-border/50 pb-2">
               Conversion Tools
             </h3>
-            <div className="grid grid-cols-1 gap-2 lg:gap-3">
+            <div className="grid grid-cols-1 gap-1.5">
               <a href="/unit-conversion" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 File Converter
@@ -95,11 +95,11 @@ export const Footer = () => {
           </div>
 
           {/* Features & Company Combined on Mobile */}
-          <div className="space-y-4 lg:space-y-5">
+          <div className="space-y-3">
             <h3 className="text-base lg:text-lg font-semibold text-foreground border-b border-border/50 pb-2">
               Features
             </h3>
-            <div className="grid grid-cols-1 gap-2 lg:gap-3">
+            <div className="grid grid-cols-1 gap-1.5">
               <a href="/ai-powered-tools" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 AI Assistant
@@ -132,11 +132,11 @@ export const Footer = () => {
           </div>
 
           {/* Company */}
-          <div className="space-y-4 lg:space-y-5">
+          <div className="space-y-3">
             <h3 className="text-base lg:text-lg font-semibold text-foreground border-b border-border/50 pb-2">
               Company
             </h3>
-            <div className="grid grid-cols-2 gap-2 lg:gap-3">
+            <div className="grid grid-cols-2 gap-1.5">
               <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center group">
                 <span className="w-1.5 h-1.5 bg-primary/60 rounded-full mr-2 group-hover:bg-primary transition-colors"></span>
                 About Us
