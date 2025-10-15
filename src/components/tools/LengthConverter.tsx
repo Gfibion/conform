@@ -23,6 +23,8 @@ const lengthUnits: Unit[] = [
   { value: 'kilometer', label: 'Kilometer', symbol: 'km', factor: 1000 },
   { value: 'centimeter', label: 'Centimeter', symbol: 'cm', factor: 0.01 },
   { value: 'millimeter', label: 'Millimeter', symbol: 'mm', factor: 0.001 },
+  { value: 'micrometer', label: 'Micrometer', symbol: 'µm', factor: 0.000001 },
+  { value: 'nanometer', label: 'Nanometer', symbol: 'nm', factor: 0.000000001 },
   { value: 'mile', label: 'Mile', symbol: 'mi', factor: 1609.34 },
   { value: 'yard', label: 'Yard', symbol: 'yd', factor: 0.9144 },
   { value: 'foot', label: 'Foot', symbol: 'ft', factor: 0.3048 },

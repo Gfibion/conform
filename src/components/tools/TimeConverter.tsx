@@ -7,13 +7,18 @@ import { Button } from "@/components/ui/button";
 import { ArrowRightLeft, Clock } from "lucide-react";
 
 const timeUnits = [
+  { value: "nanosecond", label: "Nanosecond", symbol: "ns", factor: 0.000000001 },
+  { value: "microsecond", label: "Microsecond", symbol: "µs", factor: 0.000001 },
+  { value: "millisecond", label: "Millisecond", symbol: "ms", factor: 0.001 },
   { value: "second", label: "Second", symbol: "s", factor: 1 },
   { value: "minute", label: "Minute", symbol: "min", factor: 60 },
   { value: "hour", label: "Hour", symbol: "h", factor: 3600 },
   { value: "day", label: "Day", symbol: "d", factor: 86400 },
   { value: "week", label: "Week", symbol: "wk", factor: 604800 },
   { value: "month", label: "Month", symbol: "mo", factor: 2629746 },
-  { value: "year", label: "Year", symbol: "yr", factor: 31556952 }
+  { value: "year", label: "Year", symbol: "yr", factor: 31556952 },
+  { value: "decade", label: "Decade", symbol: "dec", factor: 315569520 },
+  { value: "century", label: "Century", symbol: "c", factor: 3155695200 }
 ];
 
 export const TimeConverter = () => {

@@ -4,36 +4,25 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
-import { ArrowUpDown, Droplet } from 'lucide-react'
+import { ArrowUpDown, Zap } from 'lucide-react'
 
-const volumeUnits = [
-  { name: "Liter", symbol: "L", factor: 1 },
-  { name: "Milliliter", symbol: "mL", factor: 0.001 },
-  { name: "Cubic Meter", symbol: "m³", factor: 1000 },
-  { name: "Cubic Centimeter", symbol: "cm³", factor: 0.001 },
-  { name: "Cubic Foot", symbol: "ft³", factor: 28.3168 },
-  { name: "Cubic Inch", symbol: "in³", factor: 0.0163871 },
-  { name: "US Liquid Gallon", symbol: "gal (US)", factor: 3.78541 },
-  { name: "US Liquid Quart", symbol: "qt (US)", factor: 0.946353 },
-  { name: "US Liquid Pint", symbol: "pt (US)", factor: 0.473176 },
-  { name: "US Legal Cup", symbol: "cup (US)", factor: 0.24 },
-  { name: "US Fluid Ounce", symbol: "fl oz (US)", factor: 0.0295735 },
-  { name: "US Tablespoon", symbol: "tbsp (US)", factor: 0.0147868 },
-  { name: "US Teaspoon", symbol: "tsp (US)", factor: 0.00492892 },
-  { name: "Imperial Gallon", symbol: "gal (UK)", factor: 4.54609 },
-  { name: "Imperial Quart", symbol: "qt (UK)", factor: 1.13652 },
-  { name: "Imperial Pint", symbol: "pt (UK)", factor: 0.568261 },
-  { name: "Imperial Cup", symbol: "cup (UK)", factor: 0.284131 },
-  { name: "Imperial Fluid Ounce", symbol: "fl oz (UK)", factor: 0.0284131 },
-  { name: "Imperial Tablespoon", symbol: "tbsp (UK)", factor: 0.0177582 },
-  { name: "Imperial Teaspoon", symbol: "tsp (UK)", factor: 0.00591939 }
+const electricityUnits = [
+  { name: "Watt", symbol: "W", factor: 1 },
+  { name: "Kilowatt", symbol: "kW", factor: 1000 },
+  { name: "Megawatt", symbol: "MW", factor: 1000000 },
+  { name: "Gigawatt", symbol: "GW", factor: 1000000000 },
+  { name: "Horsepower (Metric)", symbol: "hp", factor: 735.499 },
+  { name: "Horsepower (Imperial)", symbol: "hp (UK)", factor: 745.7 },
+  { name: "BTU/hour", symbol: "BTU/h", factor: 0.293071 },
+  { name: "Calorie/second", symbol: "cal/s", factor: 4.184 },
+  { name: "Volt-Ampere", symbol: "VA", factor: 1 }
 ]
 
-export const VolumeConverter = () => {
+export const ElectricityConverter = () => {
   const [fromValue, setFromValue] = useState("")
   const [toValue, setToValue] = useState("")
-  const [fromUnit, setFromUnit] = useState("L")
-  const [toUnit, setToUnit] = useState("gal")
+  const [fromUnit, setFromUnit] = useState("W")
+  const [toUnit, setToUnit] = useState("kW")
 
   const convert = () => {
     const value = parseFloat(fromValue)
@@ -42,9 +31,9 @@ export const VolumeConverter = () => {
       return
     }
 
-    const fromFactor = volumeUnits.find(unit => unit.symbol === fromUnit)?.factor || 1
-    const toFactor = volumeUnits.find(unit => unit.symbol === toUnit)?.factor || 1
-    
+    const fromFactor = electricityUnits.find(unit => unit.symbol === fromUnit)?.factor || 1
+    const toFactor = electricityUnits.find(unit => unit.symbol === toUnit)?.factor || 1
+
     const result = (value * fromFactor) / toFactor
     setToValue(result.toString())
   }
@@ -63,11 +52,11 @@ export const VolumeConverter = () => {
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="flex items-center justify-center gap-2">
-          <Droplet className="w-5 h-5" />
-          Volume Converter
+          <Zap className="w-5 h-5" />
+          Electricity Converter
         </CardTitle>
         <CardDescription>
-          Convert between different volume units like liters, gallons, cups
+          Convert between different power and electricity units
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -86,7 +75,7 @@ export const VolumeConverter = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {volumeUnits.map((unit) => (
+                {electricityUnits.map((unit) => (
                   <SelectItem key={unit.symbol} value={unit.symbol}>
                     {unit.name} ({unit.symbol})
                   </SelectItem>
@@ -110,7 +99,7 @@ export const VolumeConverter = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {volumeUnits.map((unit) => (
+                {electricityUnits.map((unit) => (
                   <SelectItem key={unit.symbol} value={unit.symbol}>
                     {unit.name} ({unit.symbol})
                   </SelectItem>
@@ -130,10 +119,10 @@ export const VolumeConverter = () => {
         <div className="bg-muted p-4 rounded-lg">
           <h3 className="font-medium mb-2">Quick References</h3>
           <div className="text-sm space-y-1">
-            <p>• 1 gallon (US) = 3.79 liters = 16 cups</p>
-            <p>• 1 liter = 1000 mL = 33.8 fl oz (US)</p>
-            <p>• 1 cup = 240 mL = 8 fl oz</p>
-            <p>• 1 tablespoon = 15 mL = 3 teaspoons</p>
+            <p>• 1 kW = 1000 W = 1.34 hp</p>
+            <p>• 1 hp = 745.7 W = 0.746 kW</p>
+            <p>• 1 MW = 1000 kW = 1,341 hp</p>
+            <p>• Typical home usage: 1-5 kW</p>
           </div>
         </div>
       </CardContent>

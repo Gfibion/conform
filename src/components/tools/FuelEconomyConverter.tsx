@@ -4,49 +4,48 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
-import { ArrowUpDown, Droplet } from 'lucide-react'
+import { ArrowUpDown, Fuel } from 'lucide-react'
 
-const volumeUnits = [
-  { name: "Liter", symbol: "L", factor: 1 },
-  { name: "Milliliter", symbol: "mL", factor: 0.001 },
-  { name: "Cubic Meter", symbol: "m³", factor: 1000 },
-  { name: "Cubic Centimeter", symbol: "cm³", factor: 0.001 },
-  { name: "Cubic Foot", symbol: "ft³", factor: 28.3168 },
-  { name: "Cubic Inch", symbol: "in³", factor: 0.0163871 },
-  { name: "US Liquid Gallon", symbol: "gal (US)", factor: 3.78541 },
-  { name: "US Liquid Quart", symbol: "qt (US)", factor: 0.946353 },
-  { name: "US Liquid Pint", symbol: "pt (US)", factor: 0.473176 },
-  { name: "US Legal Cup", symbol: "cup (US)", factor: 0.24 },
-  { name: "US Fluid Ounce", symbol: "fl oz (US)", factor: 0.0295735 },
-  { name: "US Tablespoon", symbol: "tbsp (US)", factor: 0.0147868 },
-  { name: "US Teaspoon", symbol: "tsp (US)", factor: 0.00492892 },
-  { name: "Imperial Gallon", symbol: "gal (UK)", factor: 4.54609 },
-  { name: "Imperial Quart", symbol: "qt (UK)", factor: 1.13652 },
-  { name: "Imperial Pint", symbol: "pt (UK)", factor: 0.568261 },
-  { name: "Imperial Cup", symbol: "cup (UK)", factor: 0.284131 },
-  { name: "Imperial Fluid Ounce", symbol: "fl oz (UK)", factor: 0.0284131 },
-  { name: "Imperial Tablespoon", symbol: "tbsp (UK)", factor: 0.0177582 },
-  { name: "Imperial Teaspoon", symbol: "tsp (UK)", factor: 0.00591939 }
+const fuelEconomyUnits = [
+  { name: "Kilometers per Liter", symbol: "km/L", factor: 1, inverse: false },
+  { name: "Miles per US Gallon", symbol: "mpg (US)", factor: 2.35215, inverse: false },
+  { name: "Miles per Imperial Gallon", symbol: "mpg (UK)", factor: 2.82481, inverse: false },
+  { name: "Liters per 100 km", symbol: "L/100km", factor: 100, inverse: true }
 ]
 
-export const VolumeConverter = () => {
+export const FuelEconomyConverter = () => {
   const [fromValue, setFromValue] = useState("")
   const [toValue, setToValue] = useState("")
-  const [fromUnit, setFromUnit] = useState("L")
-  const [toUnit, setToUnit] = useState("gal")
+  const [fromUnit, setFromUnit] = useState("km/L")
+  const [toUnit, setToUnit] = useState("mpg (US)")
 
   const convert = () => {
     const value = parseFloat(fromValue)
-    if (isNaN(value)) {
+    if (isNaN(value) || value === 0) {
       setToValue("")
       return
     }
 
-    const fromFactor = volumeUnits.find(unit => unit.symbol === fromUnit)?.factor || 1
-    const toFactor = volumeUnits.find(unit => unit.symbol === toUnit)?.factor || 1
-    
-    const result = (value * fromFactor) / toFactor
-    setToValue(result.toString())
+    const fromUnitData = fuelEconomyUnits.find(unit => unit.symbol === fromUnit)
+    const toUnitData = fuelEconomyUnits.find(unit => unit.symbol === toUnit)
+
+    if (fromUnitData && toUnitData) {
+      let result: number
+
+      if (fromUnitData.inverse === toUnitData.inverse) {
+        result = (value * fromUnitData.factor) / toUnitData.factor
+      } else {
+        if (fromUnitData.inverse) {
+          const kmPerL = fromUnitData.factor / value
+          result = (kmPerL * toUnitData.factor)
+        } else {
+          const kmPerL = (value / fromUnitData.factor)
+          result = toUnitData.factor / kmPerL
+        }
+      }
+
+      setToValue(result.toString())
+    }
   }
 
   useEffect(() => {
@@ -63,11 +62,11 @@ export const VolumeConverter = () => {
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="flex items-center justify-center gap-2">
-          <Droplet className="w-5 h-5" />
-          Volume Converter
+          <Fuel className="w-5 h-5" />
+          Fuel Economy Converter
         </CardTitle>
         <CardDescription>
-          Convert between different volume units like liters, gallons, cups
+          Convert between different fuel economy units
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -86,7 +85,7 @@ export const VolumeConverter = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {volumeUnits.map((unit) => (
+                {fuelEconomyUnits.map((unit) => (
                   <SelectItem key={unit.symbol} value={unit.symbol}>
                     {unit.name} ({unit.symbol})
                   </SelectItem>
@@ -110,7 +109,7 @@ export const VolumeConverter = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {volumeUnits.map((unit) => (
+                {fuelEconomyUnits.map((unit) => (
                   <SelectItem key={unit.symbol} value={unit.symbol}>
                     {unit.name} ({unit.symbol})
                   </SelectItem>
@@ -130,10 +129,10 @@ export const VolumeConverter = () => {
         <div className="bg-muted p-4 rounded-lg">
           <h3 className="font-medium mb-2">Quick References</h3>
           <div className="text-sm space-y-1">
-            <p>• 1 gallon (US) = 3.79 liters = 16 cups</p>
-            <p>• 1 liter = 1000 mL = 33.8 fl oz (US)</p>
-            <p>• 1 cup = 240 mL = 8 fl oz</p>
-            <p>• 1 tablespoon = 15 mL = 3 teaspoons</p>
+            <p>• 30 mpg (US) = 12.75 km/L = 7.84 L/100km</p>
+            <p>• Good fuel economy: 40+ mpg (US)</p>
+            <p>• Excellent: 50+ mpg (US) or 5 L/100km</p>
+            <p>• Imperial gallon is 20% larger than US gallon</p>
           </div>
         </div>
       </CardContent>

@@ -9,10 +9,13 @@ import { ArrowRightLeft, Weight } from "lucide-react";
 const weightUnits = [
   { value: "kilogram", label: "Kilogram", symbol: "kg", factor: 1 },
   { value: "gram", label: "Gram", symbol: "g", factor: 0.001 },
+  { value: "milligram", label: "Milligram", symbol: "mg", factor: 0.000001 },
   { value: "pound", label: "Pound", symbol: "lb", factor: 0.453592 },
   { value: "ounce", label: "Ounce", symbol: "oz", factor: 0.0283495 },
   { value: "stone", label: "Stone", symbol: "st", factor: 6.35029 },
-  { value: "ton", label: "Metric Ton", symbol: "t", factor: 1000 }
+  { value: "metric-ton", label: "Metric Ton", symbol: "t", factor: 1000 },
+  { value: "imperial-ton", label: "Imperial Ton", symbol: "long ton", factor: 1016.05 },
+  { value: "us-ton", label: "US Ton", symbol: "short ton", factor: 907.185 }
 ];
 
 export const WeightConverter = () => {

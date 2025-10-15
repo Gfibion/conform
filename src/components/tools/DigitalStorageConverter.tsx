@@ -4,36 +4,36 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
-import { ArrowUpDown, Droplet } from 'lucide-react'
+import { ArrowUpDown, HardDrive } from 'lucide-react'
 
-const volumeUnits = [
-  { name: "Liter", symbol: "L", factor: 1 },
-  { name: "Milliliter", symbol: "mL", factor: 0.001 },
-  { name: "Cubic Meter", symbol: "m³", factor: 1000 },
-  { name: "Cubic Centimeter", symbol: "cm³", factor: 0.001 },
-  { name: "Cubic Foot", symbol: "ft³", factor: 28.3168 },
-  { name: "Cubic Inch", symbol: "in³", factor: 0.0163871 },
-  { name: "US Liquid Gallon", symbol: "gal (US)", factor: 3.78541 },
-  { name: "US Liquid Quart", symbol: "qt (US)", factor: 0.946353 },
-  { name: "US Liquid Pint", symbol: "pt (US)", factor: 0.473176 },
-  { name: "US Legal Cup", symbol: "cup (US)", factor: 0.24 },
-  { name: "US Fluid Ounce", symbol: "fl oz (US)", factor: 0.0295735 },
-  { name: "US Tablespoon", symbol: "tbsp (US)", factor: 0.0147868 },
-  { name: "US Teaspoon", symbol: "tsp (US)", factor: 0.00492892 },
-  { name: "Imperial Gallon", symbol: "gal (UK)", factor: 4.54609 },
-  { name: "Imperial Quart", symbol: "qt (UK)", factor: 1.13652 },
-  { name: "Imperial Pint", symbol: "pt (UK)", factor: 0.568261 },
-  { name: "Imperial Cup", symbol: "cup (UK)", factor: 0.284131 },
-  { name: "Imperial Fluid Ounce", symbol: "fl oz (UK)", factor: 0.0284131 },
-  { name: "Imperial Tablespoon", symbol: "tbsp (UK)", factor: 0.0177582 },
-  { name: "Imperial Teaspoon", symbol: "tsp (UK)", factor: 0.00591939 }
+const storageUnits = [
+  { name: "Bit", symbol: "bit", factor: 1 },
+  { name: "Kilobit", symbol: "kbit", factor: 1000 },
+  { name: "Kibibit", symbol: "Kibit", factor: 1024 },
+  { name: "Megabit", symbol: "Mbit", factor: 1000000 },
+  { name: "Mebibit", symbol: "Mibit", factor: 1048576 },
+  { name: "Gigabit", symbol: "Gbit", factor: 1000000000 },
+  { name: "Gibibit", symbol: "Gibit", factor: 1073741824 },
+  { name: "Terabit", symbol: "Tbit", factor: 1000000000000 },
+  { name: "Tebibit", symbol: "Tibit", factor: 1099511627776 },
+  { name: "Petabit", symbol: "Pbit", factor: 1000000000000000 },
+  { name: "Pebibit", symbol: "Pibit", factor: 1125899906842624 },
+  { name: "Byte", symbol: "B", factor: 8 },
+  { name: "Kilobyte", symbol: "kB", factor: 8000 },
+  { name: "Kibibyte", symbol: "KiB", factor: 8192 },
+  { name: "Megabyte", symbol: "MB", factor: 8000000 },
+  { name: "Mebibyte", symbol: "MiB", factor: 8388608 },
+  { name: "Gigabyte", symbol: "GB", factor: 8000000000 },
+  { name: "Gibibyte", symbol: "GiB", factor: 8589934592 },
+  { name: "Terabyte", symbol: "TB", factor: 8000000000000 },
+  { name: "Tebibyte", symbol: "TiB", factor: 8796093022208 }
 ]
 
-export const VolumeConverter = () => {
+export const DigitalStorageConverter = () => {
   const [fromValue, setFromValue] = useState("")
   const [toValue, setToValue] = useState("")
-  const [fromUnit, setFromUnit] = useState("L")
-  const [toUnit, setToUnit] = useState("gal")
+  const [fromUnit, setFromUnit] = useState("GB")
+  const [toUnit, setToUnit] = useState("MB")
 
   const convert = () => {
     const value = parseFloat(fromValue)
@@ -42,9 +42,9 @@ export const VolumeConverter = () => {
       return
     }
 
-    const fromFactor = volumeUnits.find(unit => unit.symbol === fromUnit)?.factor || 1
-    const toFactor = volumeUnits.find(unit => unit.symbol === toUnit)?.factor || 1
-    
+    const fromFactor = storageUnits.find(unit => unit.symbol === fromUnit)?.factor || 1
+    const toFactor = storageUnits.find(unit => unit.symbol === toUnit)?.factor || 1
+
     const result = (value * fromFactor) / toFactor
     setToValue(result.toString())
   }
@@ -63,11 +63,11 @@ export const VolumeConverter = () => {
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="flex items-center justify-center gap-2">
-          <Droplet className="w-5 h-5" />
-          Volume Converter
+          <HardDrive className="w-5 h-5" />
+          Digital Storage Converter
         </CardTitle>
         <CardDescription>
-          Convert between different volume units like liters, gallons, cups
+          Convert between different digital storage units
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -86,7 +86,7 @@ export const VolumeConverter = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {volumeUnits.map((unit) => (
+                {storageUnits.map((unit) => (
                   <SelectItem key={unit.symbol} value={unit.symbol}>
                     {unit.name} ({unit.symbol})
                   </SelectItem>
@@ -110,7 +110,7 @@ export const VolumeConverter = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {volumeUnits.map((unit) => (
+                {storageUnits.map((unit) => (
                   <SelectItem key={unit.symbol} value={unit.symbol}>
                     {unit.name} ({unit.symbol})
                   </SelectItem>
@@ -130,10 +130,10 @@ export const VolumeConverter = () => {
         <div className="bg-muted p-4 rounded-lg">
           <h3 className="font-medium mb-2">Quick References</h3>
           <div className="text-sm space-y-1">
-            <p>• 1 gallon (US) = 3.79 liters = 16 cups</p>
-            <p>• 1 liter = 1000 mL = 33.8 fl oz (US)</p>
-            <p>• 1 cup = 240 mL = 8 fl oz</p>
-            <p>• 1 tablespoon = 15 mL = 3 teaspoons</p>
+            <p>• 1 GB = 1000 MB (decimal) or 1024 MiB (binary)</p>
+            <p>• 1 TB = 1000 GB = 1,000,000 MB</p>
+            <p>• 8 bits = 1 byte</p>
+            <p>• 1 GiB = 1.074 GB</p>
           </div>
         </div>
       </CardContent>

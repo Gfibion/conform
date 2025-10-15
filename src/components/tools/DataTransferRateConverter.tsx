@@ -4,36 +4,29 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
-import { ArrowUpDown, Droplet } from 'lucide-react'
+import { ArrowUpDown, Network } from 'lucide-react'
 
-const volumeUnits = [
-  { name: "Liter", symbol: "L", factor: 1 },
-  { name: "Milliliter", symbol: "mL", factor: 0.001 },
-  { name: "Cubic Meter", symbol: "m³", factor: 1000 },
-  { name: "Cubic Centimeter", symbol: "cm³", factor: 0.001 },
-  { name: "Cubic Foot", symbol: "ft³", factor: 28.3168 },
-  { name: "Cubic Inch", symbol: "in³", factor: 0.0163871 },
-  { name: "US Liquid Gallon", symbol: "gal (US)", factor: 3.78541 },
-  { name: "US Liquid Quart", symbol: "qt (US)", factor: 0.946353 },
-  { name: "US Liquid Pint", symbol: "pt (US)", factor: 0.473176 },
-  { name: "US Legal Cup", symbol: "cup (US)", factor: 0.24 },
-  { name: "US Fluid Ounce", symbol: "fl oz (US)", factor: 0.0295735 },
-  { name: "US Tablespoon", symbol: "tbsp (US)", factor: 0.0147868 },
-  { name: "US Teaspoon", symbol: "tsp (US)", factor: 0.00492892 },
-  { name: "Imperial Gallon", symbol: "gal (UK)", factor: 4.54609 },
-  { name: "Imperial Quart", symbol: "qt (UK)", factor: 1.13652 },
-  { name: "Imperial Pint", symbol: "pt (UK)", factor: 0.568261 },
-  { name: "Imperial Cup", symbol: "cup (UK)", factor: 0.284131 },
-  { name: "Imperial Fluid Ounce", symbol: "fl oz (UK)", factor: 0.0284131 },
-  { name: "Imperial Tablespoon", symbol: "tbsp (UK)", factor: 0.0177582 },
-  { name: "Imperial Teaspoon", symbol: "tsp (UK)", factor: 0.00591939 }
+const dataTransferUnits = [
+  { name: "Bit per second", symbol: "bit/s", factor: 1 },
+  { name: "Kilobit per second", symbol: "kbit/s", factor: 1000 },
+  { name: "Kibibit per second", symbol: "Kibit/s", factor: 1024 },
+  { name: "Kilobyte per second", symbol: "kB/s", factor: 8000 },
+  { name: "Megabit per second", symbol: "Mbit/s", factor: 1000000 },
+  { name: "Mebibit per second", symbol: "Mibit/s", factor: 1048576 },
+  { name: "Megabyte per second", symbol: "MB/s", factor: 8000000 },
+  { name: "Gigabit per second", symbol: "Gbit/s", factor: 1000000000 },
+  { name: "Gibibit per second", symbol: "Gibit/s", factor: 1073741824 },
+  { name: "Gigabyte per second", symbol: "GB/s", factor: 8000000000 },
+  { name: "Terabit per second", symbol: "Tbit/s", factor: 1000000000000 },
+  { name: "Tebibit per second", symbol: "Tibit/s", factor: 1099511627776 },
+  { name: "Terabyte per second", symbol: "TB/s", factor: 8000000000000 }
 ]
 
-export const VolumeConverter = () => {
+export const DataTransferRateConverter = () => {
   const [fromValue, setFromValue] = useState("")
   const [toValue, setToValue] = useState("")
-  const [fromUnit, setFromUnit] = useState("L")
-  const [toUnit, setToUnit] = useState("gal")
+  const [fromUnit, setFromUnit] = useState("Mbit/s")
+  const [toUnit, setToUnit] = useState("MB/s")
 
   const convert = () => {
     const value = parseFloat(fromValue)
@@ -42,9 +35,9 @@ export const VolumeConverter = () => {
       return
     }
 
-    const fromFactor = volumeUnits.find(unit => unit.symbol === fromUnit)?.factor || 1
-    const toFactor = volumeUnits.find(unit => unit.symbol === toUnit)?.factor || 1
-    
+    const fromFactor = dataTransferUnits.find(unit => unit.symbol === fromUnit)?.factor || 1
+    const toFactor = dataTransferUnits.find(unit => unit.symbol === toUnit)?.factor || 1
+
     const result = (value * fromFactor) / toFactor
     setToValue(result.toString())
   }
@@ -63,11 +56,11 @@ export const VolumeConverter = () => {
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="flex items-center justify-center gap-2">
-          <Droplet className="w-5 h-5" />
-          Volume Converter
+          <Network className="w-5 h-5" />
+          Data Transfer Rate Converter
         </CardTitle>
         <CardDescription>
-          Convert between different volume units like liters, gallons, cups
+          Convert between data transfer and network speed units
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -86,7 +79,7 @@ export const VolumeConverter = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {volumeUnits.map((unit) => (
+                {dataTransferUnits.map((unit) => (
                   <SelectItem key={unit.symbol} value={unit.symbol}>
                     {unit.name} ({unit.symbol})
                   </SelectItem>
@@ -110,7 +103,7 @@ export const VolumeConverter = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {volumeUnits.map((unit) => (
+                {dataTransferUnits.map((unit) => (
                   <SelectItem key={unit.symbol} value={unit.symbol}>
                     {unit.name} ({unit.symbol})
                   </SelectItem>
@@ -130,10 +123,10 @@ export const VolumeConverter = () => {
         <div className="bg-muted p-4 rounded-lg">
           <h3 className="font-medium mb-2">Quick References</h3>
           <div className="text-sm space-y-1">
-            <p>• 1 gallon (US) = 3.79 liters = 16 cups</p>
-            <p>• 1 liter = 1000 mL = 33.8 fl oz (US)</p>
-            <p>• 1 cup = 240 mL = 8 fl oz</p>
-            <p>• 1 tablespoon = 15 mL = 3 teaspoons</p>
+            <p>• 100 Mbit/s = 12.5 MB/s</p>
+            <p>• 1 Gbit/s = 1000 Mbit/s = 125 MB/s</p>
+            <p>• 8 bits = 1 byte</p>
+            <p>• Fast home internet: 100-1000 Mbit/s</p>
           </div>
         </div>
       </CardContent>
