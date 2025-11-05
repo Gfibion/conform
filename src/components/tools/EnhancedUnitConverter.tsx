@@ -140,12 +140,14 @@ export const EnhancedUnitConverter = () => {
     const num = Number(value);
     
     if (from.category === "temperature") {
-      return convertTemperature(num, from.name, to.name).toFixed(4);
+      const tempResult = convertTemperature(num, from.name, to.name);
+      return tempResult.toFixed(4).replace(/\.?0+$/, "");
     }
     
     // Standard conversion using base factors
     const result = (num * from.base_factor) / to.base_factor;
-    return result.toFixed(6).replace(/\.?0+$/, "");
+    // Format with up to 6 decimal places, remove trailing zeros
+    return result.toFixed(6).replace(/(\.\d*?[1-9])0+$/, '$1').replace(/\.0+$/, '');
   };
 
   const convertTemperature = (value: number, fromName: string, toName: string): number => {

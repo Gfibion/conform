@@ -17,6 +17,8 @@ export const AICodeTools = () => {
   const codeTools = [
     { value: "code_explain", label: "Explain Code", description: "Get detailed explanation of code" },
     { value: "code_optimize", label: "Optimize Code", description: "Improve performance and readability" },
+    { value: "code_refactor", label: "Refactor Code", description: "Restructure code without changing behavior" },
+    { value: "code_debug", label: "Debug Code", description: "Find and fix code issues" },
   ];
 
   const handleConvert = async () => {

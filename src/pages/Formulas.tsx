@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { Calculator, Sigma, Target, Zap, Brain, BookOpen } from "lucide-react";
+import { Calculator, Sigma, Target, Zap, Brain, BookOpen, ArrowLeft } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Formulas = () => {
   const [selectedCategory, setSelectedCategory] = useState("arithmetic");
@@ -100,6 +101,15 @@ const Formulas = () => {
       <Navigation />
       
       <div className="container mx-auto px-4 py-8">
+        <div className="mb-6">
+          <Button variant="ghost" className="p-2 h-auto hover:bg-accent" asChild>
+            <Link to="/">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">Formula Calculator & Reference</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -160,8 +170,8 @@ const Formulas = () => {
                   </code>
                 </div>
                 <p className="text-muted-foreground text-sm mb-3">{formula.description}</p>
-                <Button variant="outline" className="w-full">
-                  Use Formula
+                <Button variant="outline" className="w-full" asChild>
+                  <Link to="/calculator">Use Formula</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -177,8 +187,8 @@ const Formulas = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 Step-by-step solutions for complex formulas
               </p>
-              <Button variant="outline" className="w-full">
-                Open Solver
+              <Button variant="outline" className="w-full" asChild>
+                <Link to="/calculator">Open Solver</Link>
               </Button>
             </CardContent>
           </Card>
@@ -190,8 +200,8 @@ const Formulas = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 Browse our comprehensive formula database
               </p>
-              <Button variant="outline" className="w-full">
-                Browse Library
+              <Button variant="outline" className="w-full" disabled>
+                Coming Soon
               </Button>
             </CardContent>
           </Card>
@@ -203,8 +213,8 @@ const Formulas = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 Fast calculations with common formulas
               </p>
-              <Button variant="outline" className="w-full">
-                Open Calculator
+              <Button variant="outline" className="w-full" asChild>
+                <Link to="/calculator">Open Calculator</Link>
               </Button>
             </CardContent>
           </Card>
