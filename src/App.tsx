@@ -27,6 +27,10 @@ import AITextToolsPage from "@/pages/tools/AITextTools";
 import AICodeToolsPage from "@/pages/tools/AICodeTools";
 import JSONFormatterPage from "@/pages/tools/JSONFormatter";
 import PasswordGeneratorPage from "@/pages/tools/PasswordGenerator";
+import ColorToolsPage from "@/pages/tools/ColorTools";
+import TimeZoneConverterPage from "@/pages/tools/TimeZoneConverter";
+import ScientificCalculatorPage from "@/pages/tools/ScientificCalculator";
+import RegexTesterPage from "@/pages/tools/RegexTester";
 
 const queryClient = new QueryClient();
 
@@ -82,6 +86,10 @@ function App() {
               <Route path="/tools/ai-code-tools" element={<AICodeToolsPage />} />
               <Route path="/tools/json-formatter" element={<JSONFormatterPage />} />
               <Route path="/tools/password-generator" element={<PasswordGeneratorPage />} />
+              <Route path="/tools/color-tools" element={<ColorToolsPage />} />
+              <Route path="/tools/timezone-converter" element={<TimeZoneConverterPage />} />
+              <Route path="/tools/scientific-calculator" element={<ScientificCalculatorPage />} />
+              <Route path="/tools/regex-tester" element={<RegexTesterPage />} />
               
               {/* Catch all route - must be last */}
               <Route path="*" element={<NotFound />} />

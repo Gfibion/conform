@@ -102,8 +102,8 @@ export const LengthConverter = () => {
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle>Length Converter</CardTitle>
-        <CardDescription>Convert between units quickly — supports SI and imperial units</CardDescription>
+        <CardTitle className="text-2xl font-bold">Length Converter</CardTitle>
+        <CardDescription className="text-base">Convert between units quickly — supports SI and imperial units</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Primary Input */}
