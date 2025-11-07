@@ -31,6 +31,7 @@ import ColorToolsPage from "@/pages/tools/ColorTools";
 import TimeZoneConverterPage from "@/pages/tools/TimeZoneConverter";
 import ScientificCalculatorPage from "@/pages/tools/ScientificCalculator";
 import RegexTesterPage from "@/pages/tools/RegexTester";
+import QRCodeGeneratorPage from "@/pages/tools/QRCodeGenerator";
 
 const queryClient = new QueryClient();
 
@@ -89,9 +90,10 @@ function App() {
               <Route path="/tools/color-tools" element={<ColorToolsPage />} />
               <Route path="/tools/timezone-converter" element={<TimeZoneConverterPage />} />
               <Route path="/tools/scientific-calculator" element={<ScientificCalculatorPage />} />
-              <Route path="/tools/regex-tester" element={<RegexTesterPage />} />
-              
-              {/* Catch all route - must be last */}
+            <Route path="/tools/regex-tester" element={<RegexTesterPage />} />
+            <Route path="/tools/qr-code-generator" element={<QRCodeGeneratorPage />} />
+            
+            {/* Catch all route - must be last */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
