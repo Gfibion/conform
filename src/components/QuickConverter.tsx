@@ -8,23 +8,127 @@ import { ArrowRight, RefreshCw } from "lucide-react";
 const conversionCategories = {
   length: {
     name: "Length",
-    units: ["meter", "kilometer", "centimeter", "millimeter", "inch", "foot", "yard", "mile"]
+    units: {
+      meter: { name: "Meter", factor: 1 },
+      kilometer: { name: "Kilometer", factor: 1000 },
+      centimeter: { name: "Centimeter", factor: 0.01 },
+      millimeter: { name: "Millimeter", factor: 0.001 },
+      inch: { name: "Inch", factor: 0.0254 },
+      foot: { name: "Foot", factor: 0.3048 },
+      yard: { name: "Yard", factor: 0.9144 },
+      mile: { name: "Mile", factor: 1609.34 }
+    }
   },
   weight: {
     name: "Weight",
-    units: ["kilogram", "gram", "pound", "ounce", "stone", "ton"]
+    units: {
+      kilogram: { name: "Kilogram", factor: 1 },
+      gram: { name: "Gram", factor: 0.001 },
+      milligram: { name: "Milligram", factor: 0.000001 },
+      pound: { name: "Pound", factor: 0.453592 },
+      ounce: { name: "Ounce", factor: 0.0283495 },
+      stone: { name: "Stone", factor: 6.35029 },
+      ton: { name: "Ton", factor: 1000 }
+    }
   },
   temperature: {
     name: "Temperature",
-    units: ["celsius", "fahrenheit", "kelvin", "rankine"]
+    units: {
+      celsius: { name: "Celsius" },
+      fahrenheit: { name: "Fahrenheit" },
+      kelvin: { name: "Kelvin" },
+      rankine: { name: "Rankine" }
+    }
   },
   volume: {
     name: "Volume",
-    units: ["liter", "milliliter", "gallon", "quart", "pint", "cup", "fluid ounce"]
+    units: {
+      liter: { name: "Liter", factor: 1 },
+      milliliter: { name: "Milliliter", factor: 0.001 },
+      gallon: { name: "Gallon (US)", factor: 3.78541 },
+      quart: { name: "Quart", factor: 0.946353 },
+      pint: { name: "Pint", factor: 0.473176 },
+      cup: { name: "Cup", factor: 0.236588 },
+      "fluid ounce": { name: "Fluid Ounce", factor: 0.0295735 },
+      "cubic meter": { name: "Cubic Meter", factor: 1000 },
+      "cubic foot": { name: "Cubic Foot", factor: 28.3168 }
+    }
   },
   time: {
     name: "Time",
-    units: ["second", "minute", "hour", "day", "week", "month", "year"]
+    units: {
+      second: { name: "Second", factor: 1 },
+      minute: { name: "Minute", factor: 60 },
+      hour: { name: "Hour", factor: 3600 },
+      day: { name: "Day", factor: 86400 },
+      week: { name: "Week", factor: 604800 },
+      month: { name: "Month", factor: 2592000 },
+      year: { name: "Year", factor: 31536000 }
+    }
+  },
+  area: {
+    name: "Area",
+    units: {
+      "square meter": { name: "Square Meter", factor: 1 },
+      "square kilometer": { name: "Square Kilometer", factor: 1000000 },
+      "square centimeter": { name: "Square Centimeter", factor: 0.0001 },
+      "square millimeter": { name: "Square Millimeter", factor: 0.000001 },
+      "square inch": { name: "Square Inch", factor: 0.00064516 },
+      "square foot": { name: "Square Foot", factor: 0.092903 },
+      "square yard": { name: "Square Yard", factor: 0.836127 },
+      "square mile": { name: "Square Mile", factor: 2589988 },
+      acre: { name: "Acre", factor: 4046.86 },
+      hectare: { name: "Hectare", factor: 10000 }
+    }
+  },
+  speed: {
+    name: "Speed",
+    units: {
+      "meter per second": { name: "Meter/Second", factor: 1 },
+      "kilometer per hour": { name: "Kilometer/Hour", factor: 0.277778 },
+      "mile per hour": { name: "Mile/Hour", factor: 0.44704 },
+      "foot per second": { name: "Foot/Second", factor: 0.3048 },
+      knot: { name: "Knot", factor: 0.514444 }
+    }
+  },
+  "data storage": {
+    name: "Data Storage",
+    units: {
+      byte: { name: "Byte", factor: 1 },
+      kilobyte: { name: "Kilobyte (KB)", factor: 1024 },
+      megabyte: { name: "Megabyte (MB)", factor: 1048576 },
+      gigabyte: { name: "Gigabyte (GB)", factor: 1073741824 },
+      terabyte: { name: "Terabyte (TB)", factor: 1099511627776 },
+      bit: { name: "Bit", factor: 0.125 },
+      kilobit: { name: "Kilobit (Kb)", factor: 128 },
+      megabit: { name: "Megabit (Mb)", factor: 131072 },
+      gigabit: { name: "Gigabit (Gb)", factor: 134217728 }
+    }
+  },
+  energy: {
+    name: "Energy",
+    units: {
+      joule: { name: "Joule", factor: 1 },
+      kilojoule: { name: "Kilojoule", factor: 1000 },
+      calorie: { name: "Calorie", factor: 4.184 },
+      kilocalorie: { name: "Kilocalorie", factor: 4184 },
+      "watt hour": { name: "Watt Hour", factor: 3600 },
+      "kilowatt hour": { name: "Kilowatt Hour", factor: 3600000 },
+      electronvolt: { name: "Electronvolt", factor: 1.60218e-19 },
+      btu: { name: "BTU", factor: 1055.06 }
+    }
+  },
+  pressure: {
+    name: "Pressure",
+    units: {
+      pascal: { name: "Pascal", factor: 1 },
+      kilopascal: { name: "Kilopascal", factor: 1000 },
+      bar: { name: "Bar", factor: 100000 },
+      psi: { name: "PSI", factor: 6894.76 },
+      atmosphere: { name: "Atmosphere", factor: 101325 },
+      torr: { name: "Torr", factor: 133.322 },
+      "millimeter of mercury": { name: "mmHg", factor: 133.322 }
+    }
   }
 };
 
@@ -35,35 +139,49 @@ export const QuickConverter = () => {
   const [toUnit, setToUnit] = useState("");
   const [category, setCategory] = useState("");
 
+  const convertTemperature = (value: number, from: string, to: string): number => {
+    if (from === to) return value;
+    
+    let celsius = value;
+    if (from === "fahrenheit") celsius = (value - 32) * 5/9;
+    else if (from === "kelvin") celsius = value - 273.15;
+    else if (from === "rankine") celsius = (value - 491.67) * 5/9;
+    
+    if (to === "celsius") return celsius;
+    else if (to === "fahrenheit") return (celsius * 9/5) + 32;
+    else if (to === "kelvin") return celsius + 273.15;
+    else if (to === "rankine") return (celsius + 273.15) * 9/5;
+    
+    return celsius;
+  };
+
   const handleConvert = () => {
-    if (!fromValue || !fromUnit || !toUnit) return;
+    if (!fromValue || !fromUnit || !toUnit || !category) return;
 
     const inputValue = parseFloat(fromValue);
     if (isNaN(inputValue)) return;
 
     let result = inputValue;
 
-    if (fromUnit === "meter" && toUnit === "foot") {
-      result = inputValue * 3.28084;
-    } else if (fromUnit === "foot" && toUnit === "meter") {
-      result = inputValue / 3.28084;
-    } else if (fromUnit === "celsius" && toUnit === "fahrenheit") {
-      result = (inputValue * 9/5) + 32;
-    } else if (fromUnit === "fahrenheit" && toUnit === "celsius") {
-      result = (inputValue - 32) * 5/9;
-    } else if (fromUnit === "kilogram" && toUnit === "pound") {
-      result = inputValue * 2.20462;
-    } else if (fromUnit === "pound" && toUnit === "kilogram") {
-      result = inputValue / 2.20462;
-    } else if (fromUnit === "liter" && toUnit === "gallon") {
-      result = inputValue * 0.264172;
-    } else if (fromUnit === "gallon" && toUnit === "liter") {
-      result = inputValue / 0.264172;
-    } else if (fromUnit === toUnit) {
-      result = inputValue;
+    // Temperature requires special handling
+    if (category === "temperature") {
+      result = convertTemperature(inputValue, fromUnit, toUnit);
+    } else {
+      // General conversion using factors
+      const categoryData = conversionCategories[category as keyof typeof conversionCategories];
+      if (categoryData && categoryData.units) {
+        const fromUnitData = categoryData.units[fromUnit as keyof typeof categoryData.units] as any;
+        const toUnitData = categoryData.units[toUnit as keyof typeof categoryData.units] as any;
+        
+        if (fromUnitData && toUnitData && fromUnitData.factor && toUnitData.factor) {
+          // Convert to base unit, then to target unit
+          const baseValue = inputValue * fromUnitData.factor;
+          result = baseValue / toUnitData.factor;
+        }
+      }
     }
 
-    setToValue(result.toFixed(4));
+    setToValue(result.toFixed(6));
   };
 
   const handleSwap = () => {
@@ -75,7 +193,8 @@ export const QuickConverter = () => {
 
   const getUnitsForCategory = () => {
     if (!category) return [];
-    return conversionCategories[category as keyof typeof conversionCategories]?.units || [];
+    const categoryData = conversionCategories[category as keyof typeof conversionCategories];
+    return categoryData ? Object.keys(categoryData.units) : [];
   };
 
   return (
@@ -122,11 +241,16 @@ export const QuickConverter = () => {
                     <SelectValue placeholder="From" />
                   </SelectTrigger>
                   <SelectContent>
-                    {getUnitsForCategory().map((unit) => (
-                      <SelectItem key={unit} value={unit}>
-                        {unit.charAt(0).toUpperCase() + unit.slice(1)}
-                      </SelectItem>
-                    ))}
+                    {getUnitsForCategory().map((unit) => {
+                      const categoryData = conversionCategories[category as keyof typeof conversionCategories];
+                      const unitData = categoryData?.units[unit as keyof typeof categoryData.units] as any;
+                      const unitName = unitData?.name || unit;
+                      return (
+                        <SelectItem key={unit} value={unit}>
+                          {unitName}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
               </div>
@@ -157,11 +281,16 @@ export const QuickConverter = () => {
                     <SelectValue placeholder="To" />
                   </SelectTrigger>
                   <SelectContent>
-                    {getUnitsForCategory().map((unit) => (
-                      <SelectItem key={unit} value={unit}>
-                        {unit.charAt(0).toUpperCase() + unit.slice(1)}
-                      </SelectItem>
-                    ))}
+                    {getUnitsForCategory().map((unit) => {
+                      const categoryData = conversionCategories[category as keyof typeof conversionCategories];
+                      const unitData = categoryData?.units[unit as keyof typeof categoryData.units] as any;
+                      const unitName = unitData?.name || unit;
+                      return (
+                        <SelectItem key={unit} value={unit}>
+                          {unitName}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
               </div>
@@ -214,11 +343,16 @@ export const QuickConverter = () => {
                     <SelectValue placeholder="From" />
                   </SelectTrigger>
                   <SelectContent>
-                    {getUnitsForCategory().map((unit) => (
-                      <SelectItem key={unit} value={unit}>
-                        {unit.charAt(0).toUpperCase() + unit.slice(1)}
-                      </SelectItem>
-                    ))}
+                    {getUnitsForCategory().map((unit) => {
+                      const categoryData = conversionCategories[category as keyof typeof conversionCategories];
+                      const unitData = categoryData?.units[unit as keyof typeof categoryData.units] as any;
+                      const unitName = unitData?.name || unit;
+                      return (
+                        <SelectItem key={unit} value={unit}>
+                          {unitName}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
               </div>
@@ -247,11 +381,16 @@ export const QuickConverter = () => {
                     <SelectValue placeholder="To" />
                   </SelectTrigger>
                   <SelectContent>
-                    {getUnitsForCategory().map((unit) => (
-                      <SelectItem key={unit} value={unit}>
-                        {unit.charAt(0).toUpperCase() + unit.slice(1)}
-                      </SelectItem>
-                    ))}
+                    {getUnitsForCategory().map((unit) => {
+                      const categoryData = conversionCategories[category as keyof typeof conversionCategories];
+                      const unitData = categoryData?.units[unit as keyof typeof categoryData.units] as any;
+                      const unitName = unitData?.name || unit;
+                      return (
+                        <SelectItem key={unit} value={unit}>
+                          {unitName}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
               </div>
