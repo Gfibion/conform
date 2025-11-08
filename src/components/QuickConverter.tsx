@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, RefreshCw } from "lucide-react";
+import * as math from "mathjs";
 
 const conversionCategories = {
   length: {
@@ -167,21 +168,24 @@ export const QuickConverter = () => {
     if (category === "temperature") {
       result = convertTemperature(inputValue, fromUnit, toUnit);
     } else {
-      // General conversion using factors
+      // General conversion using factors with math.js for precision
       const categoryData = conversionCategories[category as keyof typeof conversionCategories];
       if (categoryData && categoryData.units) {
         const fromUnitData = categoryData.units[fromUnit as keyof typeof categoryData.units] as any;
         const toUnitData = categoryData.units[toUnit as keyof typeof categoryData.units] as any;
         
         if (fromUnitData && toUnitData && fromUnitData.factor && toUnitData.factor) {
-          // Convert to base unit, then to target unit
-          const baseValue = inputValue * fromUnitData.factor;
-          result = baseValue / toUnitData.factor;
+          // Use math.js for precise calculations, especially for large numbers
+          const baseValue = math.multiply(math.bignumber(inputValue), math.bignumber(fromUnitData.factor));
+          const finalResult = math.divide(baseValue, math.bignumber(toUnitData.factor));
+          result = Number(finalResult.toString());
         }
       }
     }
 
-    setToValue(result.toFixed(6));
+    // Format result: remove trailing zeros, keep up to 10 significant digits
+    const formattedResult = parseFloat(result.toPrecision(10)).toString();
+    setToValue(formattedResult);
   };
 
   const handleSwap = () => {
