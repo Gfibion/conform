@@ -202,9 +202,49 @@ export const QuickConverter = () => {
   };
 
   return (
-    <div className="py-4 md:py-6 bg-gradient-section">
+    <section className="py-4 md:py-6 bg-gradient-section" aria-labelledby="unit-converter-heading">
+      {/* Structured Data for SEO */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Quick Unit Converter",
+          "description": "Free online unit converter tool for length, weight, temperature, volume, area, speed, time, data storage, energy, and pressure conversions. Convert between metric and imperial units instantly.",
+          "applicationCategory": "UtilityApplication",
+          "operatingSystem": "Web Browser",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": [
+            "Length conversion (meters, feet, inches, kilometers, miles)",
+            "Weight conversion (kilograms, pounds, ounces, grams)",
+            "Temperature conversion (Celsius, Fahrenheit, Kelvin)",
+            "Volume conversion (liters, gallons, milliliters)",
+            "Area conversion (square meters, acres, hectares)",
+            "Speed conversion (mph, km/h, m/s)",
+            "Time conversion (seconds, minutes, hours, days)",
+            "Data storage conversion (bytes, KB, MB, GB, TB)",
+            "Energy conversion (joules, calories, BTU)",
+            "Pressure conversion (pascal, bar, PSI, atmosphere)"
+          ]
+        })}
+      </script>
+
       <div className="max-w-7xl mx-auto mobile-px-compact">
-        <Card className="w-full max-w-5xl mx-auto">
+        {/* SEO-friendly header with keyword-rich content */}
+        <header className="text-center mb-4 md:mb-6">
+          <h2 id="unit-converter-heading" className="text-xl md:text-2xl font-bold mb-2">
+            Free Online Unit Converter
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground max-w-3xl mx-auto">
+            Convert between units of length, weight, temperature, volume, area, speed, time, data storage, energy, and pressure. 
+            Our accurate converter supports metric, imperial, and international unit systems.
+          </p>
+        </header>
+
+        <Card className="w-full max-w-5xl mx-auto" role="region" aria-label="Unit conversion calculator">
           <CardHeader className="pb-1 md:pb-2">
             <CardTitle className="text-center text-base md:text-lg">Quick Converter</CardTitle>
           </CardHeader>
@@ -411,6 +451,6 @@ export const QuickConverter = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </section>
   );
 };
