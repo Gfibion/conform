@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, RefreshCw } from "lucide-react";
-import * as math from "mathjs";
+import { convertUnit } from "@/lib/mathUtils";
 
 const conversionCategories = {
   length: {
@@ -168,17 +168,15 @@ export const QuickConverter = () => {
     if (category === "temperature") {
       result = convertTemperature(inputValue, fromUnit, toUnit);
     } else {
-      // General conversion using factors with math.js for precision
+      // General conversion using factors with centralized math utility
       const categoryData = conversionCategories[category as keyof typeof conversionCategories];
       if (categoryData && categoryData.units) {
         const fromUnitData = categoryData.units[fromUnit as keyof typeof categoryData.units] as any;
         const toUnitData = categoryData.units[toUnit as keyof typeof categoryData.units] as any;
         
         if (fromUnitData && toUnitData && fromUnitData.factor && toUnitData.factor) {
-          // Use math.js for precise calculations, especially for large numbers
-          const baseValue = math.multiply(math.bignumber(inputValue), math.bignumber(fromUnitData.factor));
-          const finalResult = math.divide(baseValue, math.bignumber(toUnitData.factor));
-          result = Number(finalResult.toString());
+          // Use centralized math utility for precise calculations
+          result = convertUnit(inputValue, fromUnitData.factor, toUnitData.factor);
         }
       }
     }
