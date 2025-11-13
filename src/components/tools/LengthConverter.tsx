@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import * as math from "mathjs";
+import { convertUnit, formatNumber } from "@/lib/mathUtils";
 
 interface Unit {
   value: string;
@@ -66,9 +66,7 @@ export const LengthConverter = () => {
     const to = lengthUnits.find(u => u.value === toUnit);
 
     if (from && to) {
-      const baseValue = math.multiply(math.bignumber(value), math.bignumber(from.factor));
-      const finalValue = math.divide(baseValue, math.bignumber(to.factor));
-      const convertedValue = Number(finalValue.toString());
+      const convertedValue = convertUnit(value, from.factor, to.factor);
       let formatted: string;
       
       if (useSignificantFigures) {
