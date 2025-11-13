@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { ArrowUpDown, Gauge } from 'lucide-react'
+import * as math from 'mathjs'
 
 const speedUnits = [
   { name: "Meters per Second", symbol: "m/s", factor: 1 },
@@ -32,7 +33,9 @@ export const SpeedConverter = () => {
     const fromFactor = speedUnits.find(unit => unit.symbol === fromUnit)?.factor || 1
     const toFactor = speedUnits.find(unit => unit.symbol === toUnit)?.factor || 1
     
-    const result = (value * fromFactor) / toFactor
+    const baseValue = math.multiply(math.bignumber(value), math.bignumber(fromFactor))
+    const finalResult = math.divide(baseValue, math.bignumber(toFactor))
+    const result = Number(finalResult.toString())
     setToValue(result.toString())
   }
 

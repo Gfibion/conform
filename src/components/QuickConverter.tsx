@@ -49,7 +49,7 @@ const conversionCategories = {
       gallon: { name: "Gallon (US)", factor: 3.78541 },
       quart: { name: "Quart", factor: 0.946353 },
       pint: { name: "Pint", factor: 0.473176 },
-      cup: { name: "Cup", factor: 0.236588 },
+      cup: { name: "Cup (US)", factor: 0.236588 },
       "fluid ounce": { name: "Fluid Ounce", factor: 0.0295735 },
       "cubic meter": { name: "Cubic Meter", factor: 1000 },
       "cubic foot": { name: "Cubic Foot", factor: 28.3168 }
@@ -77,7 +77,7 @@ const conversionCategories = {
       "square inch": { name: "Square Inch", factor: 0.00064516 },
       "square foot": { name: "Square Foot", factor: 0.092903 },
       "square yard": { name: "Square Yard", factor: 0.836127 },
-      "square mile": { name: "Square Mile", factor: 2589988 },
+      "square mile": { name: "Square Mile", factor: 2589988.11 },
       acre: { name: "Acre", factor: 4046.86 },
       hectare: { name: "Hectare", factor: 10000 }
     }

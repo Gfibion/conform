@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ArrowRightLeft, Weight } from "lucide-react";
+import * as math from "mathjs";
 
 const weightUnits = [
   { value: "kilogram", label: "Kilogram", symbol: "kg", factor: 1 },
@@ -32,7 +33,9 @@ export const WeightConverter = () => {
     const toUnitData = weightUnits.find(u => u.value === toUnit);
     
     if (fromUnitData && toUnitData) {
-      const result = (inputValue * fromUnitData.factor) / toUnitData.factor;
+      const baseValue = math.multiply(math.bignumber(inputValue), math.bignumber(fromUnitData.factor));
+      const finalResult = math.divide(baseValue, math.bignumber(toUnitData.factor));
+      const result = Number(finalResult.toString());
       setToValue(result.toFixed(6).replace(/\.?0+$/, ""));
     }
   };

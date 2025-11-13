@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { ArrowUpDown, Droplet } from 'lucide-react'
+import * as math from 'mathjs'
 
 const volumeUnits = [
   { name: "Liter", symbol: "L", factor: 1 },
@@ -16,7 +17,7 @@ const volumeUnits = [
   { name: "US Liquid Gallon", symbol: "gal (US)", factor: 3.78541 },
   { name: "US Liquid Quart", symbol: "qt (US)", factor: 0.946353 },
   { name: "US Liquid Pint", symbol: "pt (US)", factor: 0.473176 },
-  { name: "US Legal Cup", symbol: "cup (US)", factor: 0.24 },
+  { name: "US Legal Cup", symbol: "cup (US)", factor: 0.236588 },
   { name: "US Fluid Ounce", symbol: "fl oz (US)", factor: 0.0295735 },
   { name: "US Tablespoon", symbol: "tbsp (US)", factor: 0.0147868 },
   { name: "US Teaspoon", symbol: "tsp (US)", factor: 0.00492892 },
@@ -45,7 +46,9 @@ export const VolumeConverter = () => {
     const fromFactor = volumeUnits.find(unit => unit.symbol === fromUnit)?.factor || 1
     const toFactor = volumeUnits.find(unit => unit.symbol === toUnit)?.factor || 1
     
-    const result = (value * fromFactor) / toFactor
+    const baseValue = math.multiply(math.bignumber(value), math.bignumber(fromFactor))
+    const finalResult = math.divide(baseValue, math.bignumber(toFactor))
+    const result = Number(finalResult.toString())
     setToValue(result.toString())
   }
 

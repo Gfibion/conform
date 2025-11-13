@@ -11,3 +11,6 @@ verify_jwt = true
 
 [functions.get-usage-stats]
 verify_jwt = true
+
+[functions.pdf-operations]
+verify_jwt = false

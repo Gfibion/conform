@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ArrowRightLeft, Clock } from "lucide-react";
+import * as math from "mathjs";
 
 const timeUnits = [
   { value: "nanosecond", label: "Nanosecond", symbol: "ns", factor: 0.000000001 },
@@ -35,7 +36,9 @@ export const TimeConverter = () => {
     const toUnitData = timeUnits.find(u => u.value === toUnit);
     
     if (fromUnitData && toUnitData) {
-      const result = (inputValue * fromUnitData.factor) / toUnitData.factor;
+      const baseValue = math.multiply(math.bignumber(inputValue), math.bignumber(fromUnitData.factor));
+      const finalResult = math.divide(baseValue, math.bignumber(toUnitData.factor));
+      const result = Number(finalResult.toString());
       setToValue(result.toFixed(6).replace(/\.?0+$/, ""));
     }
   };
