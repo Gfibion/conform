@@ -225,54 +225,11 @@ const tools: Tool[] = [
 
   // Unit Converters
   {
-    title: "Length Converter",
-    description: "Convert between meters, feet, inches, kilometers, etc.",
-    icon: Ruler,
+    title: "Quick Converter",
+    description: "Convert between all units - length, weight, temperature, volume, area, speed, time, data storage, energy, and pressure",
+    icon: Wrench,
     category: "Unit Converters",
     isPopular: true
-  },
-  {
-    title: "Weight Converter",
-    description: "Convert between kilograms, pounds, ounces, etc.",
-    icon: Weight,
-    category: "Unit Converters"
-  },
-  {
-    title: "Temperature Converter",
-    description: "Convert between Celsius, Fahrenheit, and Kelvin",
-    icon: Thermometer,
-    category: "Unit Converters"
-  },
-  {
-    title: "Currency Converter",
-    description: "Convert between different currencies with live rates",
-    icon: TrendingUp,
-    category: "Unit Converters",
-    isPopular: true
-  },
-  {
-    title: "Time Zone Converter",
-    description: "Convert time between different time zones",
-    icon: Clock,
-    category: "Unit Converters"
-  },
-  {
-    title: "Area Converter",
-    description: "Convert between square meters, acres, hectares, etc.",
-    icon: MapPin,
-    category: "Unit Converters"
-  },
-  {
-    title: "Volume Converter",
-    description: "Convert between liters, gallons, cups, etc.",
-    icon: Droplet,
-    category: "Unit Converters"
-  },
-  {
-    title: "Speed Converter",
-    description: "Convert between km/h, mph, m/s, etc.",
-    icon: Gauge,
-    category: "Unit Converters"
   },
 
   // Text Tools  
