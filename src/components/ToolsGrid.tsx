@@ -484,8 +484,9 @@ export const ToolsGrid = () => {
   };
 
   const handleToolClick = (tool: Tool) => {
-    if (tool.title === "Currency Converter") {
-      window.location.href = "/tools/currency-converter";
+    // Redirect all Unit Converters to the unified Quick Converter page
+    if (tool.category === "Unit Converters") {
+      window.location.href = "/unit-conversion";
       return;
     }
     setSelectedTool(tool);
