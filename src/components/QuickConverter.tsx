@@ -248,7 +248,7 @@ export const QuickConverter = () => {
           </CardHeader>
           <CardContent className="space-y-2 md:space-y-3 card-micro md:card-compact">
             {/* Mobile: Stack vertically for better usability */}
-            <div className="md:hidden space-y-3">
+            <div className="md:hidden space-y-4">
               {/* Category Selection */}
               <Select value={category} onValueChange={(value) => {
                 setCategory(value);
@@ -257,7 +257,7 @@ export const QuickConverter = () => {
                 setFromValue("");
                 setToValue("");
               }}>
-                <SelectTrigger className="h-8 text-xs">
+                <SelectTrigger className="h-12 text-base">
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
                 <SelectContent>
@@ -270,16 +270,16 @@ export const QuickConverter = () => {
               </Select>
 
               {/* From Section */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <Input
                   type="number"
                   placeholder="Value"
                   value={fromValue}
                   onChange={(e) => setFromValue(e.target.value)}
-                  className="h-8 text-xs flex-1"
+                  className="h-12 text-base flex-1"
                 />
                 <Select value={fromUnit} onValueChange={setFromUnit}>
-                  <SelectTrigger className="h-8 min-w-[80px] text-xs">
+                  <SelectTrigger className="h-12 min-w-[120px] text-sm">
                     <SelectValue placeholder="From" />
                   </SelectTrigger>
                   <SelectContent>
@@ -303,23 +303,23 @@ export const QuickConverter = () => {
                   variant="outline"
                   size="icon"
                   onClick={handleSwap}
-                  className="h-7 w-7"
+                  className="h-10 w-10"
                 >
-                  <RefreshCw className="w-3 h-3" />
+                  <RefreshCw className="w-5 h-5" />
                 </Button>
               </div>
 
               {/* To Section */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <Input
                   type="number"
                   placeholder="Result"
                   value={toValue}
                   readOnly
-                  className="bg-muted h-8 text-xs flex-1"
+                  className="bg-muted h-12 text-base flex-1"
                 />
                 <Select value={toUnit} onValueChange={setToUnit}>
-                  <SelectTrigger className="h-8 min-w-[80px] text-xs">
+                  <SelectTrigger className="h-12 min-w-[120px] text-sm">
                     <SelectValue placeholder="To" />
                   </SelectTrigger>
                   <SelectContent>
@@ -340,10 +340,10 @@ export const QuickConverter = () => {
               {/* Convert Button */}
               <Button
                 onClick={handleConvert}
-                className="h-8 w-full text-xs"
+                className="h-12 w-full text-base font-medium"
               >
                 Convert
-                <ArrowRight className="w-3 h-3 ml-1" />
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
 
