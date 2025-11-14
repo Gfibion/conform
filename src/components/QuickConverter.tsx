@@ -276,10 +276,10 @@ export const QuickConverter = () => {
                   placeholder="Value"
                   value={fromValue}
                   onChange={(e) => setFromValue(e.target.value)}
-                  className="h-12 text-base flex-1"
+                  className="h-12 text-base w-32 flex-shrink-0"
                 />
                 <Select value={fromUnit} onValueChange={setFromUnit}>
-                  <SelectTrigger className="h-12 min-w-[120px] text-sm">
+                  <SelectTrigger className="h-12 text-sm flex-1">
                     <SelectValue placeholder="From" />
                   </SelectTrigger>
                   <SelectContent>
@@ -316,10 +316,10 @@ export const QuickConverter = () => {
                   placeholder="Result"
                   value={toValue}
                   readOnly
-                  className="bg-muted h-12 text-base flex-1"
+                  className="bg-muted h-12 text-base w-32 flex-shrink-0"
                 />
                 <Select value={toUnit} onValueChange={setToUnit}>
-                  <SelectTrigger className="h-12 min-w-[120px] text-sm">
+                  <SelectTrigger className="h-12 text-sm flex-1">
                     <SelectValue placeholder="To" />
                   </SelectTrigger>
                   <SelectContent>
